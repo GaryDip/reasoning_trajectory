@@ -1,0 +1,51 @@
+{
+  "output": "outputs/2wiki_gpt_mixed_train.jsonl",
+  "model": "gpt-5-mini",
+  "hop_source": "support_titles",
+  "preset": "mixed_train",
+  "type_samples": {
+    "bridge_comparison": 5000,
+    "comparison": 2500,
+    "compositional": 1500,
+    "inference": 1500
+  },
+  "workers": 64,
+  "written_this_run": 9700,
+  "completed_total": 10444,
+  "selected": {
+    "n": 10500,
+    "by_type": {
+      "bridge_comparison": 5000,
+      "comparison": 2500,
+      "compositional": 1500,
+      "inference": 1500
+    },
+    "hop_source": "support_titles",
+    "by_hop_count": {
+      "2": 5500,
+      "4": 5000
+    },
+    "by_support_title_count": {
+      "2": 5500,
+      "4": 5000
+    },
+    "by_evidence_count": {
+      "2": 5381,
+      "3": 60,
+      "4": 4777,
+      "5": 275,
+      "6": 6,
+      "7": 1
+    }
+  },
+  "completed_by_type": {
+    "bridge_comparison": 4998,
+    "comparison": 2453,
+    "compositional": 1500,
+    "inference": 1493
+  },
+  "completed_by_hops": {
+    "2": 5446,
+    "4": 4998
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "global_step": 475,
+  "epoch": 1.0,
+  "metrics": {
+    "eval_loss": 1.9412472248077393,
+    "eval_bleu": 76.96565148992062,
+    "eval_exact_match": 0.0,
+    "eval_hop_count_acc": 0.8300578034682081,
+    "eval_exact_match_k2": 0.0,
+    "eval_hop_count_acc_k2": 0.9883008356545961,
+    "eval_exact_match_k3": 0.0,
+    "eval_hop_count_acc_k3": 0.6092105263157894,
+    "eval_exact_match_k4": 0.0,
+    "eval_hop_count_acc_k4": 0.7016574585635359,
+    "eval_runtime": 307.2021,
+    "eval_samples_per_second": 11.263,
+    "eval_steps_per_second": 0.179,
+    "epoch": 1.0
+  },
+  "n": 3460,
+  "bleu": 76.96565148992062,
+  "exact_match": 0.0,
+  "hop_count_acc": 0.8300578034682081,
+  "by_gold_hops": {
+    "2": {
+      "n": 1795,
+      "exact_match": 0.0,
+      "hop_count_acc": 0.9883008356545961,
+      "pred_hop_distribution": {
+        "2": 1774,
+        "3": 18,
+        "4": 3
+      }
+    },
+    "3": {
+      "n": 760,
+      "exact_match": 0.0,
+      "hop_count_acc": 0.6092105263157894,
+      "pred_hop_distribution": {
+        "2": 293,
+        "3": 463,
+        "4": 4
+      }
+    },
+    "4": {
+      "n": 905,
+      "exact_match": 0.0,
+      "hop_count_acc": 0.7016574585635359,
+      "pred_hop_distribution": {
+        "2": 28,
+        "3": 231,
+        "4": 635,
+        "5": 10,
+        "6": 1
+      }
+    }
+  }
+}

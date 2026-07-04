@@ -1,0 +1,63 @@
+# multihop_trace default configuration
+# Override via CLI flags or environment variables in each script.
+
+project_root: /home/ertai/reasoning_trajectory/multihop_trace
+
+data:
+  raw:
+    musique: ${project_root}/data/raw/musique
+    twowiki: ${project_root}/data/raw/2wikimultihopqa
+    hotpot: ${project_root}/data/raw/hotpotqa
+  decompose:
+    musique_gt: ${project_root}/data/decompose/musique/gt
+    musique_bart: ${project_root}/data/decompose/musique/bart
+    twowiki_bart: ${project_root}/data/decompose/2wiki/bart
+    hotpot_bart: ${project_root}/data/decompose/hotpot/bart
+
+decompose_module:
+  gt_root: ${project_root}/decompose/gt
+  bart_root: ${project_root}/decompose/bart
+  bart_outputs: ${project_root}/decompose/bart/outputs/bart_decomposer_musique_2wiki_repro
+
+traces:
+  gold: ${project_root}/traces/gold
+  counterfactual: ${project_root}/traces/counterfactual
+  merged: ${project_root}/traces/merged
+
+hidden_states:
+  root: ${project_root}/hidden_states
+  model: meta-llama/Llama-3.1-8B-Instruct
+  layer: 31  # 0-based, last layer of Llama-3.1-8B
+
+gate:
+  artifacts_dir: ${project_root}/gate/artifacts_pooled
+  pca_dim: 64
+  C: 1.0
+  target_fpr: 0.15
+  max_j: 3  # pool transitions j=0..3 (Q->E1 .. E3->E4)
+
+retrieval:
+  results_root: ${project_root}/retrieval/results
+  cos_model: BAAI/bge-base-en-v1.5
+  topk: 10
+  lambda_lr: 0.25
+  gate_artifact_mode: pooled
+  methods:
+    - baseline
+    - lr_rerank
+    - gated_rule_a
+
+model:
+  llm: meta-llama/Llama-3.1-8B-Instruct
+  dtype: bfloat16
+
+datasets:
+  musique:
+    train_file: musique_ans_v1.0_train.jsonl
+    dev_file: musique_ans_v1.0_dev.jsonl
+  twowiki:
+    dev_file: dev.json
+    train_file: train.json
+  hotpot:
+    dev_file: hotpot_dev_distractor_v1.json
+    train_file: hotpot_train_v1.1.json

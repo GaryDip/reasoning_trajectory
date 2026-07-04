@@ -1,0 +1,107 @@
+{
+  "split": "dev",
+  "embed": "pca_tsne",
+  "panels": [
+    {
+      "j": 0,
+      "transition": "Q->E1",
+      "n": 1800,
+      "auc": 0.9285,
+      "embed": "pca_tsne",
+      "png": "/home/ertai/reasoning_trajectory/multihop_trace/gate/viz/results/figures_3d/j0_Q_E1_3d.png",
+      "html": null,
+      "skipped": false
+    },
+    {
+      "j": 1,
+      "transition": "E1->E2",
+      "n": 1800,
+      "auc": 0.8992,
+      "embed": "pca_tsne",
+      "png": "/home/ertai/reasoning_trajectory/multihop_trace/gate/viz/results/figures_3d/j1_E1_E2_3d.png",
+      "html": null,
+      "skipped": false
+    },
+    {
+      "j": 2,
+      "transition": "E2->E3",
+      "n": 1800,
+      "auc": 0.8581,
+      "embed": "pca_tsne",
+      "png": "/home/ertai/reasoning_trajectory/multihop_trace/gate/viz/results/figures_3d/j2_E2_E3_3d.png",
+      "html": null,
+      "skipped": false
+    },
+    {
+      "j": 3,
+      "transition": "E3->E4",
+      "n": 810,
+      "auc": 0.8666,
+      "embed": "pca_tsne",
+      "png": "/home/ertai/reasoning_trajectory/multihop_trace/gate/viz/results/figures_3d/j3_E3_E4_3d.png",
+      "html": null,
+      "skipped": false
+    }
+  ],
+  "meta": {
+    "pooling": "semantic_j_across_K_excluding_final",
+    "n_models": 4,
+    "pca_dim": 64,
+    "C": 1.0,
+    "target_fpr": 0.15,
+    "hidden_dim": 4096,
+    "hs_root": "/home/ertai/reasoning_trajectory/multihop_trace/gate/../hidden_states",
+    "created_time": "2026-06-28T11:58:10",
+    "models": [
+      {
+        "j": 0,
+        "transition": "Q->E1",
+        "K_used": [
+          2,
+          3,
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.3784173961486104,
+        "train_auc": 0.9426,
+        "file": "j0.joblib"
+      },
+      {
+        "j": 1,
+        "transition": "E1->E2",
+        "K_used": [
+          2,
+          3,
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.4399160014952907,
+        "train_auc": 0.918,
+        "file": "j1.joblib"
+      },
+      {
+        "j": 2,
+        "transition": "E2->E3",
+        "K_used": [
+          3,
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.4895789745001111,
+        "train_auc": 0.8767,
+        "file": "j2.joblib"
+      },
+      {
+        "j": 3,
+        "transition": "E3->E4",
+        "K_used": [
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.4550301494860471,
+        "train_auc": 0.9123,
+        "file": "j3.joblib"
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "n": 2417,
+  "bleu": 76.81078905234428,
+  "exact_match": 0.0,
+  "hop_count_acc": 0.8365742656185354,
+  "by_gold_hops": {
+    "2": {
+      "n": 1252,
+      "exact_match": 0.0,
+      "hop_count_acc": 0.9824281150159745,
+      "pred_hop_distribution": {
+        "2": 1230,
+        "3": 22
+      }
+    },
+    "3": {
+      "n": 760,
+      "exact_match": 0.0,
+      "hop_count_acc": 0.781578947368421,
+      "pred_hop_distribution": {
+        "2": 147,
+        "3": 594,
+        "4": 19
+      }
+    },
+    "4": {
+      "n": 405,
+      "exact_match": 0.0,
+      "hop_count_acc": 0.4888888888888889,
+      "pred_hop_distribution": {
+        "2": 17,
+        "3": 186,
+        "4": 198,
+        "5": 4
+      }
+    }
+  }
+}

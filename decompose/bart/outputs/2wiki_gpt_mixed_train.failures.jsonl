@@ -1,0 +1,61 @@
+{"id": "adc744ff088111ebbd6dac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Chan Canasta or Fran Roš?", "error": "model did not return JSON: ''"}
+{"id": "d0a8cae708da11ebbd9cac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Herbert William Bird or August Wiltberger?", "error": "model did not return JSON: ''"}
+{"id": "e2d22058086e11ebbd62ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Walter E. Edelen or Wilfred Jackson?", "error": "model did not return JSON: ''"}
+{"id": "5c89264c0baf11ebab90acde48001122", "type": "inference", "question": "Who is the uncle of Susy Clemens?", "error": "model did not return JSON: '{\"'"}
+{"id": "8da92f5a0bb011ebab90acde48001122", "type": "inference", "question": "Who is Robert Iii Of Scotland's father?", "error": "model did not return JSON: ''"}
+{"id": "d0a8cae708da11ebbd9cac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Herbert William Bird or August Wiltberger?", "error": "model did not return JSON: ''"}
+{"id": "e2d22058086e11ebbd62ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Walter E. Edelen or Wilfred Jackson?", "error": "model did not return JSON: ''"}
+{"id": "adc744ff088111ebbd6dac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Chan Canasta or Fran Roš?", "error": "model did not return JSON: ''"}
+{"id": "e7dd9e6208d011ebbd95ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Johann Tobias Krebs (Literary Scholar) or Joanna Carrington?", "error": "model did not return JSON: ''"}
+{"id": "8b1617a6085511ebbd59ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Charles Clough (Geologist) or Bata Kameni?", "error": "model did not return JSON: ''"}
+{"id": "a020595e084e11ebbd56ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Ian Mudie or Per Gerhard?", "error": "model did not return JSON: ''"}
+{"id": "baef3dae086011ebbd5dac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Maxwell Thornton or Corrado Bafile?", "error": "model did not return JSON: ''"}
+{"id": "5752d07e087311ebbd66ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Giuseppe Di Stefano or Edmund Taylor (Cricketer)?", "error": "model did not return JSON: ''"}
+{"id": "77dd50020bb011ebab90acde48001122", "type": "inference", "question": "Who is the father of Princess Karoline Amalie Of Hesse-Kassel?", "error": "model did not return JSON: ''"}
+{"id": "fc98e46408a911ebbd80ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Emile Lahner or Nico Dei Gabbiani?", "error": "model did not return JSON: ''"}
+{"id": "593072be089811ebbd77ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Bob Smith (Pitcher, Born 1890) or Anthony Keane?", "error": "model did not return JSON: ''"}
+{"id": "150e5090086811ebbd5eac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Jean Lurçat or Alan Krueger?", "error": "model did not return JSON: ''"}
+{"id": "bfbadbea086511ebbd5eac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Frank Horwill or Hank Izquierdo?", "error": "model did not return JSON: ''"}
+{"id": "6a782be40bb011ebab90acde48001122", "type": "inference", "question": "Who is John Athalarichos's uncle?", "error": "model did not return JSON: ''"}
+{"id": "19cdcee808a311ebbd7bac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Ed Bagdon or Alan Mcleod Mcculloch?", "error": "model did not return JSON: ''"}
+{"id": "6344980a084a11ebbd56ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Zvest Apollonio or Rudolf Wall?", "error": "model did not return JSON: ''"}
+{"id": "812e515c0baf11ebab90acde48001122", "type": "inference", "question": "Who is the paternal grandfather of Kaemsekhem?", "error": "model did not return JSON: ''"}
+{"id": "1042d5cc08f411ebbdaaac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Gennadiy Nikonov or Claude De Ramezay?", "error": "model did not return JSON: ''"}
+{"id": "48eedd73088311ebbd6dac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Dana Andrews or James Robb (Philosopher)?", "error": "model did not return JSON: ''"}
+{"id": "03f9ef100bb011ebab90acde48001122", "type": "inference", "question": "Who is the paternal grandfather of Prince Albert Of Prussia (1837–1906)?", "error": "model did not return JSON: ''"}
+{"id": "d187df6808a511ebbd7dac1f6bf848b6", "type": "bridge_comparison", "question": "Do both films: The Holy Terror (1929 film) and Rocky (1981 film) have the directors from the same country?", "error": "model did not return JSON: '{\"component_questions\": [\"Rocky (1981 film) [SEP] director\", \"The Holy Terror (1929 film) ['"}
+{"id": "f9e5bf9c087e11ebbd6bac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Shlomo Helbrans or Manuela Fingueret?", "error": "model did not return JSON: ''"}
+{"id": "957c134708bd11ebbd8aac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Billy Lee Brammer or Elias Motsoaledi?", "error": "model did not return JSON: ''"}
+{"id": "1276fd1108f311ebbdaaac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Fredrik Stabel or Jack Ness?", "error": "model did not return JSON: '{\"component_questions\":[\"'"}
+{"id": "02fbc62a08c811ebbd91ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Karl Stefan or Helen Kelly (Trade Unionist)?", "error": "model did not return JSON: ''"}
+{"id": "7672201f088e11ebbd70ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Theodore Doughty Miller or Paulus Potter?", "error": "model did not return JSON: ''"}
+{"id": "ed6e7ad108c211ebbd8cac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Albert Manent or Andrei Zelevinsky?", "error": "model did not return JSON: ''"}
+{"id": "a58337b608d011ebbd95ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Mikhail Sado or Adolf William, Duke Of Saxe-Eisenach?", "error": "model did not return JSON: ''"}
+{"id": "21b67a0b08e011ebbda1ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Kalmen Opperman or Joseph Cattarinich?", "error": "model did not return JSON: ''"}
+{"id": "7571e343088011ebbd6cac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Alfred Martin Duggan-Cronin or Henry Crewe Boutflower?", "error": "model did not return JSON: ''"}
+{"id": "9404fcff08ee11ebbda8ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Jack Lively or Peter Keetman?", "error": "model did not return JSON: ''"}
+{"id": "50c35a23085711ebbd5aac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Katharine O'Shea or Catharina Helena Dörrien?", "error": "model did not return JSON: ''"}
+{"id": "65cc4a70089b11ebbd78ac1f6bf848b6", "type": "bridge_comparison", "question": "Which film has the director who was born later, Déclic Et Des Claques or Dig Your Grave Friend... Sabata'S Coming?", "error": "model did not return JSON: ''"}
+{"id": "4416af80088c11ebbd6fac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Jan Elgarøy or William Gibson (Australian Politician)?", "error": "model did not return JSON: ''"}
+{"id": "79dbf49108d011ebbd95ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Alwin Mittasch or Philip Christison?", "error": "model did not return JSON: ''"}
+{"id": "eeaa2559088511ebbd6dac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Mordechai Gazit or Paul Pothen?", "error": "model did not return JSON: ''"}
+{"id": "f14607c7089b11ebbd78ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, George Heinz or Timo Lampén?", "error": "model did not return JSON: ''"}
+{"id": "6b375e4d089a11ebbd77ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Siegbert Tarrasch or Theodore G. Lewis?", "error": "model did not return JSON: ''"}
+{"id": "2af29f6f08c611ebbd90ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, William A. Stanfill or Damodar Ganesh Bapat?", "error": "model did not return JSON: ''"}
+{"id": "b337544c086611ebbd5eac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Joachim Karliczek or Daniel Owino Misiani?", "error": "model did not return JSON: ''"}
+{"id": "9b1e6efa089211ebbd73ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, James Martinus Schoonmaker or Lilí Álvarez?", "error": "model did not return JSON: ''"}
+{"id": "f742ff3408e711ebbda6ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Sydney Sturgess or Murray Bourchier?", "error": "model did not return JSON: ''"}
+{"id": "248bd2440baf11ebab90acde48001122", "type": "inference", "question": "Who is the paternal grandmother of Philippa Of Antioch?", "error": "model did not return JSON: ''"}
+{"id": "a92c2b020baf11ebab90acde48001122", "type": "inference", "question": "Who is the uncle of Anna Komnene Angelina?", "error": "model did not return JSON: ''"}
+{"id": "05fe79b408a811ebbd7fac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Khunkar-Pasha Israpilov or John Bennet Lawes?", "error": "model did not return JSON: ''"}
+{"id": "bf7edaa8087111ebbd63ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Raúl Alberto Lastiri or Christopher Martin (Mayflower passenger)?", "error": "model did not return JSON: ''"}
+{"id": "96e51ddb08d711ebbd9aac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Walter Lamb (Classicist) or Shamshad Begum?", "error": "model did not return JSON: ''"}
+{"id": "973d191e087911ebbd67ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Giovanni \"Ernesto\" Ceirano or André Renard?", "error": "model did not return JSON: ''"}
+{"id": "8bf1379e0baf11ebab90acde48001122", "type": "inference", "question": "Who is the paternal grandfather of Amyntas Ii (Son Of Bubares)?", "error": "model did not return JSON: ''"}
+{"id": "12c81002089111ebbd72ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Duncan Lawrence Groner or Karl Friedrich Burdach?", "error": "model did not return JSON: ''"}
+{"id": "9389221908f111ebbda8ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Fabian Tillanen or Walter Casson?", "error": "model did not return JSON: ''"}
+{"id": "ee649b3f08a611ebbd7fac1f6bf848b6", "type": "comparison", "question": "Who lived longer, John Frederick, Margrave of Brandenburg-Ansbach or Melchior Wańkowicz?", "error": "model did not return JSON: ''"}
+{"id": "c661efec089e11ebbd78ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Paul Rapsey Hodge or Vlado Strugar?", "error": "model did not return JSON: ''"}
+{"id": "cdcca0cb086911ebbd5eac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Leila Bennett or Mike Danzi?", "error": "model did not return JSON: ''"}
+{"id": "87505b5c085a11ebbd5cac1f6bf848b6", "type": "comparison", "question": "Who lived longer, Zoran Kosanović or Kurt Schneider (Aviator)?", "error": "model did not return JSON: ''"}
+{"id": "32f7890008d411ebbd96ac1f6bf848b6", "type": "comparison", "question": "Who lived longer, David Bustill Bowser or Sherburn Wightman?", "error": "model did not return JSON: ''"}

@@ -1,0 +1,79 @@
+{
+  "split": "dev",
+  "artifacts": "/home/ertai/reasoning_trajectory/multihop_trace/gate/artifacts_pooled",
+  "hs_root": "/home/ertai/reasoning_trajectory/multihop_trace/hidden_states",
+  "meta": {
+    "pooling": "semantic_j_across_K_excluding_final",
+    "n_models": 4,
+    "pca_dim": 64,
+    "C": 1.0,
+    "target_fpr": 0.15,
+    "hidden_dim": 4096,
+    "hs_root": "/home/ertai/reasoning_trajectory/multihop_trace/gate/../hidden_states",
+    "created_time": "2026-06-28T11:58:10",
+    "models": [
+      {
+        "j": 0,
+        "transition": "Q->E1",
+        "K_used": [
+          2,
+          3,
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.3784173961486104,
+        "train_auc": 0.9426,
+        "file": "j0.joblib"
+      },
+      {
+        "j": 1,
+        "transition": "E1->E2",
+        "K_used": [
+          2,
+          3,
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.4399160014952907,
+        "train_auc": 0.918,
+        "file": "j1.joblib"
+      },
+      {
+        "j": 2,
+        "transition": "E2->E3",
+        "K_used": [
+          3,
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.4895789745001111,
+        "train_auc": 0.8767,
+        "file": "j2.joblib"
+      },
+      {
+        "j": 3,
+        "transition": "E3->E4",
+        "K_used": [
+          4
+        ],
+        "pca_dim": 64,
+        "threshold": 0.4550301494860471,
+        "train_auc": 0.9123,
+        "file": "j3.joblib"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "j": 0,
+      "transition": "Q->E1",
+      "n": 8821,
+      "auc": 0.9293,
+      "threshold": 0.3784173961486104,
+      "n_pos": 2417,
+      "n_neg": 6404,
+      "figure": "/home/ertai/reasoning_trajectory/multihop_trace/gate/viz/results/figures/j0_Q_E1_lr_plane.png",
+      "skipped": false
+    }
+  ]
+}

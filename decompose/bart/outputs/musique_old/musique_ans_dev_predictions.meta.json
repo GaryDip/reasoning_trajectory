@@ -1,0 +1,16 @@
+{
+  "format": "musique_official_raw",
+  "model_dir": "outputs/bart_decomposer",
+  "dev_file": "/home/ertai/reasoning_trajectory/multihop_trajectory/decompose-musique/musique/raw_data/musique_ans_dev.jsonl",
+  "output": "outputs/musique_ans_dev_predictions.jsonl",
+  "summary": "outputs/musique_ans_dev_predictions.summary.json",
+  "num_examples": 2417,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda",
+  "overall_bleu": 75.93508846203912,
+  "overall_exact_match": 0.0,
+  "overall_hop_count_acc": 0.815473727761688
+}

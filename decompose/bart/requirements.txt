@@ -1,0 +1,5 @@
+torch>=2.0
+transformers>=4.40
+sacrebleu>=2.4
+accelerate>=0.28
+tqdm>=4.66

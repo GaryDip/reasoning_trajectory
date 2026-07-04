@@ -1,0 +1,14 @@
+# Model checkpoints — too large for git; see MODEL_NOTE.md next to each checkpoint dir
+**/*.pt
+**/*.safetensors
+
+# Hidden-state activation arrays — too large for git; regenerate via hidden_states/extract_hidden_states.py
+**/*.npz
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Logs
+*.log

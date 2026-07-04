@@ -1,0 +1,14 @@
+{
+  "format": "2wiki_question_decomposition",
+  "dataset": "2wiki",
+  "model_dir": "outputs/bart_decomposer_musique_2wiki_repro/checkpoint-1425",
+  "dev_file": "../2wikimultihopqa/dev.json",
+  "output": "outputs/bart_decomposer_musique_2wiki_repro/predict_2wiki_dev.jsonl",
+  "summary": "outputs/bart_decomposer_musique_2wiki_repro/predict_2wiki_dev.summary.json",
+  "num_examples": 12576,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda"
+}

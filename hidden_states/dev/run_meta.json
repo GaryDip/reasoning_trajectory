@@ -1,0 +1,15 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "layer_0based": 31,
+  "dtype": "bfloat16",
+  "incremental_kv": false,
+  "full_forward_per_prefix": true,
+  "prefix_batch_size": 128,
+  "trace_chunk_size": 128,
+  "length_bucket_tokens": 128,
+  "cross_prefix_batch": true,
+  "n_ok": 8821,
+  "n_err": 0,
+  "trace_file": "/home/ertai/reasoning_trajectory/multihop_trace/traces/merged/musique/dev.jsonl",
+  "manifest": "/home/ertai/reasoning_trajectory/multihop_trace/hidden_states/dev/manifest.jsonl"
+}

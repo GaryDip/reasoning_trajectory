@@ -1,0 +1,13 @@
+{
+  "split": "train",
+  "target_k": [
+    3,
+    4
+  ],
+  "num_sources": 5562,
+  "num_variants": 1,
+  "num_jobs": 5562,
+  "num_written": 5562,
+  "output": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/gt/train_nl_enhance.jsonl",
+  "verify": true
+}

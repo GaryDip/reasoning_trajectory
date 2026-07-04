@@ -1,0 +1,31 @@
+{
+  "format": "musique_official_raw",
+  "data_fields": {
+    "source": "composed_question_text",
+    "target": "component_question_texts"
+  },
+  "target_format": "[[CQS]] i [[CQE]] hop [[RQS]] j [[RQE]] ... with [SEP]",
+  "model_name": "facebook/bart-large",
+  "train_file": [
+    "../decompose-musique/musique/raw_data/musique_ans_gold_context_version_train.jsonl",
+    "outputs/2wiki_gpt_mixed_train.jsonl"
+  ],
+  "dev_file": [
+    "../decompose-musique/musique/raw_data/musique_ans_gold_context_version_dev.jsonl",
+    "outputs/2wiki_gpt_mixed_dev.jsonl"
+  ],
+  "num_train_examples": 30382,
+  "num_dev_examples": 3460,
+  "extra_tokens": "CQS/CQE and RQS/RQE indices 0-4",
+  "epochs": 3,
+  "batch_size": 16,
+  "learning_rate": 3e-05,
+  "label_smoothing": 0.1,
+  "max_source_length": 100,
+  "max_target_length": 100,
+  "max_grad_norm": 1.0,
+  "patience": 10,
+  "eval_beams": 10,
+  "seed": 100,
+  "limit": 0
+}

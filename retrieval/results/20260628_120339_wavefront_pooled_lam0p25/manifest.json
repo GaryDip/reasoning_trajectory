@@ -1,0 +1,48 @@
+{
+  "session": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260628_120339_wavefront_pooled_lam0p25",
+  "project_root": "/home/ertai/reasoning_trajectory/multihop_trace",
+  "script": "run_retrieval_exp_wavefront.py",
+  "split": "dev",
+  "decompose_mode": "bart_decompose",
+  "gate_artifacts": "/home/ertai/reasoning_trajectory/multihop_trace/gate/artifacts_pooled",
+  "gate_artifact_mode": "pooled",
+  "methods": [
+    "gated_rule_a"
+  ],
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "devices": [
+    "1"
+  ],
+  "num_shards": 1,
+  "dtype": "bfloat16",
+  "attn_implementation": "sdpa",
+  "limit": 0,
+  "lambda_lr": 0.25,
+  "topk": 10,
+  "expand_topk": 10,
+  "cos_model": "BAAI/bge-base-en-v1.5",
+  "gpu_memory_utilization": 0.35,
+  "max_model_len": 8192,
+  "gate_device": "cuda:0",
+  "hidden_batch_size": 8,
+  "runs": [
+    {
+      "dataset": "musique",
+      "shard_index": 0,
+      "num_shards": 1,
+      "dir": "musique"
+    },
+    {
+      "dataset": "2wiki",
+      "shard_index": 0,
+      "num_shards": 1,
+      "dir": "2wiki"
+    },
+    {
+      "dataset": "hotpot",
+      "shard_index": 0,
+      "num_shards": 1,
+      "dir": "hotpot"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "n": 2417,
+  "num_hops_distribution": {
+    "2": 1448,
+    "3": 784,
+    "4": 182,
+    "5": 3
+  },
+  "num_hops_pred_distribution": {
+    "2": 1448,
+    "3": 784,
+    "4": 182,
+    "5": 3
+  },
+  "num_hops_gold_distribution": {
+    "2": 1252,
+    "3": 760,
+    "4": 405
+  },
+  "hop_count_match_rate": 0.815473727761688
+}
