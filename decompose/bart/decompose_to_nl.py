@@ -26,7 +26,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any, Protocol
@@ -34,11 +33,9 @@ from typing import Any, Protocol
 from tqdm import tqdm
 
 from data_utils import raw_decomposition_to_v1_hop_texts, translate_id
+import llama_chat as llama_base
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
-_LLAMA_DIR = _SCRIPT_DIR.parent / "llama_infer_reasoning"
-sys.path.insert(0, str(_LLAMA_DIR))
-import run_musique_pipeline as llama_base  # noqa: E402
 
 DEFAULT_MODEL = "meta-llama/Llama-3.1-8B-Instruct"
 DEFAULT_INPUT = _SCRIPT_DIR / "outputs/musique_ans_dev_predictions_v1.jsonl"
