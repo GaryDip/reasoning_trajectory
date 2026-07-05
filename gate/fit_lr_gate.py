@@ -64,13 +64,61 @@ def read_K_from_npz(z, hidden) -> int:
     return int(hidden.shape[0]) - 1
 
 
+def read_hidden_from_npz(z, *, layer: int | None):
+    """
+    Read the (T, hidden_dim) last-token hidden array out of an npz, handling
+    both storage formats that exist in this repo:
+
+    - legacy single-layer (hidden_states/{train,dev}/, from extract_hidden_states.py):
+      `hidden` is already (T, hidden_dim) for whatever single layer was
+      extracted (production default: layer 31). `layer` must be left None
+      here — there's nothing to select between.
+    - multi-layer pilot (hidden_states/pilot_multilayer/, from
+      extract_hidden_states_multilayer_pilot.py): `hidden` is stacked as
+      (n_layers, T, hidden_dim) with a parallel `layers` array recording
+      which transformer layer each slice is. `layer` must be given so this
+      knows which slice to pull out.
+
+    Letting the same collect_split() read either format means a layer only
+    needs to be extracted once (in the multi-layer format) rather than kept
+    twice — once in a single-layer directory and again inside the pilot's
+    multi-layer one just to compare it.
+    """
+    import numpy as np
+
+    if "layers" in z.files:
+        if layer is None:
+            raise ValueError(
+                "npz is in multi-layer pilot format (has a 'layers' field) but no `layer` was "
+                "given to collect_split() — specify which layer to read."
+            )
+        layers_arr = [int(x) for x in np.asarray(z["layers"]).reshape(-1)]
+        if layer not in layers_arr:
+            return None
+        layer_pos = layers_arr.index(layer)
+        return z["hidden"][layer_pos].astype(np.float32)
+
+    if layer is not None:
+        raise ValueError(
+            f"npz is in legacy single-layer format (no 'layers' field) but layer={layer} was "
+            "given — legacy directories only ever hold one layer; drop `layer` (leave it None)."
+        )
+    return z["hidden"].astype(np.float32)
+
+
 def collect_split(
     hs_root: Path,
     split: str,
     subdirs: tuple[str, ...] = ("pos", "neg"),
+    layer: int | None = None,
 ) -> dict[tuple[int, int], dict]:
     """
     Returns {(K, j): {"X": [delta...], "y": [label...], "meta": [...]}}.
+
+    `layer`: which transformer layer to read. None (default) preserves the
+    original behavior for legacy single-layer directories
+    (hidden_states/{train,dev}/). Pass an int to read that layer out of a
+    multi-layer pilot directory (hidden_states/pilot_multilayer/) instead.
     """
     import numpy as np
 
@@ -84,7 +132,9 @@ def collect_split(
         trace_type = "correct" if sd == "pos" else "error"
         for f in sorted(npz_dir.glob("*.npz")):
             z = np.load(f, allow_pickle=True)
-            hidden = z["hidden"].astype(np.float32)
+            hidden = read_hidden_from_npz(z, layer=layer)
+            if hidden is None:
+                continue
             eid = str(np.asarray(z["example_id"]).reshape(-1)[0]).strip()
             if not eid:
                 continue
@@ -139,6 +189,13 @@ def main() -> None:
     ap.add_argument("--split-eval", choices=("dev", "train"), default="dev")
     ap.add_argument("--target-fpr", type=float, default=0.15)
     ap.add_argument("--no-save-artifacts", action="store_true")
+    ap.add_argument("--layer", type=int, default=None,
+                    help="Which transformer layer to read. Leave unset for legacy single-layer "
+                         "directories (hidden_states/{train,dev}/). Required when --hs-root points "
+                         "at a multi-layer pilot directory (hidden_states/pilot_multilayer/).")
+    ap.add_argument("--train-split-name", default="train",
+                    help="Subdirectory name under --hs-root holding the train split. Production "
+                         "layout uses 'train'; the multi-layer pilot extractor uses 'train_pilot'.")
     args = ap.parse_args()
 
     try:
@@ -154,11 +211,11 @@ def main() -> None:
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
     print("Loading train split ...", flush=True)
-    train_data = collect_split(args.hs_root, "train")
+    train_data = collect_split(args.hs_root, args.train_split_name, layer=args.layer)
     print(f"  (K, j) groups: {len(train_data)}")
 
     print(f"Loading {args.split_eval} split ...", flush=True)
-    eval_data = collect_split(args.hs_root, args.split_eval)
+    eval_data = collect_split(args.hs_root, args.split_eval, layer=args.layer)
     print(f"  (K, j) groups: {len(eval_data)}")
 
     print(f"\nFitting LR (pca_dim={args.pca_dim}, C={args.C}) ...")

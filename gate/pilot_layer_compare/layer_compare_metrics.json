@@ -1,0 +1,46 @@
+{
+  "perj[0:15,1:15,2:23,3:23]_sq8": {
+    "source": "perj[0:15,1:15,2:23,3:23]_sq8",
+    "per_j": {
+      "0": {
+        "layer": 15,
+        "n_train": 83927,
+        "n_dev": 8821,
+        "pca_dim": 64,
+        "dev_auc": 0.9518
+      },
+      "1": {
+        "layer": 15,
+        "n_train": 59857,
+        "n_dev": 6404,
+        "pca_dim": 64,
+        "dev_auc": 0.9071
+      },
+      "2": {
+        "layer": 23,
+        "n_train": 21411,
+        "n_dev": 2735,
+        "pca_dim": 64,
+        "dev_auc": 0.8537
+      },
+      "3": {
+        "layer": 23,
+        "n_train": 4046,
+        "n_dev": 810,
+        "pca_dim": 64,
+        "dev_auc": 0.8869
+      }
+    },
+    "overall_dev_auc": 0.9225,
+    "overall_dev_metrics": {
+      "TP": 5450,
+      "FP": 2185,
+      "FN": 954,
+      "TN": 10181,
+      "TPR": 0.851,
+      "FPR": 0.1767,
+      "Precision": 0.7138,
+      "F1": 0.7764
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "layers": [
+    7,
+    15,
+    23,
+    31
+  ],
+  "dtype": "bfloat16",
+  "per_bucket_cap": 1500,
+  "full_ks": [
+    2,
+    3,
+    4
+  ],
+  "seed": 42,
+  "train_source": "/home/ertai/reasoning_trajectory/multihop_trace/traces/merged/musique/train.jsonl",
+  "dev_source": "/home/ertai/reasoning_trajectory/multihop_trace/traces/merged/musique/dev.jsonl",
+  "bucket_report": {
+    "K2_neg_h1": {
+      "pool": 14376,
+      "taken": 14376,
+      "full": true
+    },
+    "K2_neg_h2": {
+      "pool": 14376,
+      "taken": 14376,
+      "full": true
+    },
+    "K2_pos": {
+      "pool": 14376,
+      "taken": 14376,
+      "full": true
+    },
+    "K3_neg_h1": {
+      "pool": 7671,
+      "taken": 7671,
+      "full": true
+    },
+    "K3_neg_h2": {
+      "pool": 7671,
+      "taken": 7671,
+      "full": true
+    },
+    "K3_neg_h3": {
+      "pool": 7671,
+      "taken": 7671,
+      "full": true
+    },
+    "K3_pos": {
+      "pool": 7671,
+      "taken": 7671,
+      "full": true
+    },
+    "K4_neg_h1": {
+      "pool": 2023,
+      "taken": 2023,
+      "full": true
+    },
+    "K4_neg_h2": {
+      "pool": 2023,
+      "taken": 2023,
+      "full": true
+    },
+    "K4_neg_h3": {
+      "pool": 2023,
+      "taken": 2023,
+      "full": true
+    },
+    "K4_neg_h4": {
+      "pool": 2023,
+      "taken": 2023,
+      "full": true
+    },
+    "K4_pos": {
+      "pool": 2023,
+      "taken": 2023,
+      "full": true
+    }
+  },
+  "stats": {
+    "train_pilot": {
+      "n_ok": 60947,
+      "n_err": 0
+    },
+    "dev": {
+      "n_ok": 0,
+      "n_err": 0
+    }
+  }
+}

@@ -364,11 +364,20 @@ def batch_last_hidden(
     texts: list[str],
     model,
     tokenizer,
-    layer: int,
+    layers: list[int],
     batch_size: int,
     cache: dict[tuple[int, str], np.ndarray],
     desc: str | None = None,
-) -> list[np.ndarray]:
+) -> dict[int, list[np.ndarray]]:
+    """
+    Last-token hidden state at each of `layers`, for each text. A single
+    forward already computes every one of the model's ~32 layers
+    (output_hidden_states=True) regardless of how many we keep, so reading out
+    several requested layers instead of one costs no extra GPU time — this is
+    what lets different pooled transitions use different layers (e.g. j=0,1
+    -> layer 15, j=2,3 -> layer 23; see 0705update.md) without a separate
+    forward pass per layer.
+    """
     import torch
 
     try:
@@ -376,7 +385,7 @@ def batch_last_hidden(
     except ImportError:
         tqdm = None
 
-    missing = [text for text in texts if (layer, text) not in cache]
+    missing = [text for text in texts if any((layer, text) not in cache for layer in layers)]
     dev = next(model.parameters()).device
     batch_starts = range(0, len(missing), batch_size)
     if desc and missing and tqdm is not None:
@@ -405,19 +414,20 @@ def batch_last_hidden(
                 use_cache=False,
             )
         hs = out.hidden_states
-        if hs is None or layer + 1 >= len(hs):
-            raise ValueError(f"bad hidden_states len={len(hs) if hs else 0} layer={layer}")
-        layer_h = hs[layer + 1]
         last_indices = (
             attention_mask.size(1)
             - 1
             - torch.flip(attention_mask, dims=[1]).argmax(dim=1)
         )
-        batch_indices = torch.arange(layer_h.size(0), device=dev)
-        hidden = layer_h[batch_indices, last_indices].float().cpu().numpy().astype(np.float32)
-        for text, vec in zip(chunk, hidden):
-            cache[(layer, text)] = vec
-    return [cache[(layer, text)] for text in texts]
+        batch_indices = torch.arange(len(chunk), device=dev)
+        for layer in layers:
+            if hs is None or layer + 1 >= len(hs):
+                raise ValueError(f"bad hidden_states len={len(hs) if hs else 0} layer={layer}")
+            layer_h = hs[layer + 1]
+            hidden = layer_h[batch_indices, last_indices].float().cpu().numpy().astype(np.float32)
+            for text, vec in zip(chunk, hidden):
+                cache[(layer, text)] = vec
+    return {layer: [cache[(layer, text)] for text in texts] for layer in layers}
 
 
 def score_gate_requests(
@@ -427,15 +437,25 @@ def score_gate_requests(
     gate_artifact_mode: str,
     model,
     tokenizer,
-    layer: int,
+    default_layer: int,
     hidden_batch_size: int,
     hidden_cache: dict[tuple[int, str], np.ndarray],
     desc: str | None = None,
 ) -> dict[int, list[tuple[dict[str, Any], float, float]]]:
+    """
+    `default_layer` is only a fallback for artifacts saved before the "layer"
+    field existed on each joblib (see fit_lr_gate_pooled.py) — the layer each
+    request actually scores against comes from that request's own gate
+    artifact metadata (art["layer"]), not from a single global setting. This
+    is what lets j=0/j=1 read layer 15 and j=2/j=3 read layer 23 in the same
+    run: which layer to use is a property of the *model*, looked up per
+    request, not hardcoded here.
+    """
     outputs: dict[int, list[tuple[dict[str, Any], float, float]]] = {}
     texts: list[str] = []
-    owners: list[tuple[int, int | None]] = []
-    metadata: dict[int, tuple[dict[str, Any], Any, str]] = {}
+    owners: list[tuple[int, int | None, int]] = []  # (req_id, cand_idx, layer)
+    metadata: dict[int, tuple[Any, Any]] = {}
+    needed_layers: set[int] = set()
 
     for req in requests:
         ctx = req.ctx
@@ -445,9 +465,11 @@ def score_gate_requests(
             continue
         pca = art["pca"]
         lr = art["lr"]
-        metadata[req.req_id] = (pca, lr, ctx.prefix_before)
+        layer = int(art.get("layer") or default_layer)
+        needed_layers.add(layer)
+        metadata[req.req_id] = (pca, lr)
         texts.append(ctx.prefix_before)
-        owners.append((req.req_id, None))
+        owners.append((req.req_id, None, layer))
         for cand_idx, (para, _) in enumerate(req.candidates):
             para_text = (para.get("paragraph_text") or "").strip()
             text = (
@@ -455,24 +477,25 @@ def score_gate_requests(
                 f' Evidence: "{escape_double_quotes(para_text)}"'
             )
             texts.append(text)
-            owners.append((req.req_id, cand_idx))
+            owners.append((req.req_id, cand_idx, layer))
 
     if texts:
-        hiddens = batch_last_hidden(
+        hiddens_by_layer = batch_last_hidden(
             texts=texts,
             model=model,
             tokenizer=tokenizer,
-            layer=layer,
+            layers=sorted(needed_layers),
             batch_size=hidden_batch_size,
             cache=hidden_cache,
             desc=desc,
         )
     else:
-        hiddens = []
+        hiddens_by_layer = {}
 
     prev_by_req: dict[int, np.ndarray] = {}
     cand_by_req: dict[int, dict[int, np.ndarray]] = defaultdict(dict)
-    for (req_id, cand_idx), hidden in zip(owners, hiddens):
+    for idx, (req_id, cand_idx, layer) in enumerate(owners):
+        hidden = hiddens_by_layer[layer][idx]
         if cand_idx is None:
             prev_by_req[req_id] = hidden
         else:
@@ -492,7 +515,7 @@ def score_gate_requests(
             file=sys.stderr,
             dynamic_ncols=True,
         )
-    for req_id, (pca, lr, _) in req_items:
+    for req_id, (pca, lr) in req_items:
         req = req_by_id[req_id]
         h_prev = prev_by_req[req_id]
         scored: list[tuple[dict[str, Any], float, float]] = []
@@ -606,7 +629,12 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--dtype", choices=("bfloat16", "float16", "float32"), default="bfloat16")
     ap.add_argument("--attn-implementation", default=None)
     ap.add_argument("--gate-device", default="cuda:0")
-    ap.add_argument("--layer", type=int, default=31)
+    ap.add_argument("--layer", type=int, default=31,
+                    help="Fallback layer for gate artifacts saved before the per-artifact 'layer' "
+                         "field existed. Artifacts trained with fit_lr_gate_pooled.py's "
+                         "--per-j-layers each record which layer they actually expect (e.g. j=0,1 "
+                         "-> layer 15, j=2,3 -> layer 23) and that's what's used per request; this "
+                         "flag only matters for old artifacts missing that field.")
     ap.add_argument("--tensor-parallel-size", type=int, default=1)
     ap.add_argument(
         "--gpu-memory-utilization",
@@ -850,7 +878,7 @@ def main() -> None:
                 gate_artifact_mode=args.gate_artifact_mode,
                 model=gate_model,
                 tokenizer=gate_tokenizer,
-                layer=args.layer,
+                default_layer=args.layer,
                 hidden_batch_size=args.hidden_batch_size,
                 hidden_cache=hidden_cache,
                 desc=f"hop{hop_j} gate",
@@ -887,7 +915,7 @@ def main() -> None:
                     gate_artifact_mode=args.gate_artifact_mode,
                     model=gate_model,
                     tokenizer=gate_tokenizer,
-                    layer=args.layer,
+                    default_layer=args.layer,
                     hidden_batch_size=args.hidden_batch_size,
                     hidden_cache=hidden_cache,
                     desc=f"hop{hop_j} gate-expand",

@@ -49,8 +49,39 @@ def collect_split_pooled(
     split: str,
     *,
     max_j: int = 3,
+    layer: int | None = None,
+    layer_by_j: dict[int, int] | None = None,
 ) -> dict[int, dict]:
-    per_kj = collect_split(hs_root, split)
+    """
+    Pool hidden-state deltas by semantic transition j, across every K > j.
+
+    Two mutually exclusive modes:
+    - `layer` (default None = legacy single-layer directories): one fixed
+      layer for every j — reads the split once.
+    - `layer_by_j`: a different layer per transition (e.g. {0: 15, 1: 15,
+      2: 23, 3: 23}, because different layers turned out to carry the
+      strongest signal for different transitions — see 0705update.md).
+      Each distinct layer is read from disk once and cached even if it's
+      reused across multiple j's, then only that layer's rows for its
+      assigned j are kept.
+    """
+    if layer_by_j:
+        pooled: dict[int, dict] = defaultdict(lambda: {"X": [], "y": [], "meta": []})
+        cache: dict[int, dict[tuple[int, int], dict]] = {}
+        for j, lyr in sorted(layer_by_j.items()):
+            if lyr not in cache:
+                cache[lyr] = collect_split(hs_root, split, layer=lyr)
+            per_kj = cache[lyr]
+            for (K, jj), group in sorted(per_kj.items()):
+                if jj != j or jj >= K:
+                    continue
+                for delta, label, meta in zip(group["X"], group["y"], group["meta"]):
+                    pooled[j]["X"].append(delta)
+                    pooled[j]["y"].append(label)
+                    pooled[j]["meta"].append(dict(meta))
+        return pooled
+
+    per_kj = collect_split(hs_root, split, layer=layer)
     pooled: dict[int, dict] = defaultdict(lambda: {"X": [], "y": [], "meta": []})
     for (K, j), group in sorted(per_kj.items()):
         if j >= K or j > max_j:
@@ -119,13 +150,41 @@ def main() -> None:
     ap.add_argument("--target-fpr", type=float, default=0.15)
     ap.add_argument("--max-j", type=int, default=3)
     ap.add_argument("--no-save-artifacts", action="store_true")
+    ap.add_argument("--layer", type=int, default=None,
+                    help="Which transformer layer to read. Leave unset for legacy single-layer "
+                         "directories (hidden_states/{train,dev}/). Required when --hs-root points "
+                         "at a multi-layer pilot directory (hidden_states/pilot_multilayer/) — a "
+                         "layer only needs to be extracted once there, not duplicated into a "
+                         "separate single-layer directory just to retrain the pooled gate on it.")
+    ap.add_argument("--train-split-name", default="train",
+                    help="Subdirectory name under --hs-root holding the train split. Production "
+                         "layout uses 'train'; the multi-layer pilot extractor uses 'train_pilot'.")
+    ap.add_argument("--per-j-layers", default=None,
+                    help="Mix a different layer per transition instead of one fixed --layer for "
+                         "all of them, e.g. '0:15,1:15,2:23,3:23'. Each j gets its own independent "
+                         "model regardless (pooled protocol already fits j=0..3 separately), so "
+                         "nothing requires them to share a layer — see gate/compare_layers_pilot.py "
+                         "and 0705update.md for how this was chosen. Takes precedence over --layer "
+                         "when given; the layer actually used for each j is recorded in that j's "
+                         "saved artifact (and in meta.json) so downstream readers don't need to be "
+                         "told separately which layer goes with which hop.")
     args = ap.parse_args()
 
-    if not (args.hs_root / "train" / "activations").is_dir():
+    if not (args.hs_root / args.train_split_name / "activations").is_dir():
         sys.exit(
-            f"No training activations at {args.hs_root}/train/activations/\n"
+            f"No training activations at {args.hs_root}/{args.train_split_name}/activations/\n"
             "Run hidden_states/extract_hidden_states.py first."
         )
+
+    layer_by_j: dict[int, int] | None = None
+    if args.per_j_layers:
+        layer_by_j = {}
+        for part in args.per_j_layers.split(","):
+            part = part.strip()
+            if not part:
+                continue
+            j_str, layer_str = part.split(":")
+            layer_by_j[int(j_str)] = int(layer_str)
 
     try:
         import joblib
@@ -144,14 +203,24 @@ def main() -> None:
     print(f"  artifacts-dir: {args.artifacts_dir}")
     print(f"  split-eval:    {args.split_eval}")
     print(f"  target-fpr:    {args.target_fpr}")
+    if layer_by_j:
+        print(f"  per-j layers:  {sorted(layer_by_j.items())}")
+    else:
+        print(f"  layer:         {args.layer}")
     print("=" * 60)
 
     print("\nLoading train split ...", flush=True)
-    train_data = collect_split_pooled(args.hs_root, "train", max_j=args.max_j)
+    train_data = collect_split_pooled(
+        args.hs_root, args.train_split_name, max_j=args.max_j,
+        layer=args.layer, layer_by_j=layer_by_j,
+    )
     print(f"  pooled j groups: {len(train_data)}")
 
     print(f"Loading {args.split_eval} split ...", flush=True)
-    eval_data = collect_split_pooled(args.hs_root, args.split_eval, max_j=args.max_j)
+    eval_data = collect_split_pooled(
+        args.hs_root, args.split_eval, max_j=args.max_j,
+        layer=args.layer, layer_by_j=layer_by_j,
+    )
     print(f"  pooled j groups: {len(eval_data)}")
 
     print(f"\nFitting pooled LR (pca_dim={args.pca_dim}, C={args.C}) ...")
@@ -210,6 +279,13 @@ def main() -> None:
         args.artifacts_dir.mkdir(parents=True, exist_ok=True)
         meta_rows = []
         for j, m in sorted(models.items()):
+            # The layer actually used for THIS j — from --per-j-layers if given,
+            # else the one global --layer. Recorded on the artifact itself (not
+            # just in meta.json) so a single j{}.joblib is self-describing even
+            # if copied out on its own: downstream readers (e.g. the retrieval
+            # gate scorer) don't need a separate lookup table telling them which
+            # layer this model expects its input Δ to come from.
+            j_layer = layer_by_j[j] if layer_by_j else args.layer
             fname = f"j{j}.joblib"
             joblib.dump({
                 "pooling": "semantic_j_across_K_excluding_final",
@@ -223,7 +299,8 @@ def main() -> None:
                 "pca_fit_on": "all_train_pooled_by_j",
                 "target_fpr": args.target_fpr,
                 "C": args.C,
-                "train_split": "train",
+                "train_split": args.train_split_name,
+                "layer": j_layer,
                 "hs_root": str(args.hs_root),
                 "hidden_dim": hidden_dim,
                 "created_time": datetime.datetime.now().isoformat(timespec="seconds"),
@@ -233,6 +310,7 @@ def main() -> None:
             meta_rows.append({
                 "j": j,
                 "transition": pooled_transition_label(j),
+                "layer": j_layer,
                 "K_used": m["K_used"],
                 "pca_dim": m["nc"],
                 "threshold": m["threshold"],
@@ -245,6 +323,8 @@ def main() -> None:
             "pca_dim": args.pca_dim,
             "C": args.C,
             "target_fpr": args.target_fpr,
+            "layer": args.layer,
+            "per_j_layers": layer_by_j,
             "hidden_dim": hidden_dim,
             "hs_root": str(args.hs_root),
             "created_time": datetime.datetime.now().isoformat(timespec="seconds"),
