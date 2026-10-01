@@ -5,6 +5,9 @@
 # Hidden-state activation arrays — too large for git; regenerate via hidden_states/extract_hidden_states.py
 **/*.npz
 
+# Global retrieval embedding cache — too large for git; regenerate via retrieval/build_embedding_cache.py
+retrieval/embedding_cache/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -12,3 +15,128 @@ __pycache__/
 
 # Logs
 *.log
+
+# Numpy caches / embedding matrices — regenerate (retrieval/build_global_corpus.py etc.)
+**/*.npy
+retrieval/global_corpus/
+
+# Large regenerable datasets & candidate-pool caches (each dir's README says how to rebuild)
+rerank_listwise_contrastive/data/
+rerank_pairwise_mlp/data/
+adaptive_lambda_rerank/data/
+new_data_recipe/output_full/
+error_propagation_probe/data/
+error_propagation_probe/hidden_states_full*/
+error_propagation_probe/hidden_states_multilayer*/
+gate_mtl_shared_backbone/cache/
+online_listwise_gate/results/**/feature_cache/
+**/target_judge_log.jsonl
+
+# ChainRAG / GRITHopper reproduction: cloned inputs and per-question logs
+chainrag/data/*.jsonl
+chainrag/processed_data/
+chainrag/cache/
+grithopper/results/
+
+# Editor
+.vscode/
+
+# Third-party reproduction clones — they carry their own .git (see WORK_SUMMARY 1.2)
+chainrag/
+grithopper/
+
+# Model artifacts of non-adopted variants — their code, logs and metrics are kept
+online_listwise_gate/results/**/artifact.joblib
+
+# Per-question case logs: keep only the runs cited in WORK_SUMMARY / THESIS_OUTLINE
+# (metrics JSON of every run is always kept; these logs feed the offline analyses:
+#  precision comparison, decomposer ablation, significance tests, case studies)
+retrieval/results/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_090938_baseline_only_musique_hotpot/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_091034_baseline_only_2wiki/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_132739_gate_v3_rawprefix_musique_bw1_fullpool/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_135739_gate_v3_rawprefix_2wiki_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_145434_gate_v2_rawprefix_musique_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_152220_gate_v2_rawprefix_2wiki_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_160848_gate_v3_rawprefix_hotpot_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_172829_gate_v2_rawprefix_hotpot_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260807_060129_gate_h_only_rawprefix_musique_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260807_062755_gate_h_only_rawprefix_2wiki_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260807_082919_gate_h_only_rawprefix_hotpot_bw1/**/retrieval_cases_*.jsonl
+!retrieval/results/20260813_072509_gate_v3_rawprefix_2wiki_comparisonhint_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260813_161210_gate_v3_rawprefix_musique_comparisonhint_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260813_163744_gate_v3_rawprefix_hotpot_comparisonhint_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260818_154358_colbert_musique_nogate_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260818_162450_colbert_musique_gate_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260818_170355_colbert_2wiki_nogate_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260818_210614_colbert_2wiki_gate_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260819_003311_colbert_hotpot_nogate_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260819_012023_colbert_hotpot_gate_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260827_142454_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p10/**/retrieval_cases_*.jsonl
+!retrieval/results/20260827_153321_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p20/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_042244_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p30/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_053120_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p40/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_063956_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p50/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_074835_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p60/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_094100_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p65/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_101546_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p70/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_112529_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p80/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_121002_gate_v3_rawprefix_musique_lambda060_dev/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_123331_gate_v3_rawprefix_2wiki_lambda060_dev/**/retrieval_cases_*.jsonl
+!retrieval/results/20260828_142420_gate_v3_rawprefix_hotpot_lambda060_dev/**/retrieval_cases_*.jsonl
+!retrieval/results/20260904_163127_global_musique_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260905_051009_global_2wiki_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260905_051556_global_hotpot_full/**/retrieval_cases_*.jsonl
+!retrieval/results/20260910_205233_gate_v3_rawprefix_musique_lambda060_dev_musiqueonly_decomposer/**/retrieval_cases_*.jsonl
+!retrieval/results/20260910_211502_gate_v3_rawprefix_2wiki_lambda060_dev_musiqueonly_decomposer/**/retrieval_cases_*.jsonl
+!retrieval/results/20260910_223856_gate_v3_rawprefix_hotpot_lambda060_dev_musiqueonly_decomposer/**/retrieval_cases_*.jsonl
+!retrieval/results/20260916_155625_global_musique_k10_comparisonhint/**/retrieval_cases_*.jsonl
+!retrieval/results/20260916_155806_global_musique_k50_comparisonhint/**/retrieval_cases_*.jsonl
+!retrieval/results/20260916_163223_global_hotpot_k10_comparisonhint/**/retrieval_cases_*.jsonl
+!retrieval/results/20260916_175557_global_2wiki_k10_comparisonhint/**/retrieval_cases_*.jsonl
+!retrieval/results/20260916_183527_global_hotpot_k50_comparisonhint/**/retrieval_cases_*.jsonl
+!retrieval/results/20260916_225214_global_2wiki_k50_comparisonhint/**/retrieval_cases_*.jsonl
+!retrieval/results/20260806_090938_baseline_only_musique_hotpot/retrieval_cases_*.jsonl
+!retrieval/results/20260806_091034_baseline_only_2wiki/retrieval_cases_*.jsonl
+!retrieval/results/20260806_132739_gate_v3_rawprefix_musique_bw1_fullpool/retrieval_cases_*.jsonl
+!retrieval/results/20260806_135739_gate_v3_rawprefix_2wiki_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260806_145434_gate_v2_rawprefix_musique_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260806_152220_gate_v2_rawprefix_2wiki_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260806_160848_gate_v3_rawprefix_hotpot_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260806_172829_gate_v2_rawprefix_hotpot_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260807_060129_gate_h_only_rawprefix_musique_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260807_062755_gate_h_only_rawprefix_2wiki_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260807_082919_gate_h_only_rawprefix_hotpot_bw1/retrieval_cases_*.jsonl
+!retrieval/results/20260813_072509_gate_v3_rawprefix_2wiki_comparisonhint_full/retrieval_cases_*.jsonl
+!retrieval/results/20260813_161210_gate_v3_rawprefix_musique_comparisonhint_full/retrieval_cases_*.jsonl
+!retrieval/results/20260813_163744_gate_v3_rawprefix_hotpot_comparisonhint_full/retrieval_cases_*.jsonl
+!retrieval/results/20260818_154358_colbert_musique_nogate_full/retrieval_cases_*.jsonl
+!retrieval/results/20260818_162450_colbert_musique_gate_full/retrieval_cases_*.jsonl
+!retrieval/results/20260818_170355_colbert_2wiki_nogate_full/retrieval_cases_*.jsonl
+!retrieval/results/20260818_210614_colbert_2wiki_gate_full/retrieval_cases_*.jsonl
+!retrieval/results/20260819_003311_colbert_hotpot_nogate_full/retrieval_cases_*.jsonl
+!retrieval/results/20260819_012023_colbert_hotpot_gate_full/retrieval_cases_*.jsonl
+!retrieval/results/20260827_142454_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p10/retrieval_cases_*.jsonl
+!retrieval/results/20260827_153321_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p20/retrieval_cases_*.jsonl
+!retrieval/results/20260828_042244_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p30/retrieval_cases_*.jsonl
+!retrieval/results/20260828_053120_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p40/retrieval_cases_*.jsonl
+!retrieval/results/20260828_063956_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p50/retrieval_cases_*.jsonl
+!retrieval/results/20260828_074835_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p60/retrieval_cases_*.jsonl
+!retrieval/results/20260828_094100_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p65/retrieval_cases_*.jsonl
+!retrieval/results/20260828_101546_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p70/retrieval_cases_*.jsonl
+!retrieval/results/20260828_112529_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p80/retrieval_cases_*.jsonl
+!retrieval/results/20260828_121002_gate_v3_rawprefix_musique_lambda060_dev/retrieval_cases_*.jsonl
+!retrieval/results/20260828_123331_gate_v3_rawprefix_2wiki_lambda060_dev/retrieval_cases_*.jsonl
+!retrieval/results/20260828_142420_gate_v3_rawprefix_hotpot_lambda060_dev/retrieval_cases_*.jsonl
+!retrieval/results/20260904_163127_global_musique_full/retrieval_cases_*.jsonl
+!retrieval/results/20260905_051009_global_2wiki_full/retrieval_cases_*.jsonl
+!retrieval/results/20260905_051556_global_hotpot_full/retrieval_cases_*.jsonl
+!retrieval/results/20260910_205233_gate_v3_rawprefix_musique_lambda060_dev_musiqueonly_decomposer/retrieval_cases_*.jsonl
+!retrieval/results/20260910_211502_gate_v3_rawprefix_2wiki_lambda060_dev_musiqueonly_decomposer/retrieval_cases_*.jsonl
+!retrieval/results/20260910_223856_gate_v3_rawprefix_hotpot_lambda060_dev_musiqueonly_decomposer/retrieval_cases_*.jsonl
+!retrieval/results/20260916_155625_global_musique_k10_comparisonhint/retrieval_cases_*.jsonl
+!retrieval/results/20260916_155806_global_musique_k50_comparisonhint/retrieval_cases_*.jsonl
+!retrieval/results/20260916_163223_global_hotpot_k10_comparisonhint/retrieval_cases_*.jsonl
+!retrieval/results/20260916_175557_global_2wiki_k10_comparisonhint/retrieval_cases_*.jsonl
+!retrieval/results/20260916_183527_global_hotpot_k50_comparisonhint/retrieval_cases_*.jsonl
+!retrieval/results/20260916_225214_global_2wiki_k50_comparisonhint/retrieval_cases_*.jsonl
