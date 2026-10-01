@@ -1,0 +1,18 @@
+{
+  "n": 3000,
+  "has_gold": false,
+  "pred_hop_distribution": {
+    "1": 4,
+    "2": 2500,
+    "3": 436,
+    "4": 56,
+    "5": 3,
+    "6": 1
+  },
+  "gold_hop_distribution": {
+    "2": 3000
+  },
+  "hop_count_acc": 0.8333333333333334,
+  "hop_count_total": 3000,
+  "gold_hop_definition": "2wiki: len(evidences) if present, otherwise unique supporting_facts titles; hotpot: unique supporting_facts titles"
+}

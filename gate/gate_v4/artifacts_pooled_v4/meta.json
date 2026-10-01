@@ -1,0 +1,73 @@
+{
+  "pooling": "semantic_j_across_K_excluding_final",
+  "feature": "bilinear(W_pre h_{j-1}, W_post h_j) + linear(Delta_j) -- state-transition compatibility, trained end-to-end via BCE, threshold picked via out-of-fold CV (see module docstring)",
+  "n_models": 4,
+  "rank": 64,
+  "weight_decay": 0.001,
+  "tau_cv_folds": 5,
+  "target_fpr": 0.15,
+  "per_j_layers": {
+    "0": 15,
+    "1": 15,
+    "2": 23,
+    "3": 23
+  },
+  "hidden_dim": 4096,
+  "hs_root": "/home/ertai/reasoning_trajectory/multihop_trace/hidden_states/pilot_multilayer",
+  "created_time": "2026-07-23T12:32:17.265786",
+  "models": [
+    {
+      "j": 0,
+      "transition": "Q->E1",
+      "layer": 15,
+      "K_used": [
+        2,
+        3,
+        4
+      ],
+      "rank": 64,
+      "threshold": 0.08280550688505173,
+      "train_auc": 0.9974,
+      "file": "j0.pt"
+    },
+    {
+      "j": 1,
+      "transition": "E1->E2",
+      "layer": 15,
+      "K_used": [
+        2,
+        3,
+        4
+      ],
+      "rank": 64,
+      "threshold": 0.143183171749115,
+      "train_auc": 0.997,
+      "file": "j1.pt"
+    },
+    {
+      "j": 2,
+      "transition": "E2->E3",
+      "layer": 23,
+      "K_used": [
+        3,
+        4
+      ],
+      "rank": 64,
+      "threshold": 0.22963868081569672,
+      "train_auc": 0.998,
+      "file": "j2.pt"
+    },
+    {
+      "j": 3,
+      "transition": "E3->E4",
+      "layer": 23,
+      "K_used": [
+        4
+      ],
+      "rank": 64,
+      "threshold": 0.20627382397651672,
+      "train_auc": 0.9934,
+      "file": "j3.pt"
+    }
+  ]
+}

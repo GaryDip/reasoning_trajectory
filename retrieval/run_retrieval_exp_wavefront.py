@@ -149,6 +149,49 @@ def prompt_short_answer_with_context(
     )
 
 
+def prompt_short_answer_with_context_type_match(
+    q_main: str,
+    hop_steps: list[tuple[str, str]],
+    prior: list[str],
+    expanded_q: str,
+    passage: dict[str, Any],
+) -> str:
+    """
+    Same as prompt_short_answer_with_context, plus one instruction constraining the answer's
+    TYPE to match the subquestion's interrogative word.
+
+    Case-study finding (gate v3 rawprefix dev results, comparison_hint-fixed runs): among
+    "matched_neither" residual errors (final answer doesn't equal any per-hop short answer,
+    so this is NOT the already-fixed "reader picked wrong hop" bug), evidence passages that
+    mention both a date and a place near the same entity (e.g. "died July 11, 1937 in
+    Hollywood") sometimes cause this per-hop step to extract the date even when the
+    subquestion asks "where ... die", not "when". The base prompt's unconditional
+    "If numeric, output the number" instruction has no scoping against the subquestion's own
+    interrogative word, so a salient number in the passage can override what's actually being
+    asked. This adds one instruction line requiring the answer's type to match the question
+    word (where -> place, when -> date/time, who -> person/organization, how many -> number),
+    nothing else about the prompt changes.
+    """
+    ctx = build_reasoning_context(q_main, hop_steps, prior)
+    t = (passage.get("paragraph_text") or "").strip()
+    title = (passage.get("title") or "").strip()
+    return (
+        f"{ctx}\n\n"
+        "Current subquestion:\n"
+        f"{expanded_q}\n\n"
+        f"Selected evidence title: {title}\n"
+        f"Selected evidence:\n{t}\n\n"
+        "Read the selected evidence and answer the current subquestion with a SHORT span or phrase only "
+        "(no full sentences or explanation). Match the answer's TYPE to what the subquestion's "
+        "own interrogative word asks for -- \"where\" needs a place, not a date; \"when\" needs "
+        "a date or time, not a place; \"who\" needs a person or organization's name; \"how many\" "
+        "or a numeric question needs a number. Do not default to the nearest number or date in "
+        "the evidence unless that is what the subquestion is actually asking for. "
+        "If the passage does not contain the answer, output exactly: NA\n\n"
+        "Answer:"
+    )
+
+
 def build_final_reader_cot_prompt(
     q_main: str,
     hop_steps: list[tuple[str, str]],
@@ -173,6 +216,182 @@ def build_final_reader_cot_prompt(
             "",
             "Answer the original question directly using only the reasoning trace above.",
             "Give a short span or phrase only (entity, date, number, or yes/no).",
+            "For yes/no questions, answer yes or no only.",
+            "",
+            "Output exactly one line:",
+            f"{FINAL_ANSWER_MARKER} <short answer>",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def build_final_reader_cot_prompt_comparison_hint(
+    q_main: str,
+    hop_steps: list[tuple[str, str]],
+    prior: list[str],
+) -> str:
+    """
+    Same as build_final_reader_cot_prompt, plus one extra instruction for comparison-style
+    questions ("which was released more recently, X or Y" / "did X or Y come first" etc.).
+
+    Case-study finding (gate v3 rawprefix dev results, all three datasets): among cases
+    where every hop retrieved the correct gold passage but the final answer was still wrong,
+    a meaningful share (8% MuSiQue, 13.1% 2WikiMultihopQA, 15.2% HotpotQA) have the final
+    answer exactly equal to one of the PER-HOP short answers verbatim -- e.g. for "Which
+    film was released more recently, Royal Treasure or When Love Begins?" with per-hop
+    answers ['January 15, 2016', '2008'], the reader answered "January 15, 2016" (a raw date
+    used to make the comparison) instead of "Royal Treasure" (the entity the comparison is
+    actually about). The base prompt's "(entity, date, number, or yes/no)" instruction
+    doesn't distinguish "the per-hop answers ARE the final answer" (true for most bridge
+    questions) from "the per-hop answers are only inputs to a comparison the reader still
+    has to perform" (true for comparison questions) -- this adds that distinction as one
+    extra instruction line, nothing else about the prompt changes.
+    """
+    lines: list[str] = []
+    if hop_steps:
+        lines.append("Reasoning trace:")
+        for i, ((subq, ev), ans) in enumerate(zip(hop_steps, prior), start=1):
+            lines.append(f"Step {i}:")
+            lines.append(f"Subquestion: {subq}")
+            lines.append(f"Selected evidence: {ev}")
+            lines.append(f"Answer: {ans}")
+            lines.append("")
+    else:
+        lines.append("Reasoning trace: [empty]")
+        lines.append("")
+    lines.extend(
+        [
+            "Re-read the original question before answering:",
+            q_main,
+            "",
+            "Answer the original question directly using only the reasoning trace above.",
+            "Give a short span or phrase only (entity, date, number, or yes/no).",
+            "If the original question asks you to COMPARE two or more entities (for example "
+            "\"which was released more recently\", \"who was born first\", \"which is "
+            "longer\"), the per-step answers above are the values used to make that "
+            "comparison, not the final answer themselves -- you must perform the comparison "
+            "yourself and answer with the NAME of the entity that satisfies it, not a date, "
+            "number, or other raw value.",
+            "For yes/no questions, answer yes or no only.",
+            "",
+            "Output exactly one line:",
+            f"{FINAL_ANSWER_MARKER} <short answer>",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def build_final_reader_cot_prompt_comparison_reasoning(
+    q_main: str,
+    hop_steps: list[tuple[str, str]],
+    prior: list[str],
+) -> str:
+    """
+    Same as build_final_reader_cot_prompt_comparison_hint, plus one instruction requiring an
+    explicit reasoning line before the final answer.
+
+    Case-study finding: after comparison_hint fixed the "answered with a raw date instead of
+    comparing" failure mode, a large share of still-wrong comparison-question cases (49% of
+    genuine -- non-near-miss -- residual errors on 2WikiMultihopQA) now DO attempt the
+    comparison but get it wrong -- picking the wrong entity, inverting which direction
+    "earlier/later/first" points, or losing track of which value belongs to which entity
+    across a long indirect chain (director's name via one hop, then that director's birth/
+    death date via another, for K=4 comparison questions -- see conversation). This is not a
+    single fixable rule the way the original comparison_hint bug was; it looks like a general
+    difficulty tracking values through several hops of indirection before comparing them.
+    Making the model write out the comparison explicitly before answering (a standard CoT
+    mitigation for exactly this class of arithmetic/tracking slip) is the next thing to try,
+    rather than another prompt rule.
+
+    parse_final_answer_from_cot already only keeps the LAST "Final answer: ..." line via
+    FINAL_ANSWER_RE.findall(...)[-1], so free-form reasoning text before that line is safe to
+    add -- nothing about answer parsing needs to change. FINAL_READER_SYSTEM_PROMPT's "do not
+    write anything AFTER the final answer line" is also unaffected since it only constrains
+    what follows, not what precedes.
+    """
+    lines: list[str] = []
+    if hop_steps:
+        lines.append("Reasoning trace:")
+        for i, ((subq, ev), ans) in enumerate(zip(hop_steps, prior), start=1):
+            lines.append(f"Step {i}:")
+            lines.append(f"Subquestion: {subq}")
+            lines.append(f"Selected evidence: {ev}")
+            lines.append(f"Answer: {ans}")
+            lines.append("")
+    else:
+        lines.append("Reasoning trace: [empty]")
+        lines.append("")
+    lines.extend(
+        [
+            "Re-read the original question before answering:",
+            q_main,
+            "",
+            "Answer the original question directly using only the reasoning trace above.",
+            "Give a short span or phrase only (entity, date, number, or yes/no) as the FINAL "
+            "answer.",
+            "If the original question asks you to COMPARE two or more entities (for example "
+            "\"which was released more recently\", \"who was born first\", \"which is "
+            "longer\"), the per-step answers above are the values used to make that "
+            "comparison, not the final answer themselves -- you must perform the comparison "
+            "yourself and answer with the NAME of the entity that satisfies it, not a date, "
+            "number, or other raw value.",
+            "For yes/no questions, answer yes or no only.",
+            "",
+            "First, on one line, briefly show your reasoning -- for comparison questions, "
+            "explicitly state which step's answer belongs to which entity, the two values "
+            "being compared, and which one satisfies the comparison.",
+            "Then output the final answer on its own line:",
+            f"{FINAL_ANSWER_MARKER} <short answer>",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def build_final_reader_cot_prompt_comparison_positive(
+    q_main: str,
+    hop_steps: list[tuple[str, str]],
+    prior: list[str],
+) -> str:
+    """
+    Same intent as build_final_reader_cot_prompt_comparison_hint, rewritten to state what TO
+    do instead of what NOT to do, and with the illustrative examples dropped.
+
+    Case-study finding on comparison_hint's actual wording ("... answer with the NAME of the
+    entity that satisfies it, not a date, number, or other raw value"): inspecting cases
+    that flipped from correct to wrong once an explicit reasoning step was added (see
+    conversation) showed the model treating "not a date, number, or other raw value" as a
+    standalone rule -- "prefer names over dates/numbers whenever both appear in my
+    reasoning" -- and misapplying it to NON-comparison questions where a name and a date
+    both happen to appear (e.g. "the person ... is Diego Maradona (Step 1), and ... June
+    1982 (Step 2) ... June 1982 is a date, not a person, so it cannot be the final answer"
+    for a question that actually asked for the date). The negative framing gives the model
+    an abstraction ("exclude dates/numbers") detached from the actual comparison logic it's
+    supposed to be conditioned on. This version states the correct procedure positively
+    instead (identify entity <-> value pairing, determine which satisfies the comparison,
+    answer with that entity's name) with no "not X" clause to over-generalize from.
+    """
+    lines: list[str] = []
+    if hop_steps:
+        lines.append("Reasoning trace:")
+        for i, ((subq, ev), ans) in enumerate(zip(hop_steps, prior), start=1):
+            lines.append(f"Step {i}:")
+            lines.append(f"Subquestion: {subq}")
+            lines.append(f"Selected evidence: {ev}")
+            lines.append(f"Answer: {ans}")
+            lines.append("")
+    else:
+        lines.append("Reasoning trace: [empty]")
+        lines.append("")
+    lines.extend(
+        [
+            "Re-read the original question before answering:",
+            q_main,
+            "",
+            "Answer the original question directly using only the reasoning trace above.",
+            "Give a short span or phrase only (entity, date, number, or yes/no).",
+            "When the original question compares two or more entities, identify which "
+            "per-step answer belongs to which entity, determine which entity satisfies the "
+            "comparison, and answer with that entity's name.",
             "For yes/no questions, answer yes or no only.",
             "",
             "Output exactly one line:",
@@ -346,6 +565,39 @@ def load_gate_model(args: argparse.Namespace):
     model = AutoModelForCausalLM.from_pretrained(args.model, **model_kwargs)
     model.eval()
     return model, tokenizer
+
+
+def warmup_gate_model_memory(gate_model, gate_tokenizer, batch_size: int, warmup_tokens: int = 4096) -> None:
+    """
+    PyTorch's caching allocator only cudaMalloc's what a forward pass actually needs, and
+    the text length fed to the gate model grows across hops (build_trace_prefix accumulates
+    the whole raw prefix, not just the current hop) -- so peak GPU memory for this model is
+    only reached late in a run, at which point a concurrent process on a shared card may
+    have already taken the headroom this run would need. Running one oversized dummy forward
+    pass up front (well above any realistic per-hop text length) forces PyTorch to grab that
+    memory while it's available; the caching allocator holds onto it for the rest of the
+    process's life (as long as torch.cuda.empty_cache() is never called), so later, shorter
+    or longer-but-still-under-this-cap batches reuse it instead of issuing a fresh cudaMalloc
+    that could fail mid-run.
+
+    4096 is sized off measurements across all three datasets this script runs on: musique's
+    own cumulative K=4 trace text tops out at 1554 tokens; 2wiki/hotpot's real end-to-end
+    runs (using actually-selected evidence, not a gold-evidence proxy) reached at most 2398 /
+    1074 tokens of cumulative evidence, and individual candidate paragraphs in those two
+    datasets can reach ~1800-2000 tokens each (see gate_v3_main_method_report.md appendix
+    B.2 discussion) -- 4096 covers the worst case seen across all of that with margin.
+    """
+    import torch
+
+    dev = next(gate_model.parameters()).device
+    dummy_text = "warmup " * warmup_tokens
+    inputs = gate_tokenizer(
+        [dummy_text] * batch_size, return_tensors="pt", truncation=True,
+        max_length=warmup_tokens, padding=True,
+    ).to(dev)
+    with torch.no_grad():
+        gate_model(**inputs, output_hidden_states=True)
+    print(f"Gate model warm-up done: batch={batch_size} tokens<={warmup_tokens} on {dev}", flush=True)
 
 
 def render_gate_chat_text(tokenizer, text: str) -> str:
@@ -735,6 +987,7 @@ def main() -> None:
         artifacts = load_artifacts(args.artifacts_dir, args.gate_artifact_mode)
         print("Loading gate transformers model ...", flush=True)
         gate_model, gate_tokenizer = load_gate_model(args)
+        warmup_gate_model_memory(gate_model, gate_tokenizer, args.hidden_batch_size)
     else:
         gate_model = gate_tokenizer = None
 

@@ -6,6 +6,10 @@
 #   GPUS=0 DATASETS="musique 2wiki hotpot" METHODS=gated_rule_a ./run_wavefront_all.sh
 #   GPUS=0 LIMIT=20 DATASETS=musique ./run_wavefront_all.sh
 #   GPUS="0 1 2" LAMBDA_LR=0.25 ./run_wavefront_all.sh
+#
+#   # Split vLLM generation and the gate-scoring model onto two separate GPUs
+#   # instead of sharing one (GATE_GPU unset = both on GPUS's card, as before):
+#   GPUS=0 GATE_GPU=1 ./run_wavefront_all.sh
 
 set -euo pipefail
 
@@ -32,7 +36,11 @@ LAMBDA_LR="${LAMBDA_LR:-0.25}"
 COS_MODEL="${COS_MODEL:-BAAI/bge-base-en-v1.5}"
 GPU_MEMORY_UTILIZATION="${GPU_MEMORY_UTILIZATION:-0.35}"
 MAX_MODEL_LEN="${MAX_MODEL_LEN:-8192}"
-GATE_DEVICE="${GATE_DEVICE:-cuda:0}"
+# Physical GPU id for the gate-scoring model. Empty (default) = same GPU as
+# vLLM for that shard (both share one card's gpu_memory_utilization budget,
+# the original behavior). Set to a different id to give the gate model its
+# own dedicated card instead of competing with vLLM for memory.
+GATE_GPU="${GATE_GPU:-}"
 HIDDEN_BATCH_SIZE="${HIDDEN_BATCH_SIZE:-8}"
 DECOMPOSE_MODE="${DECOMPOSE_MODE:-bart_decompose}"
 GATE_ARTIFACTS="${GATE_ARTIFACTS:-${PROJECT_ROOT}/gate/artifacts_pooled}"
@@ -89,7 +97,7 @@ resolve_decompose_file() {
 }
 
 export SESSION SPLIT MODEL GPUS NUM_SHARDS DTYPE ATTN_IMPLEMENTATION LIMIT TOPK EXPAND_TOPK
-export LAMBDA_LR COS_MODEL GPU_MEMORY_UTILIZATION MAX_MODEL_LEN GATE_DEVICE HIDDEN_BATCH_SIZE
+export LAMBDA_LR COS_MODEL GPU_MEMORY_UTILIZATION MAX_MODEL_LEN GATE_GPU HIDDEN_BATCH_SIZE
 export METHODS_STR="${METHODS[*]}"
 export DATASETS_STR="${DATASETS[*]}"
 export DECOMPOSE_MODE GATE_ARTIFACTS PROJECT_ROOT
@@ -134,7 +142,7 @@ manifest = {
     "cos_model": os.environ["COS_MODEL"],
     "gpu_memory_utilization": float(os.environ["GPU_MEMORY_UTILIZATION"]),
     "max_model_len": int(os.environ["MAX_MODEL_LEN"]),
-    "gate_device": os.environ["GATE_DEVICE"],
+    "gate_gpu": os.environ["GATE_GPU"] or "same-as-vllm",
     "hidden_batch_size": int(os.environ["HIDDEN_BATCH_SIZE"]),
     "runs": runs,
 }
@@ -149,7 +157,7 @@ echo "Datasets       : ${DATASETS[*]}"
 echo "Methods        : ${METHODS[*]}"
 echo "Decompose mode : ${DECOMPOSE_MODE}"
 echo "Gate artifacts : ${GATE_ARTIFACTS}"
-echo "Devices        : ${GPUS} (${NUM_SHARDS} shard(s))"
+echo "Devices        : ${GPUS} (${NUM_SHARDS} shard(s)), gate GPU: ${GATE_GPU:-same as vLLM}"
 echo "Limit          : ${LIMIT} (0 = full split)"
 echo "Lambda LR      : ${LAMBDA_LR}"
 echo
@@ -181,14 +189,28 @@ run_shard() {
 
   mkdir -p "${out_dir}"
 
-  echo ">>> [${dataset}] gpu=${gpu} shard=${shard_index}/${NUM_SHARDS}"
+  # GATE_GPU unset (or same physical id as this shard's vLLM gpu) -> keep the
+  # original single-GPU behavior (only that one card is visible, gate model
+  # and vLLM share its gpu_memory_utilization budget). GATE_GPU set to a
+  # different id -> expose both cards to the process; vLLM (no explicit
+  # --device flag of its own) takes the first visible one, and the gate model
+  # is pointed at the second via --gate-device, so the two no longer compete
+  # for the same card's memory.
+  local visible_devices="${gpu}"
+  local gate_device="cuda:0"
+  if [[ -n "${GATE_GPU}" && "${GATE_GPU}" != "${gpu}" ]]; then
+    visible_devices="${gpu},${GATE_GPU}"
+    gate_device="cuda:1"
+  fi
+
+  echo ">>> [${dataset}] gpu=${gpu} shard=${shard_index}/${NUM_SHARDS} gate_gpu=${GATE_GPU:-${gpu}}"
   echo "    decompose: ${decompose_file}"
   echo "    out: ${out_dir}"
   echo "    log: ${log_file}"
 
   (
     set -x
-    CUDA_VISIBLE_DEVICES="${gpu}" "${PYTHON}" "${WAVEFRONT}" \
+    CUDA_VISIBLE_DEVICES="${visible_devices}" "${PYTHON}" "${WAVEFRONT}" \
       --split "${SPLIT}" \
       --dataset "${dataset}" \
       --musique-dir "${MUSIQUE_DIR}" \
@@ -207,7 +229,7 @@ run_shard() {
       --model "${MODEL}" \
       --dtype "${DTYPE}" \
       --attn-implementation "${ATTN_IMPLEMENTATION}" \
-      --gate-device "${GATE_DEVICE}" \
+      --gate-device "${gate_device}" \
       --gpu-memory-utilization "${GPU_MEMORY_UTILIZATION}" \
       --max-model-len "${MAX_MODEL_LEN}" \
       --hidden-batch-size "${HIDDEN_BATCH_SIZE}" \

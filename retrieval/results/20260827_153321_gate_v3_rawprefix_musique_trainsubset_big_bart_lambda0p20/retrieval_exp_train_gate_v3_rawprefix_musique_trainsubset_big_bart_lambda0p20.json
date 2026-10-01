@@ -1,0 +1,159 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/dev.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_dev_distractor_v1.json",
+    "decompose_mode": "bart_decompose",
+    "decompose_file": "../decompose/bart/data/musique_train_lambda_subset_big_bart_nl.jsonl",
+    "artifacts_dir": "/home/ertai/reasoning_trajectory/multihop_trace/gate/gate_v3/artifacts_pooled_v3",
+    "lambda_gate": 0.2,
+    "beam_width": 1,
+    "retrieve_k": 10,
+    "retriever": "cosine",
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "colbert_model": "colbert-ir/colbertv2.0",
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 0,
+    "sample_seed": 42,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results",
+    "out_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260827_153321_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p20",
+    "run_tag": "gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p20",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.5,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64,
+    "max_new_tokens_final": 128,
+    "final_reader_prompt": "default",
+    "short_answer_prompt": "default"
+  },
+  "output_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260827_153321_gate_v3_rawprefix_musique_trainsubset_big_bart_lambda0p20",
+  "n_examples": 3000,
+  "timing": {
+    "wall_clock_sec": 2044.2,
+    "wall_clock_hr": 0.568
+  },
+  "answer_overall": {
+    "n_examples": 3000,
+    "answer_em": 0.4413,
+    "answer_f1": 0.5271
+  },
+  "answer_by_K": {
+    "1": {
+      "n_examples": 0,
+      "answer_em": 0.0,
+      "answer_f1": 0.0
+    },
+    "2": {
+      "n_examples": 1077,
+      "answer_em": 0.5385,
+      "answer_f1": 0.6215
+    },
+    "3": {
+      "n_examples": 1149,
+      "answer_em": 0.3916,
+      "answer_f1": 0.4743
+    },
+    "4": {
+      "n_examples": 774,
+      "answer_em": 0.3798,
+      "answer_f1": 0.4743
+    }
+  },
+  "final_beam_hop_match_rate_overall": 0.7515,
+  "final_beam_hop_match_rate_by_K": {
+    "1": null,
+    "2": 0.8459,
+    "3": 0.6896,
+    "4": 0.7545
+  },
+  "final_beam_chain_match_rate_overall": 0.5133,
+  "final_beam_chain_match_rate_by_K": {
+    "1": null,
+    "2": 0.7391,
+    "3": 0.4038,
+    "4": 0.3618
+  },
+  "oracle_gold_rank_among_survivors_overall": {
+    "n_hops": 8687,
+    "recall@1": 0.7515,
+    "recall@3": 0.7515,
+    "mrr": 0.7515,
+    "avg_rank": 0.75
+  },
+  "oracle_gold_rank_among_survivors_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 2154,
+      "recall@1": 0.8459,
+      "recall@3": 0.8459,
+      "mrr": 0.8459,
+      "avg_rank": 0.85
+    },
+    "3": {
+      "n_hops": 3441,
+      "recall@1": 0.6896,
+      "recall@3": 0.6896,
+      "mrr": 0.6896,
+      "avg_rank": 0.69
+    },
+    "4": {
+      "n_hops": 3092,
+      "recall@1": 0.7545,
+      "recall@3": 0.7545,
+      "mrr": 0.7545,
+      "avg_rank": 0.75
+    }
+  },
+  "full_pool_gold_rank_overall": {
+    "n_hops": 8687,
+    "recall@1": 0.7515,
+    "recall@3": 0.8996,
+    "mrr": 0.828,
+    "avg_rank": 1.33
+  },
+  "full_pool_gold_rank_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 2154,
+      "recall@1": 0.8459,
+      "recall@3": 0.9396,
+      "mrr": 0.894,
+      "avg_rank": 1.2
+    },
+    "3": {
+      "n_hops": 3441,
+      "recall@1": 0.6896,
+      "recall@3": 0.8591,
+      "mrr": 0.7783,
+      "avg_rank": 1.39
+    },
+    "4": {
+      "n_hops": 3092,
+      "recall@1": 0.7545,
+      "recall@3": 0.9169,
+      "mrr": 0.8372,
+      "avg_rank": 1.34
+    }
+  }
+}

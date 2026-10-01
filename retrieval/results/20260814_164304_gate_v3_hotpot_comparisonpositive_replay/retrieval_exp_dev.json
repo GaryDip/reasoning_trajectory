@@ -1,0 +1,36 @@
+{
+  "config": {
+    "dataset": "hotpot",
+    "split": "dev",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/dev.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_dev_distractor_v1.json",
+    "decompose_mode": "bart_decompose",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/hotpot/bart/dev_nl.jsonl",
+    "cases_file": "results/20260813_163744_gate_v3_rawprefix_hotpot_comparisonhint_full/retrieval_cases_dev_gate_v3_rawprefix_hotpot_comparisonhint_full.jsonl",
+    "final_reader_prompt": "comparison_positive",
+    "limit": 0,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results",
+    "out_dir": null,
+    "run_tag": "gate_v3_hotpot_comparisonpositive_replay",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.3,
+    "max_model_len": 8192,
+    "max_new_tokens_final": 256
+  },
+  "cases_file": "results/20260813_163744_gate_v3_rawprefix_hotpot_comparisonhint_full/retrieval_cases_dev_gate_v3_rawprefix_hotpot_comparisonhint_full.jsonl",
+  "n_cases": 7405,
+  "n_skipped": 0,
+  "timing": {
+    "wall_clock_sec": 116.88
+  },
+  "answer_overall": {
+    "n_examples": 7405,
+    "answer_em": 0.5425,
+    "answer_f1": 0.6769
+  },
+  "n_flipped_wrong_to_correct": 67,
+  "n_flipped_correct_to_wrong": 135
+}

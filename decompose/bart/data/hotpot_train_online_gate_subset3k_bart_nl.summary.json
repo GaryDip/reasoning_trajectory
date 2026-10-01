@@ -1,0 +1,23 @@
+{
+  "n": 3000,
+  "num_hops_distribution": {
+    "1": 4,
+    "2": 2500,
+    "3": 436,
+    "4": 56,
+    "5": 3,
+    "6": 1
+  },
+  "num_hops_pred_distribution": {
+    "1": 4,
+    "2": 2500,
+    "3": 436,
+    "4": 56,
+    "5": 3,
+    "6": 1
+  },
+  "num_hops_gold_distribution": {
+    "2": 3000
+  },
+  "hop_count_match_rate": 0.8333333333333334
+}

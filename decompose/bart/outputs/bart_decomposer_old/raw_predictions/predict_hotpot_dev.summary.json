@@ -1,0 +1,17 @@
+{
+  "n": 7405,
+  "has_gold": false,
+  "pred_hop_distribution": {
+    "1": 40,
+    "2": 6938,
+    "3": 422,
+    "4": 4,
+    "5": 1
+  },
+  "gold_hop_distribution": {
+    "2": 7405
+  },
+  "hop_count_acc": 0.9369345037137069,
+  "hop_count_total": 7405,
+  "gold_hop_definition": "2wiki: len(evidences) if present, otherwise unique supporting_facts titles; hotpot: unique supporting_facts titles"
+}

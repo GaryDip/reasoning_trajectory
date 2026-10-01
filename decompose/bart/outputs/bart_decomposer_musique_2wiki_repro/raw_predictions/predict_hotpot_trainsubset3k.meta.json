@@ -1,0 +1,14 @@
+{
+  "format": "hotpot_question_decomposition",
+  "dataset": "hotpot",
+  "model_dir": "outputs/bart_decomposer_musique_2wiki_repro/checkpoint-1425",
+  "dev_file": "data/hotpot_train_online_gate_subset3k.json",
+  "output": "outputs/bart_decomposer_musique_2wiki_repro/raw_predictions/predict_hotpot_trainsubset3k.jsonl",
+  "summary": "outputs/bart_decomposer_musique_2wiki_repro/raw_predictions/predict_hotpot_trainsubset3k.summary.json",
+  "num_examples": 3000,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda"
+}

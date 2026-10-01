@@ -1,0 +1,17 @@
+{
+  "format": "musique_question_decomposition",
+  "dataset": "musique",
+  "model_dir": "outputs/bart_decomposer_musique_2wiki_repro/checkpoint-1425",
+  "dev_file": "data/musique_train_lambda_subset_big.jsonl",
+  "output": "outputs/bart_decomposer_musique_2wiki_repro/raw_predictions/predict_musique_trainsubset_big.jsonl",
+  "summary": "outputs/bart_decomposer_musique_2wiki_repro/raw_predictions/predict_musique_trainsubset_big.summary.json",
+  "num_examples": 3000,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda",
+  "overall_bleu": 86.01891250828608,
+  "overall_exact_match": 0.0,
+  "overall_hop_count_acc": 0.8936666666666667
+}

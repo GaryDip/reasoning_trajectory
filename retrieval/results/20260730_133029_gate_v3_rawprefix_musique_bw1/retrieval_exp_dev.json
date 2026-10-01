@@ -1,0 +1,117 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "dev",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/dev.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_dev_distractor_v1.json",
+    "decompose_mode": "bart_decompose",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/bart/dev_nl.jsonl",
+    "artifacts_dir": "/home/ertai/reasoning_trajectory/multihop_trace/gate/gate_v3/artifacts_pooled_v3",
+    "lambda_gate": 0.5,
+    "beam_width": 1,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "answerable_only": true,
+    "limit": 0,
+    "sample_seed": 42,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results",
+    "out_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260730_133029_gate_v3_rawprefix_musique_bw1",
+    "run_tag": null,
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:1",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.15,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64,
+    "max_new_tokens_final": 128
+  },
+  "output_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260730_133029_gate_v3_rawprefix_musique_bw1",
+  "n_examples": 2417,
+  "timing": {
+    "wall_clock_sec": 1608.56,
+    "wall_clock_hr": 0.447
+  },
+  "answer_overall": {
+    "n_examples": 2417,
+    "answer_em": 0.4299,
+    "answer_f1": 0.5256
+  },
+  "answer_by_K": {
+    "1": {
+      "n_examples": 0,
+      "answer_em": 0.0,
+      "answer_f1": 0.0
+    },
+    "2": {
+      "n_examples": 1394,
+      "answer_em": 0.4742,
+      "answer_f1": 0.5726
+    },
+    "3": {
+      "n_examples": 802,
+      "answer_em": 0.3978,
+      "answer_f1": 0.481
+    },
+    "4": {
+      "n_examples": 221,
+      "answer_em": 0.267,
+      "answer_f1": 0.3917
+    }
+  },
+  "final_beam_hop_match_rate_overall": 0.7018,
+  "final_beam_hop_match_rate_by_K": {
+    "1": null,
+    "2": 0.7636,
+    "3": 0.6661,
+    "4": 0.6012
+  },
+  "final_beam_chain_match_rate_overall": 0.5143,
+  "final_beam_chain_match_rate_by_K": {
+    "1": null,
+    "2": 0.6241,
+    "3": 0.4027,
+    "4": 0.2262
+  },
+  "oracle_gold_rank_among_survivors_overall": {
+    "n_hops": 6037,
+    "recall@1": 0.7018,
+    "recall@3": 0.7018,
+    "mrr": 0.7018,
+    "avg_rank": 0.7
+  },
+  "oracle_gold_rank_among_survivors_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 2788,
+      "recall@1": 0.7636,
+      "recall@3": 0.7636,
+      "mrr": 0.7636,
+      "avg_rank": 0.76
+    },
+    "3": {
+      "n_hops": 2384,
+      "recall@1": 0.6661,
+      "recall@3": 0.6661,
+      "mrr": 0.6661,
+      "avg_rank": 0.67
+    },
+    "4": {
+      "n_hops": 865,
+      "recall@1": 0.6012,
+      "recall@3": 0.6012,
+      "mrr": 0.6012,
+      "avg_rank": 0.6
+    }
+  }
+}

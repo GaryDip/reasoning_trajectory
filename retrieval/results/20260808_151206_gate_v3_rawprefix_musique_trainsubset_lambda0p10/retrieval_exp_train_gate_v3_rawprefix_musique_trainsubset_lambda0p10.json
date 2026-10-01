@@ -1,0 +1,155 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/dev.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_dev_distractor_v1.json",
+    "decompose_mode": "gt",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/gt/train_nl.jsonl",
+    "artifacts_dir": "/home/ertai/reasoning_trajectory/multihop_trace/gate/gate_v3/artifacts_pooled_v3",
+    "lambda_gate": 0.1,
+    "beam_width": 1,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "answerable_only": true,
+    "limit": 20,
+    "limit_per_k": 200,
+    "sample_seed": 42,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results",
+    "out_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260808_151206_gate_v3_rawprefix_musique_trainsubset_lambda0p10",
+    "run_tag": "gate_v3_rawprefix_musique_trainsubset_lambda0p10",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.3,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64,
+    "max_new_tokens_final": 128
+  },
+  "output_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260808_151206_gate_v3_rawprefix_musique_trainsubset_lambda0p10",
+  "n_examples": 600,
+  "timing": {
+    "wall_clock_sec": 491.79,
+    "wall_clock_hr": 0.137
+  },
+  "answer_overall": {
+    "n_examples": 600,
+    "answer_em": 0.46,
+    "answer_f1": 0.5736
+  },
+  "answer_by_K": {
+    "1": {
+      "n_examples": 0,
+      "answer_em": 0.0,
+      "answer_f1": 0.0
+    },
+    "2": {
+      "n_examples": 200,
+      "answer_em": 0.575,
+      "answer_f1": 0.6713
+    },
+    "3": {
+      "n_examples": 200,
+      "answer_em": 0.385,
+      "answer_f1": 0.5258
+    },
+    "4": {
+      "n_examples": 200,
+      "answer_em": 0.42,
+      "answer_f1": 0.5238
+    }
+  },
+  "final_beam_hop_match_rate_overall": 0.8178,
+  "final_beam_hop_match_rate_by_K": {
+    "1": null,
+    "2": 0.9075,
+    "3": 0.7883,
+    "4": 0.795
+  },
+  "final_beam_chain_match_rate_overall": 0.595,
+  "final_beam_chain_match_rate_by_K": {
+    "1": null,
+    "2": 0.835,
+    "3": 0.52,
+    "4": 0.43
+  },
+  "oracle_gold_rank_among_survivors_overall": {
+    "n_hops": 1800,
+    "recall@1": 0.8178,
+    "recall@3": 0.8178,
+    "mrr": 0.8178,
+    "avg_rank": 0.82
+  },
+  "oracle_gold_rank_among_survivors_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 400,
+      "recall@1": 0.9075,
+      "recall@3": 0.9075,
+      "mrr": 0.9075,
+      "avg_rank": 0.91
+    },
+    "3": {
+      "n_hops": 600,
+      "recall@1": 0.7883,
+      "recall@3": 0.7883,
+      "mrr": 0.7883,
+      "avg_rank": 0.79
+    },
+    "4": {
+      "n_hops": 800,
+      "recall@1": 0.795,
+      "recall@3": 0.795,
+      "mrr": 0.795,
+      "avg_rank": 0.8
+    }
+  },
+  "full_pool_gold_rank_overall": {
+    "n_hops": 1800,
+    "recall@1": 0.8178,
+    "recall@3": 0.9467,
+    "mrr": 0.8844,
+    "avg_rank": 1.3
+  },
+  "full_pool_gold_rank_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 400,
+      "recall@1": 0.9075,
+      "recall@3": 0.9725,
+      "mrr": 0.9423,
+      "avg_rank": 1.19
+    },
+    "3": {
+      "n_hops": 600,
+      "recall@1": 0.7883,
+      "recall@3": 0.9317,
+      "mrr": 0.8639,
+      "avg_rank": 1.35
+    },
+    "4": {
+      "n_hops": 800,
+      "recall@1": 0.795,
+      "recall@3": 0.945,
+      "mrr": 0.8708,
+      "avg_rank": 1.33
+    }
+  }
+}

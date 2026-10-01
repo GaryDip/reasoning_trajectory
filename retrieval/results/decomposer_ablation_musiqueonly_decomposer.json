@@ -1,0 +1,59 @@
+{
+  "musique": {
+    "baseline": {
+      "recall@1": 0.6994,
+      "recall@3": 0.8435,
+      "chain@1": 0.5118,
+      "EM": 0.4386,
+      "F1": 0.5341,
+      "n_hops": 6037
+    },
+    "musiqueonly_decomposer": {
+      "recall@1": 0.7069,
+      "recall@3": 0.8474,
+      "chain@1": 0.5275,
+      "EM": 0.4419,
+      "F1": 0.5363,
+      "n_hops": 5964
+    },
+    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260910_205233_gate_v3_rawprefix_musique_lambda060_dev_musiqueonly_decomposer"
+  },
+  "2wiki": {
+    "baseline": {
+      "recall@1": 0.9316,
+      "recall@3": 0.9842,
+      "chain@1": 0.8685,
+      "EM": 0.6023,
+      "F1": 0.6819,
+      "n_hops": 30621
+    },
+    "musiqueonly_decomposer": {
+      "recall@1": 0.6907,
+      "recall@3": 0.8689,
+      "chain@1": 0.5651,
+      "EM": 0.5189,
+      "F1": 0.5976,
+      "n_hops": 25272
+    },
+    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260910_211502_gate_v3_rawprefix_2wiki_lambda060_dev_musiqueonly_decomposer"
+  },
+  "hotpot": {
+    "baseline": {
+      "recall@1": 0.662,
+      "recall@3": 0.8701,
+      "chain@1": 0.561,
+      "EM": 0.5519,
+      "F1": 0.6883,
+      "n_hops": 14796
+    },
+    "musiqueonly_decomposer": {
+      "recall@1": 0.5825,
+      "recall@3": 0.829,
+      "chain@1": 0.4704,
+      "EM": 0.5423,
+      "F1": 0.6792,
+      "n_hops": 14770
+    },
+    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260910_223856_gate_v3_rawprefix_hotpot_lambda060_dev_musiqueonly_decomposer"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "musique": {
+    "D 组": {
+      "n": 2417,
+      "precision_macro": 0.8837401737691366,
+      "precision_micro": 0.8822355289421158,
+      "coverage_macro": 0.7957867880292403,
+      "set_f1_macro": 0.8274966999625692,
+      "avg_retrieved": 2.280099296648738,
+      "avg_gold": 2.6011584609019445
+    },
+    "ChainRAG": {
+      "n": 2417,
+      "precision_macro": 0.20677832005753316,
+      "precision_micro": 0.17128219723922014,
+      "coverage_macro": 0.9587298303682255,
+      "set_f1_macro": 0.32354972672259064,
+      "avg_retrieved": 14.536615639222177,
+      "avg_gold": 2.6011584609019445,
+      "n_hops": 5162,
+      "recall@1": 0.671638899651298,
+      "recall@3": 0.8628438589693918,
+      "precision@3": 0.3948727883249314,
+      "gold_in_top3": 1.1846183649747943
+    },
+    "GRITHopper": {
+      "n": 2417,
+      "precision_macro": 0.9091159840022076,
+      "precision_micro": 0.9090909090909091,
+      "coverage_macro": 0.8207143842228685,
+      "set_f1_macro": 0.8517406466103237,
+      "avg_retrieved": 2.307405875051717,
+      "avg_gold": 2.6011584609019445,
+      "n_hops": 6404,
+      "recall@1": 0.905840099937539,
+      "recall@3": 0.9862585883822611,
+      "precision@3": 0.6087341245055048,
+      "gold_in_top3": 1.8262023735165145
+    }
+  },
+  "2wiki": {
+    "D 组": {
+      "n": 12576,
+      "precision_macro": 0.9672656912637821,
+      "precision_micro": 0.9717003248601762,
+      "coverage_macro": 0.9407402989821882,
+      "set_f1_macro": 0.9495365321701145,
+      "avg_retrieved": 2.374284351145038,
+      "avg_gold": 2.4375
+    },
+    "ChainRAG": {
+      "n": 12576,
+      "precision_macro": 0.3559290308574377,
+      "precision_micro": 0.3160067299955064,
+      "coverage_macro": 0.9870189249363868,
+      "set_f1_macro": 0.4998354482490639,
+      "avg_retrieved": 7.609017175572519,
+      "avg_gold": 2.4375,
+      "n_hops": 22737,
+      "recall@1": 0.9199102784008444,
+      "recall@3": 0.9784932049082993,
+      "precision@3": 0.5858879066425985,
+      "gold_in_top3": 1.7576637199277954
+    },
+    "GRITHopper": {
+      "n": 12576,
+      "precision_macro": 0.9540460665818479,
+      "precision_micro": 0.9593198679493096,
+      "coverage_macro": 0.8922153307888041,
+      "set_f1_macro": 0.9138572715982071,
+      "avg_retrieved": 2.2400604325699747,
+      "avg_gold": 2.4375,
+      "n_hops": 30654,
+      "recall@1": 0.9500228355190187,
+      "recall@3": 0.9964115612970574,
+      "precision@3": 0.6785520106131134,
+      "gold_in_top3": 2.0356560318393404
+    }
+  },
+  "hotpot": {
+    "D 组": {
+      "n": 7405,
+      "precision_macro": 0.8954985370245345,
+      "precision_micro": 0.8909885770695247,
+      "coverage_macro": 0.8532072923700202,
+      "set_f1_macro": 0.8650146297546806,
+      "avg_retrieved": 1.9151924375422011,
+      "avg_gold": 2.0
+    },
+    "ChainRAG": {
+      "n": 7405,
+      "precision_macro": 0.2752025122450596,
+      "precision_micro": 0.25097931413648544,
+      "coverage_macro": 0.986360567184335,
+      "set_f1_macro": 0.42154635970977006,
+      "avg_retrieved": 7.860094530722485,
+      "avg_gold": 2.0,
+      "n_hops": 13658,
+      "recall@1": 0.803192268267682,
+      "recall@3": 0.9495533753111729,
+      "precision@3": 0.46785766583686855,
+      "gold_in_top3": 1.403572997510606
+    },
+    "GRITHopper": {
+      "n": 7405,
+      "precision_macro": 0.9657663740715733,
+      "precision_micro": 0.9707715750103892,
+      "coverage_macro": 0.9463875759621877,
+      "set_f1_macro": 0.952847175331986,
+      "avg_retrieved": 1.949763673193788,
+      "avg_gold": 2.0,
+      "n_hops": 14810,
+      "recall@1": 0.9657663740715733,
+      "recall@3": 0.9959486833220796,
+      "precision@3": 0.5993923024983514,
+      "gold_in_top3": 1.7981769074950542
+    }
+  }
+}

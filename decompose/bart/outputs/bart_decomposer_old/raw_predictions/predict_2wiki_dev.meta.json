@@ -1,0 +1,14 @@
+{
+  "format": "2wiki_question_decomposition",
+  "dataset": "2wiki",
+  "model_dir": "outputs/bart_decomposer_old/checkpoint-936",
+  "dev_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/dev.json",
+  "output": "outputs/bart_decomposer_old/raw_predictions/predict_2wiki_dev.jsonl",
+  "summary": "outputs/bart_decomposer_old/raw_predictions/predict_2wiki_dev.summary.json",
+  "num_examples": 12576,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda"
+}

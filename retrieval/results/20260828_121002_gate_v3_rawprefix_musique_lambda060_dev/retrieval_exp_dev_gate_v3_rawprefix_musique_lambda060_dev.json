@@ -1,0 +1,159 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "dev",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/dev.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_dev_distractor_v1.json",
+    "decompose_mode": "bart_decompose",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/bart/dev_nl.jsonl",
+    "artifacts_dir": "/home/ertai/reasoning_trajectory/multihop_trace/gate/gate_v3/artifacts_pooled_v3",
+    "lambda_gate": 0.6,
+    "beam_width": 1,
+    "retrieve_k": 10,
+    "retriever": "cosine",
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "colbert_model": "colbert-ir/colbertv2.0",
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 0,
+    "sample_seed": 42,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results",
+    "out_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260828_121002_gate_v3_rawprefix_musique_lambda060_dev",
+    "run_tag": "gate_v3_rawprefix_musique_lambda060_dev",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.3,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64,
+    "max_new_tokens_final": 128,
+    "final_reader_prompt": "comparison_hint",
+    "short_answer_prompt": "default"
+  },
+  "output_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260828_121002_gate_v3_rawprefix_musique_lambda060_dev",
+  "n_examples": 2417,
+  "timing": {
+    "wall_clock_sec": 1405.36,
+    "wall_clock_hr": 0.39
+  },
+  "answer_overall": {
+    "n_examples": 2417,
+    "answer_em": 0.4386,
+    "answer_f1": 0.5341
+  },
+  "answer_by_K": {
+    "1": {
+      "n_examples": 0,
+      "answer_em": 0.0,
+      "answer_f1": 0.0
+    },
+    "2": {
+      "n_examples": 1394,
+      "answer_em": 0.4842,
+      "answer_f1": 0.5842
+    },
+    "3": {
+      "n_examples": 802,
+      "answer_em": 0.3953,
+      "answer_f1": 0.4815
+    },
+    "4": {
+      "n_examples": 221,
+      "answer_em": 0.3077,
+      "answer_f1": 0.4096
+    }
+  },
+  "final_beam_hop_match_rate_overall": 0.6994,
+  "final_beam_hop_match_rate_by_K": {
+    "1": null,
+    "2": 0.7593,
+    "3": 0.664,
+    "4": 0.6035
+  },
+  "final_beam_chain_match_rate_overall": 0.5118,
+  "final_beam_chain_match_rate_by_K": {
+    "1": null,
+    "2": 0.6191,
+    "3": 0.4027,
+    "4": 0.2308
+  },
+  "oracle_gold_rank_among_survivors_overall": {
+    "n_hops": 6037,
+    "recall@1": 0.6994,
+    "recall@3": 0.6994,
+    "mrr": 0.6994,
+    "avg_rank": 0.7
+  },
+  "oracle_gold_rank_among_survivors_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 2788,
+      "recall@1": 0.7593,
+      "recall@3": 0.7593,
+      "mrr": 0.7593,
+      "avg_rank": 0.76
+    },
+    "3": {
+      "n_hops": 2384,
+      "recall@1": 0.664,
+      "recall@3": 0.664,
+      "mrr": 0.664,
+      "avg_rank": 0.66
+    },
+    "4": {
+      "n_hops": 865,
+      "recall@1": 0.6035,
+      "recall@3": 0.6035,
+      "mrr": 0.6035,
+      "avg_rank": 0.6
+    }
+  },
+  "full_pool_gold_rank_overall": {
+    "n_hops": 6037,
+    "recall@1": 0.6994,
+    "recall@3": 0.8435,
+    "mrr": 0.778,
+    "avg_rank": 1.46
+  },
+  "full_pool_gold_rank_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 2788,
+      "recall@1": 0.7593,
+      "recall@3": 0.8824,
+      "mrr": 0.8271,
+      "avg_rank": 1.39
+    },
+    "3": {
+      "n_hops": 2384,
+      "recall@1": 0.664,
+      "recall@3": 0.8276,
+      "mrr": 0.7537,
+      "avg_rank": 1.57
+    },
+    "4": {
+      "n_hops": 865,
+      "recall@1": 0.6035,
+      "recall@3": 0.7618,
+      "mrr": 0.6869,
+      "avg_rank": 1.4
+    }
+  }
+}

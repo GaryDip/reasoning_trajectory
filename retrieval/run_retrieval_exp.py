@@ -410,6 +410,34 @@ def embed_retrieval(
     return [(paragraphs[i], float(sims[i])) for i in order]
 
 
+def embed_retrieval_against_corpus(
+    query: str,
+    doc_emb,
+    corpus_paragraphs: list[dict],
+    k: int,
+    model_name: str = "BAAI/bge-base-en-v1.5",
+) -> list[tuple[dict, float]]:
+    """Same as embed_retrieval, but scores against a PRECOMPUTED corpus embedding matrix
+    (doc_emb, aligned row-for-row with corpus_paragraphs) instead of re-encoding a small
+    per-example paragraph list every call -- the "global setting" retrieval path (see
+    build_global_corpus.py), where the candidate pool is a whole dataset's deduplicated
+    paragraphs, not just the current example's own gold+distractors. Only the query gets
+    encoded here; reuses the same _ST_CACHE embed_retrieval already populates, so distractor-
+    and global-setting runs of the same script share one loaded SentenceTransformer instance."""
+    import numpy as np
+    from sentence_transformers import SentenceTransformer
+
+    if model_name not in _ST_CACHE:
+        print(f"  [emb] loading {model_name} …", file=sys.stderr, flush=True)
+        _ST_CACHE[model_name] = SentenceTransformer(model_name)
+    st = _ST_CACHE[model_name]
+
+    qv = st.encode([query], normalize_embeddings=True)[0]
+    sims = doc_emb @ qv
+    order = np.argsort(-sims)[:k]
+    return [(corpus_paragraphs[int(i)], float(sims[i])) for i in order]
+
+
 def colbert_retrieval(
     query: str,
     paragraphs: list[dict],
@@ -946,6 +974,19 @@ class GateAccum:
 def find_gold_rank(ranked_paras: list[tuple[dict, float]], gold_idx: int) -> int | None:
     for rank, (para, _) in enumerate(ranked_paras, start=1):
         if int(para.get("idx", -1)) == gold_idx:
+            return rank
+    return None
+
+
+def find_gold_rank_set(ranked_paras: list[tuple[dict, float]], gold_idx_set: set[int]) -> int | None:
+    """Order-invariant twin of find_gold_rank(): rank of the first candidate whose idx is ANY
+    of gold_idx_set, not just one specific gold_idx. Use this (not find_gold_rank) whenever
+    the hop-position <-> gold-position correspondence isn't guaranteed to be stable -- e.g.
+    comparing recall@k against another method's own, independently-generated decomposition
+    (ChainRAG, GRITHopper), which has no equivalent of this project's own annotated hop order
+    to align a specific gold_idx against."""
+    for rank, (para, _) in enumerate(ranked_paras, start=1):
+        if int(para.get("idx", -1)) in gold_idx_set:
             return rank
     return None
 

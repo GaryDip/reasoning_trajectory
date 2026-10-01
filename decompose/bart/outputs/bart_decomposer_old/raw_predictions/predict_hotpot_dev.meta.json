@@ -1,0 +1,14 @@
+{
+  "format": "hotpot_question_decomposition",
+  "dataset": "hotpot",
+  "model_dir": "outputs/bart_decomposer_old/checkpoint-936",
+  "dev_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_dev_distractor_v1.json",
+  "output": "outputs/bart_decomposer_old/raw_predictions/predict_hotpot_dev.jsonl",
+  "summary": "outputs/bart_decomposer_old/raw_predictions/predict_hotpot_dev.summary.json",
+  "num_examples": 7405,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda"
+}

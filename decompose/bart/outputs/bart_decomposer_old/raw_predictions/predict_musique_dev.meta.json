@@ -1,0 +1,17 @@
+{
+  "format": "musique_question_decomposition",
+  "dataset": "musique",
+  "model_dir": "outputs/bart_decomposer_old/checkpoint-936",
+  "dev_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/musique_raw/musique_ans_gold_context_version_dev.jsonl",
+  "output": "outputs/bart_decomposer_old/raw_predictions/predict_musique_dev.jsonl",
+  "summary": "outputs/bart_decomposer_old/raw_predictions/predict_musique_dev.summary.json",
+  "num_examples": 2417,
+  "batch_size": 16,
+  "num_beams": 10,
+  "max_source_length": 100,
+  "max_new_tokens": 100,
+  "device": "cuda",
+  "overall_bleu": 75.93508846203912,
+  "overall_exact_match": 0.0,
+  "overall_hop_count_acc": 0.815473727761688
+}
