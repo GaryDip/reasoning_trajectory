@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>汇报报告.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="multi-hop-trace-gate-%E6%B1%87%E6%8A%A5%E6%8A%A5%E5%91%8A">Multi-hop Trace Gate 汇报报告</h1>
+<h2 id="1-motivation">1. Motivation</h2>
+<p>多跳问答的核心难点不是单次检索，而是<strong>每一步检索都会影响后续推理链</strong>。如果某一 hop 取错 evidence，后面的子问题会基于错误上下文继续展开，错误会沿着 reasoning chain 放大。现有方法常见问题包括：</p>
+<ul>
+<li><strong>静态检索缺少过程反馈</strong>：只按当前 query 的 embedding 相似度取 top-k，无法判断“当前推理状态是否已经偏离”。</li>
+<li><strong>query decomposition 只解决问题拆分，不解决错误传播</strong>：分解模型能把复杂问题拆成多个子问题，但后续每一步是否应该重新检索、扩大候选或重排，仍然缺少机制。</li>
+<li><strong>LLM 自我判断成本高且不稳定</strong>：让 LLM 每一步反思是否错了，推理成本较高，且容易受 prompt 与上下文扰动影响。</li>
+<li><strong>长 hop 数据更少</strong>：3-hop / 4-hop 样本天然少，直接训练 gate 会让后几步 transition 学得不稳定。</li>
+</ul>
+<p>本项目尝试用一个更轻量的方式解决这个问题：先构造可控的 correct / error reasoning trace，再从 Llama hidden state 的 transition 中学习一个 gate。gate 的目标是判断当前 hop 前后的隐藏状态变化是否异常，从而在端到端召回时触发检索干预。</p>
+<h2 id="2-related-work">2. Related Work</h2>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>代表工作</th>
+<th>与本项目的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多跳问答数据集</td>
+<td>MuSiQue、2WikiMultiHopQA、HotpotQA</td>
+<td>提供多跳 QA 与 evidence 监督；本项目主要用 MuSiQue 构造 trace，并在 2Wiki / Hotpot 上做端到端验证。</td>
+</tr>
+<tr>
+<td>Query decomposition for RAG</td>
+<td>2025 年 TableRAG、Transforming Questions and Documents for Semantically Aligned RAG</td>
+<td>强调把复杂问题分解成可检索的子问题；本项目同样依赖分解，但进一步学习每个 hop 的错误检测 gate。</td>
+</tr>
+<tr>
+<td>Adaptive / uncertainty-aware retrieval</td>
+<td>FLARE、Self-RAG、Adaptive-RAG、2026 年 CRAG reproduction</td>
+<td>这些方法多用置信度、反思 token 或检索质量评估决定是否检索 / 修正；本项目用 hidden-state transition 训练轻量 LR gate，避免每步都做复杂反思。</td>
+</tr>
+<tr>
+<td>Semantic-aligned multi-hop retrieval</td>
+<td>2025 年 Transforming Questions and Documents for Semantically Aligned RAG</td>
+<td>关注多跳检索中的 query/document 语义对齐；本项目的差异在于显式构造反事实错误 trace，并学习“何时干预”。</td>
+</tr>
+<tr>
+<td>Graph / path-based RAG</td>
+<td>2026 年 S-Path-RAG</td>
+<td>这类方法改进知识图谱路径检索；本项目不主要改索引结构，而是在推理过程中对每个 hop 的 retrieval decision 做动态控制。</td>
+</tr>
+</tbody>
+</table>
+<p>参考链接：</p>
+<ul>
+<li>MuSiQue: Multihop Questions via Single-hop Question Composition, https://arxiv.org/abs/2108.00573</li>
+<li>2WikiMultiHopQA, https://aclanthology.org/2020.coling-main.580/</li>
+<li>HotpotQA, https://aclanthology.org/D18-1259/</li>
+<li>BGE M3 / FlagEmbedding, https://arxiv.org/abs/2402.03216</li>
+<li>Active Retrieval Augmented Generation / FLARE, https://arxiv.org/abs/2305.06983</li>
+<li>Self-RAG, https://arxiv.org/abs/2310.11511</li>
+<li>Adaptive-RAG, https://arxiv.org/abs/2403.14403</li>
+<li>TableRAG, https://arxiv.org/abs/2506.10380</li>
+<li>Transforming Questions and Documents for Semantically Aligned RAG, https://arxiv.org/abs/2508.09755</li>
+<li>S-Path-RAG, https://arxiv.org/abs/2603.23512</li>
+<li>Open-Source Reproduction and Explainability Analysis of CRAG, https://arxiv.org/abs/2603.16169</li>
+</ul>
+<h2 id="3-method">3. Method</h2>
+<p>整体流程可以理解为五步：</p>
+<pre class="hljs"><code><div>原始多跳数据
+  -&gt; BART question decomposer
+  -&gt; MuSiQue correct / counterfactual reasoning traces
+  -&gt; Llama hidden-state transition features
+  -&gt; PCA + Logistic Regression gate
+  -&gt; BART 分解驱动的端到端多跳召回
+</div></code></pre>
+<h3 id="31-bart-decomposer">3.1 BART Decomposer</h3>
+<p>代码位置：<code>decompose/bart/</code></p>
+<p>项目首先训练一个 BART-large decomposer，将原始复杂问题拆成多个自然语言 sub-question。训练数据包括：</p>
+<ul>
+<li>MuSiQue 官方 BART 格式训练集；</li>
+<li>经过 GPT 标注的 2Wiki mixed train/dev；</li>
+<li>输出格式先是官方 <code>[[CQS]] / [[CQE]]</code> hop 格式，再转换成自然语言 sub-question。</li>
+</ul>
+<p>当前 checkpoint：</p>
+<ul>
+<li><code>outputs/bart_decomposer_musique_2wiki_repro/checkpoint-1425</code></li>
+<li>训练 3 epoch，learning rate = <code>1e-5</code>，batch size = <code>16</code>，bf16。</li>
+</ul>
+<p>Decomposer 的作用不是直接回答问题，而是给下游 retrieval pipeline 提供每一步要问什么。</p>
+<h3 id="32-trace-%E6%9E%84%E9%80%A0%E4%B8%8E-query-rewrite">3.2 Trace 构造与 Query Rewrite</h3>
+<p>代码位置：<code>traces/</code></p>
+<p>训练 gate 不能只依赖模型自然犯错，因为自然错误不可控、标签不稳定。因此项目构造了两类 trace：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>evidence 设置</th>
+<th>label 含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>correct trace</td>
+<td>每个 hop 都使用 gold evidence</td>
+<td>所有 transition 都不需要干预</td>
+</tr>
+<tr>
+<td>counterfactual trace</td>
+<td>指定 hop 注入 cosine top-k 中的非 gold passage</td>
+<td>对应 transition 标为需要干预</td>
+</tr>
+</tbody>
+</table>
+<p>负例构造方式：</p>
+<ol>
+<li>对每个 hop 的 sub-question 做检索 query。</li>
+<li>把 <code>[Answer N]</code> 用前面 gold hop answer 展开，保持线上使用方式一致。</li>
+<li>从 BGE cosine top-k 中选择非 gold passage，替换该 hop 的 gold evidence。</li>
+<li>只把第一次错误 hop 对应的 transition 标成正类，即 <code>should_intervene(j) = (j + 1) in wrong_hops</code>。</li>
+</ol>
+<p>为缓解长 hop 数据少的问题，train split 对 3-hop / 4-hop 的 MuSiQue 分解做了 query rewrite 增强：</p>
+<ul>
+<li>输入：<code>data/decompose/musique/gt/train_nl.jsonl</code></li>
+<li>输出：<code>data/decompose/musique/gt/train_nl_enhance.jsonl</code></li>
+<li>目标 hop：3、4</li>
+<li>生成 5,562 个候选，最终写入 5,562 条，其中并入 trace 构造的增强样本为 4,132 条。</li>
+</ul>
+<h3 id="33-hidden-state-extraction">3.3 Hidden State Extraction</h3>
+<p>代码位置：<code>hidden_states/extract_hidden_states.py</code></p>
+<p>对每条 reasoning trace，项目使用 <code>meta-llama/Llama-3.1-8B-Instruct</code> 提取每个 cumulative prefix 的最后 token hidden state：</p>
+<pre class="hljs"><code><div>h0: Question
+h1: Question + Evidence 1
+h2: Question + Evidence 1 + Evidence 2
+...
+</div></code></pre>
+<p>gate 使用的是 transition delta：</p>
+<pre class="hljs"><code><div>Delta_j = h_j - h_{j-1}
+</div></code></pre>
+<p>实现上每个 prefix 独立 full forward，不使用 incremental KV；默认读取第 31 层 hidden state，dtype 为 bf16。</p>
+<h3 id="34-gate-training">3.4 Gate Training</h3>
+<p>代码位置：<code>gate/</code></p>
+<p>gate 是一个轻量分类器：</p>
+<pre class="hljs"><code><div>4096-d hidden delta
+  -&gt; PCA 到 64 维
+  -&gt; Logistic Regression
+  -&gt; abnormal score
+  -&gt; threshold 判断是否触发干预
+</div></code></pre>
+<p>当前使用 pooled-by-transition 协议，即按语义 transition 合并不同 K 的样本：</p>
+<table>
+<thead>
+<tr>
+<th>j</th>
+<th>transition</th>
+<th>使用的 K</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Q -&gt; E1</td>
+<td>2, 3, 4</td>
+</tr>
+<tr>
+<td>1</td>
+<td>E1 -&gt; E2</td>
+<td>2, 3, 4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>E2 -&gt; E3</td>
+<td>3, 4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>E3 -&gt; E4</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>不训练 final transition，因为 final answer 阶段没有对应的 evidence selection hop。</p>
+<h3 id="35-end-to-end-retrieval">3.5 End-to-end Retrieval</h3>
+<p>代码位置：<code>retrieval/run_retrieval_exp_wavefront.py</code></p>
+<p>端到端流程如下：</p>
+<ol>
+<li>BART decomposer 生成 dev 集 sub-questions。</li>
+<li>每个 hop 用 BGE-base-en-v1.5 做 cosine retrieval，取 top-k。</li>
+<li>Llama 根据当前上下文从候选中选择 passage 并生成当前 hop answer。</li>
+<li>gate 对 hidden-state transition 打 abnormal score。</li>
+<li>如果 gate 认为 top candidate 异常，则扩大候选并使用 <code>cosine + lambda * LR score</code> 做 rerank。</li>
+<li>所有 hop 完成后，用 final reader 根据 reasoning trace 输出最终答案。</li>
+</ol>
+<p>当前结果使用 <code>gated_rule_a</code>，<code>lambda_lr=0.25</code>，<code>topk=10</code>，<code>expand_topk=10</code>。</p>
+<h2 id="4-experiments">4. Experiments</h2>
+<h3 id="41-datasets">4.1 Datasets</h3>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>用途</th>
+<th>规模 / 设置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MuSiQue</td>
+<td>decomposer 训练、trace 构造、gate 训练与 dev 评估</td>
+<td>train / dev，多 hop，in-pool 约 20 段</td>
+</tr>
+<tr>
+<td>2WikiMultiHopQA</td>
+<td>decomposer 混合训练、端到端泛化评估</td>
+<td>dev 12,576 条</td>
+</tr>
+<tr>
+<td>HotpotQA</td>
+<td>端到端泛化评估</td>
+<td>distractor dev 7,405 条</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-decomposer-evaluation">4.2 Decomposer Evaluation</h3>
+<p>BART decomposer 在 MuSiQue dev 上的主要指标：</p>
+<table>
+<thead>
+<tr>
+<th>评估文件</th>
+<th style="text-align:right">n</th>
+<th style="text-align:right">BLEU</th>
+<th style="text-align:right">hop count acc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>training eval latest</td>
+<td style="text-align:right">3,460</td>
+<td style="text-align:right">80.58</td>
+<td style="text-align:right">87.95%</td>
+</tr>
+<tr>
+<td>raw prediction summary</td>
+<td style="text-align:right">2,417</td>
+<td style="text-align:right">76.81</td>
+<td style="text-align:right">83.66%</td>
+</tr>
+</tbody>
+</table>
+<p>按 gold hop 数看，2-hop 最稳定，4-hop 最难：</p>
+<table>
+<thead>
+<tr>
+<th>gold hops</th>
+<th style="text-align:right">n</th>
+<th style="text-align:right">hop count acc</th>
+<th>主要错误</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td style="text-align:right">1,252</td>
+<td style="text-align:right">98.24%</td>
+<td>少量预测成 3-hop</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">760</td>
+<td style="text-align:right">78.16%</td>
+<td>部分被压成 2-hop</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:right">405</td>
+<td style="text-align:right">48.89%</td>
+<td>大量被压成 3-hop</td>
+</tr>
+</tbody>
+</table>
+<p>这说明 decomposer 对长链问题仍有明显瓶颈，因此后续报告结果需要同时关注 <code>k_match_rate</code>。</p>
+<h3 id="43-trace-%E6%95%B0%E6%8D%AE%E8%A7%84%E6%A8%A1">4.3 Trace 数据规模</h3>
+<table>
+<thead>
+<tr>
+<th>split</th>
+<th style="text-align:right">正例</th>
+<th style="text-align:right">未平衡负例</th>
+<th style="text-align:right">平衡后负例</th>
+<th style="text-align:right">merged 总数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>train</td>
+<td style="text-align:right">24,070</td>
+<td style="text-align:right">179,571</td>
+<td style="text-align:right">59,857</td>
+<td style="text-align:right">83,927</td>
+</tr>
+<tr>
+<td>dev</td>
+<td style="text-align:right">2,417</td>
+<td style="text-align:right">19,212</td>
+<td style="text-align:right">6,404</td>
+<td style="text-align:right">8,821</td>
+</tr>
+</tbody>
+</table>
+<p>train split 正例分布：</p>
+<table>
+<thead>
+<tr>
+<th>K</th>
+<th style="text-align:right">正例数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td style="text-align:right">14,376</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">7,671</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:right">2,023</td>
+</tr>
+</tbody>
+</table>
+<p>每个 <code>(K, hop)</code> 桶都按 <code>pos_count[K] * balance_ratio</code> 选择负例，使各 hop 都能学习到对应的错误 transition。</p>
+<h3 id="44-gate-evaluation">4.4 Gate Evaluation</h3>
+<p>dev 上 pooled LR gate 的整体结果：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">AUC</th>
+<th style="text-align:right">TPR</th>
+<th style="text-align:right">FPR</th>
+<th style="text-align:right">Precision</th>
+<th style="text-align:right">F1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0.9074</td>
+<td style="text-align:right">82.35%</td>
+<td style="text-align:right">17.56%</td>
+<td style="text-align:right">70.84%</td>
+<td style="text-align:right">76.16%</td>
+</tr>
+</tbody>
+</table>
+<p>按 transition 看：</p>
+<table>
+<thead>
+<tr>
+<th>transition</th>
+<th style="text-align:right">TPR</th>
+<th style="text-align:right">FPR</th>
+<th style="text-align:right">Precision</th>
+<th style="text-align:right">F1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q -&gt; E1</td>
+<td style="text-align:right">86.59%</td>
+<td style="text-align:right">16.58%</td>
+<td style="text-align:right">66.34%</td>
+<td style="text-align:right">75.13%</td>
+</tr>
+<tr>
+<td>E1 -&gt; E2</td>
+<td style="text-align:right">81.59%</td>
+<td style="text-align:right">18.41%</td>
+<td style="text-align:right">72.88%</td>
+<td style="text-align:right">76.99%</td>
+</tr>
+<tr>
+<td>E2 -&gt; E3</td>
+<td style="text-align:right">78.03%</td>
+<td style="text-align:right">20.06%</td>
+<td style="text-align:right">74.26%</td>
+<td style="text-align:right">76.10%</td>
+</tr>
+<tr>
+<td>E3 -&gt; E4</td>
+<td style="text-align:right">74.07%</td>
+<td style="text-align:right">14.81%</td>
+<td style="text-align:right">83.33%</td>
+<td style="text-align:right">78.43%</td>
+</tr>
+</tbody>
+</table>
+<p>按 K 看，链越长检测越难：</p>
+<table>
+<thead>
+<tr>
+<th>K</th>
+<th style="text-align:right">TPR</th>
+<th style="text-align:right">FPR</th>
+<th style="text-align:right">Precision</th>
+<th style="text-align:right">F1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td style="text-align:right">86.38%</td>
+<td style="text-align:right">18.48%</td>
+<td style="text-align:right">75.71%</td>
+<td style="text-align:right">80.69%</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">81.32%</td>
+<td style="text-align:right">18.25%</td>
+<td style="text-align:right">69.02%</td>
+<td style="text-align:right">74.67%</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:right">77.59%</td>
+<td style="text-align:right">15.93%</td>
+<td style="text-align:right">66.09%</td>
+<td style="text-align:right">71.38%</td>
+</tr>
+</tbody>
+</table>
+<p>结论：hidden-state delta 中确实包含可学习的错误信号。gate 不是完美分类器，但能以较低成本捕捉大多数被注入错误的 transition。</p>
+<h3 id="45-end-to-end-retrieval-results">4.5 End-to-end Retrieval Results</h3>
+<p>当前完整端到端结果来自 session：</p>
+<p><code>retrieval/results/20260628_120339_wavefront_pooled_lam0p25/</code></p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th style="text-align:right">n examples</th>
+<th style="text-align:right">k match</th>
+<th style="text-align:right">hop recall@1</th>
+<th style="text-align:right">hop recall@3</th>
+<th style="text-align:right">MRR</th>
+<th style="text-align:right">chain recall@1</th>
+<th style="text-align:right">chain recall@3</th>
+<th style="text-align:right">selection acc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MuSiQue</td>
+<td style="text-align:right">2,417</td>
+<td style="text-align:right">83.82%</td>
+<td style="text-align:right">65.13%</td>
+<td style="text-align:right">80.44%</td>
+<td style="text-align:right">72.02%</td>
+<td style="text-align:right">42.33%</td>
+<td style="text-align:right">64.71%</td>
+<td style="text-align:right">61.77%</td>
+</tr>
+<tr>
+<td>2Wiki</td>
+<td style="text-align:right">12,576</td>
+<td style="text-align:right">98.66%</td>
+<td style="text-align:right">84.84%</td>
+<td style="text-align:right">94.01%</td>
+<td style="text-align:right">88.99%</td>
+<td style="text-align:right">66.84%</td>
+<td style="text-align:right">85.89%</td>
+<td style="text-align:right">79.73%</td>
+</tr>
+<tr>
+<td>HotpotQA</td>
+<td style="text-align:right">7,405</td>
+<td style="text-align:right">87.63%</td>
+<td style="text-align:right">61.86%</td>
+<td style="text-align:right">81.68%</td>
+<td style="text-align:right">70.78%</td>
+<td style="text-align:right">40.93%</td>
+<td style="text-align:right">61.26%</td>
+<td style="text-align:right">57.19%</td>
+</tr>
+</tbody>
+</table>
+<p>其中：</p>
+<ul>
+<li><code>hop recall</code> 表示每个 hop 的 gold evidence 是否被召回。</li>
+<li><code>chain recall</code> 表示整条链的所有 gold evidence 是否都被召回。</li>
+<li><code>selection acc</code> 表示 Llama 从候选 passage 中选中 gold evidence 的比例。</li>
+<li><code>k match</code> 表示 BART 预测 hop 数与 gold hop 数一致的样本比例。</li>
+</ul>
+<p>结果解读：</p>
+<ul>
+<li>2Wiki 表现最好，主要因为 BART 在该数据上的 hop 数匹配率高，且 evidence selection 更稳定。</li>
+<li>MuSiQue 与 HotpotQA 的 hop-level recall@3 都在 80% 左右，但 chain-level 指标明显下降，说明多跳链式任务中单步错误会迅速累积。</li>
+<li>MuSiQue 4-hop 的 decomposer hop count acc 只有 48.89%，这会限制端到端上限；因此后续提升不仅要改 gate，也要继续改长链分解。</li>
+</ul>
+<h3 id="46-baseline-%E5%AF%B9%E6%AF%94%E8%A1%A5%E5%85%85">4.6 Baseline 对比补充</h3>
+<p>旧目录 <code>multihop_trajectory/llama_gt_decompose_trace/retrieval_exp/results/20260620_051733_bart_pooled_detector_lam0p25/</code> 中保留了同样使用 BART decomposition 与 pooled detector 的 baseline 对比。这里摘取 <code>baseline</code> 与 <code>gated_rule_a</code>：</p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>方法</th>
+<th style="text-align:right">hop R@1</th>
+<th style="text-align:right">hop R@3</th>
+<th style="text-align:right">chain R@3</th>
+<th style="text-align:right">case R@3</th>
+<th style="text-align:right">selection acc</th>
+<th style="text-align:right">answer EM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MuSiQue</td>
+<td>baseline</td>
+<td style="text-align:right">60.74%</td>
+<td style="text-align:right">76.94%</td>
+<td style="text-align:right">59.37%</td>
+<td style="text-align:right">55.85%</td>
+<td style="text-align:right">60.49%</td>
+<td style="text-align:right">27.31%</td>
+</tr>
+<tr>
+<td>MuSiQue</td>
+<td>gated_rule_a</td>
+<td style="text-align:right">66.03%</td>
+<td style="text-align:right">80.24%</td>
+<td style="text-align:right">65.16%</td>
+<td style="text-align:right">61.81%</td>
+<td style="text-align:right">62.18%</td>
+<td style="text-align:right">28.55%</td>
+</tr>
+<tr>
+<td>2Wiki</td>
+<td>baseline</td>
+<td style="text-align:right">84.73%</td>
+<td style="text-align:right">91.98%</td>
+<td style="text-align:right">82.79%</td>
+<td style="text-align:right">83.64%</td>
+<td style="text-align:right">82.22%</td>
+<td style="text-align:right">14.07%</td>
+</tr>
+<tr>
+<td>2Wiki</td>
+<td>gated_rule_a</td>
+<td style="text-align:right">88.55%</td>
+<td style="text-align:right">95.59%</td>
+<td style="text-align:right">90.16%</td>
+<td style="text-align:right">91.01%</td>
+<td style="text-align:right">84.16%</td>
+<td style="text-align:right">14.96%</td>
+</tr>
+<tr>
+<td>HotpotQA</td>
+<td>baseline</td>
+<td style="text-align:right">57.68%</td>
+<td style="text-align:right">77.70%</td>
+<td style="text-align:right">55.08%</td>
+<td style="text-align:right">62.38%</td>
+<td style="text-align:right">52.91%</td>
+<td style="text-align:right">20.58%</td>
+</tr>
+<tr>
+<td>HotpotQA</td>
+<td>gated_rule_a</td>
+<td style="text-align:right">61.56%</td>
+<td style="text-align:right">81.34%</td>
+<td style="text-align:right">61.07%</td>
+<td style="text-align:right">69.12%</td>
+<td style="text-align:right">53.78%</td>
+<td style="text-align:right">21.42%</td>
+</tr>
+</tbody>
+</table>
+<p>相对 baseline，<code>gated_rule_a</code> 在三个数据集上都提高了 hop-level 和 chain-level 召回：MuSiQue 的 chain R@3 从 59.37% 提升到 65.16%，2Wiki 从 82.79% 提升到 90.16%，HotpotQA 从 55.08% 提升到 61.07%。这说明 gate 不只是离线分类有效，在端到端召回链路中也能带来稳定收益。</p>
+<h2 id="5-current-findings">5. Current Findings</h2>
+<p>当前版本已经证明了三点：</p>
+<ol>
+<li>
+<p><strong>可控反事实 trace 是有效训练信号</strong><br>
+通过替换某一 hop 的 evidence，可以精确知道哪一个 transition 应该触发干预，避免依赖 LLM 自然错误。</p>
+</li>
+<li>
+<p><strong>hidden-state transition 能反映推理链异常</strong><br>
+pooled LR gate 在 dev 上 AUC 达到 0.9074，说明 <code>Delta_j = h_j - h_{j-1}</code> 包含可分离的错误信息。</p>
+</li>
+<li>
+<p><strong>端到端效果受 decomposer 和 selection 共同限制</strong><br>
+gate 能提供异常检测信号，但最终 chain recall 还取决于 hop 数是否预测正确、候选池是否包含 gold evidence、以及 Llama 是否选中正确 passage。</p>
+</li>
+</ol>
+<h2 id="6-limitations-and-next-steps">6. Limitations and Next Steps</h2>
+<p>旧版实验中已经保留了 baseline 对比，结果显示 <code>gated_rule_a</code> 相比 baseline 在 MuSiQue、2Wiki、HotpotQA 上都有稳定召回提升。当前仍需要注意的是：不同结果来自不同实验目录，严格写论文表格时应统一 session、统一脚本版本、统一评测字段。</p>
+<p>后续建议：</p>
+<ul>
+<li>将当前 in-pool 召回扩展到全局检索，不再只在每个样本约 20 条候选段落内检索；全局候选可先用 ColBERT 做粗筛，再进入 gate / rerank 阶段。</li>
+<li>当前 <code>cosine + lambda * LR score</code> 的组合权重是固定超参，后续可以训练一个简单的融合 gate / ranker，学习如何动态组合相似度分数与异常分数。</li>
+<li>对 4-hop decomposer 做专项增强，减少预测 hop 数偏短的问题。</li>
+<li>分析 gate 的 false positive：正确 trace 上触发过多会带来不必要 rerank。</li>
+<li>继续完善 answer-level EM / F1；旧实验已有 EM 字段，但部分跨数据集结果缺少 F1。</li>
+</ul>
+<h2 id="7-code-map">7. Code Map</h2>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>主要文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BART decomposer</td>
+<td><code>decompose/bart/train.py</code>、<code>predict.py</code></td>
+<td>训练与预测问题分解</td>
+</tr>
+<tr>
+<td>NL 转换</td>
+<td><code>decompose/bart/decompose_to_nl.py</code></td>
+<td>将分解结果转换为自然语言 sub-question</td>
+</tr>
+<tr>
+<td>Query rewrite</td>
+<td><code>traces/enhance_decompose_nl.py</code></td>
+<td>对 3-hop / 4-hop train 分解做 paraphrase 增强</td>
+</tr>
+<tr>
+<td>Trace 构造</td>
+<td><code>traces/construct_balanced_traces.py</code></td>
+<td>生成 correct / counterfactual / merged traces</td>
+</tr>
+<tr>
+<td>Hidden state</td>
+<td><code>hidden_states/extract_hidden_states.py</code></td>
+<td>提取 Llama prefix hidden states</td>
+</tr>
+<tr>
+<td>Gate</td>
+<td><code>gate/fit_lr_gate_pooled.py</code></td>
+<td>PCA + LR pooled gate 训练与评估</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td><code>retrieval/run_retrieval_exp_wavefront.py</code></td>
+<td>batched wavefront 端到端召回</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
