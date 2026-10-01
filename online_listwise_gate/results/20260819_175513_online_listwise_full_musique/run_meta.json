@@ -1,0 +1,64 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/gt/train_nl.jsonl",
+    "enhance_file": null,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 0,
+    "sample_seed": 42,
+    "pca_dim": 64,
+    "train_epochs_per_hop": 30,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "online_listwise_full_musique",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260819_175513_online_listwise_full_musique/artifact.joblib",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.4,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 24070,
+      "n_trainable_groups_added": 23958,
+      "pick_accuracy": 0.9025,
+      "elapsed_min": 82.91
+    },
+    {
+      "hop": 2,
+      "n_active": 24070,
+      "n_trainable_groups_added": 23446,
+      "pick_accuracy": 0.8168,
+      "elapsed_min": 102.58
+    },
+    {
+      "hop": 3,
+      "n_active": 9694,
+      "n_trainable_groups_added": 9524,
+      "pick_accuracy": 0.7376,
+      "elapsed_min": 58.77
+    },
+    {
+      "hop": 4,
+      "n_active": 2023,
+      "n_trainable_groups_added": 2013,
+      "pick_accuracy": 0.7879,
+      "elapsed_min": 20.97
+    }
+  ],
+  "wall_clock_hr": 4.432,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260819_175513_online_listwise_full_musique/artifact.joblib"
+}

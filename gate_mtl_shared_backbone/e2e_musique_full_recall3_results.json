@@ -1,0 +1,112 @@
+{
+  "baseline": {
+    "overall": {
+      "n_cases": 2417,
+      "n_hops": 6078,
+      "recall@1": 0.605,
+      "recall@3": 0.7621,
+      "mrr": 0.7,
+      "avg_rank": 1.89,
+      "n_examples": 2417,
+      "chain_recall@1": 0.3562,
+      "chain_recall@3": 0.5834,
+      "answer_em": 0.3186,
+      "answer_f1": 0.4028
+    },
+    "K=1": null,
+    "K=2": {
+      "n_cases": 1394,
+      "n_hops": 2788,
+      "recall@1": 0.6564,
+      "recall@3": 0.8138,
+      "mrr": 0.7509,
+      "avg_rank": 1.81,
+      "n_examples": 1394,
+      "chain_recall@1": 0.4484,
+      "chain_recall@3": 0.6815,
+      "answer_em": 0.3529,
+      "answer_f1": 0.4447
+    },
+    "K=3": {
+      "n_cases": 802,
+      "n_hops": 2406,
+      "recall@1": 0.5802,
+      "recall@3": 0.7431,
+      "mrr": 0.6792,
+      "avg_rank": 1.99,
+      "n_examples": 802,
+      "chain_recall@1": 0.2606,
+      "chain_recall@3": 0.4975,
+      "answer_em": 0.2893,
+      "answer_f1": 0.3598
+    },
+    "K=4": {
+      "n_cases": 221,
+      "n_hops": 884,
+      "recall@1": 0.5102,
+      "recall@3": 0.6505,
+      "mrr": 0.5958,
+      "avg_rank": 1.86,
+      "n_examples": 221,
+      "chain_recall@1": 0.1222,
+      "chain_recall@3": 0.276,
+      "answer_em": 0.2081,
+      "answer_f1": 0.2951
+    }
+  },
+  "mtl_rerank": {
+    "overall": {
+      "n_cases": 2417,
+      "n_hops": 6078,
+      "recall@1": 0.6854,
+      "recall@3": 0.8149,
+      "mrr": 0.7601,
+      "avg_rank": 1.57,
+      "n_examples": 2417,
+      "chain_recall@1": 0.4957,
+      "chain_recall@3": 0.6769,
+      "answer_em": 0.4241,
+      "answer_f1": 0.5122
+    },
+    "K=1": null,
+    "K=2": {
+      "n_cases": 1394,
+      "n_hops": 2788,
+      "recall@1": 0.745,
+      "recall@3": 0.8648,
+      "mrr": 0.8132,
+      "avg_rank": 1.49,
+      "n_examples": 1394,
+      "chain_recall@1": 0.5976,
+      "chain_recall@3": 0.7669,
+      "answer_em": 0.4727,
+      "answer_f1": 0.5662
+    },
+    "K=3": {
+      "n_cases": 802,
+      "n_hops": 2406,
+      "recall@1": 0.6488,
+      "recall@3": 0.7914,
+      "mrr": 0.7322,
+      "avg_rank": 1.7,
+      "n_examples": 802,
+      "chain_recall@1": 0.4002,
+      "chain_recall@3": 0.5998,
+      "answer_em": 0.3741,
+      "answer_f1": 0.4453
+    },
+    "K=4": {
+      "n_cases": 221,
+      "n_hops": 884,
+      "recall@1": 0.5973,
+      "recall@3": 0.7217,
+      "mrr": 0.6686,
+      "avg_rank": 1.48,
+      "n_examples": 221,
+      "chain_recall@1": 0.1991,
+      "chain_recall@3": 0.3891,
+      "answer_em": 0.2986,
+      "answer_f1": 0.4142
+    }
+  }
+}

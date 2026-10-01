@@ -1,0 +1,95 @@
+{
+  "config": {
+    "cache_dir": "results/online_listwise_mixed_full_pca128_cache/feature_cache",
+    "pca_dim": 128,
+    "model_type": "bilinear",
+    "mlp_hidden_dim": 128,
+    "include_h_prev": false,
+    "val_frac": 0.1,
+    "patience": 5,
+    "max_epochs_per_hop": 200,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "sample_seed": 42,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "refit_pca128_check",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260903_031432_refit_pca128_check/artifact.joblib"
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 11076,
+      "n_train_groups_added": 9955,
+      "n_val_groups_added": 1106,
+      "n_train_groups_total": 9955,
+      "n_val_groups_total": 1106,
+      "epochs_run": 19,
+      "best_val_accuracy": 0.953,
+      "pick_accuracy": 0.9692,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.9749,
+        "musique/bart_decompose": 0.9734,
+        "2wiki/bart_decompose": 0.9838,
+        "hotpot/bart_decompose": 0.9424
+      },
+      "elapsed_min": 18.02
+    },
+    {
+      "hop": 2,
+      "n_active": 10087,
+      "n_train_groups_added": 8584,
+      "n_val_groups_added": 954,
+      "n_train_groups_total": 18539,
+      "n_val_groups_total": 2060,
+      "epochs_run": 30,
+      "best_val_accuracy": 0.8501,
+      "pick_accuracy": 0.752,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.652,
+        "musique/bart_decompose": 0.6604,
+        "2wiki/bart_decompose": 0.8915,
+        "hotpot/bart_decompose": 0.7702
+      },
+      "elapsed_min": 33.15
+    },
+    {
+      "hop": 3,
+      "n_active": 4640,
+      "n_train_groups_added": 4082,
+      "n_val_groups_added": 454,
+      "n_train_groups_total": 22621,
+      "n_val_groups_total": 2514,
+      "epochs_run": 6,
+      "best_val_accuracy": 0.7411,
+      "pick_accuracy": 0.5287,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.5723,
+        "musique/bart_decompose": 0.5407,
+        "2wiki/bart_decompose": 0.4302,
+        "hotpot/bart_decompose": 0.6296
+      },
+      "elapsed_min": 11.66
+    },
+    {
+      "hop": 4,
+      "n_active": 2502,
+      "n_train_groups_added": 2216,
+      "n_val_groups_added": 246,
+      "n_train_groups_total": 24837,
+      "n_val_groups_total": 2760,
+      "epochs_run": 13,
+      "best_val_accuracy": 0.7159,
+      "pick_accuracy": 0.5865,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.6917,
+        "musique/bart_decompose": 0.6591,
+        "2wiki/bart_decompose": 0.4884,
+        "hotpot/bart_decompose": 0.3143
+      },
+      "elapsed_min": 19.52
+    }
+  ],
+  "wall_clock_hr": 1.373,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260903_031432_refit_pca128_check/artifact.joblib"
+}

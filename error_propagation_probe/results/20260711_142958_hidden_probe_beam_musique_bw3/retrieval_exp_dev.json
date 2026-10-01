@@ -1,0 +1,115 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "dev",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "decompose_mode": "bart_decompose",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/bart/dev_nl.jsonl",
+    "probe_dir": "probe_artifacts",
+    "beam_width": 3,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "answerable_only": true,
+    "limit": 0,
+    "sample_seed": 42,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/error_propagation_probe/results",
+    "out_dir": "/home/ertai/reasoning_trajectory/multihop_trace/error_propagation_probe/results/20260711_142958_hidden_probe_beam_musique_bw3",
+    "run_tag": null,
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "layer": 31,
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.5,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64,
+    "max_new_tokens_final": 128
+  },
+  "output_dir": "/home/ertai/reasoning_trajectory/multihop_trace/error_propagation_probe/results/20260711_142958_hidden_probe_beam_musique_bw3",
+  "n_examples": 2417,
+  "timing": {
+    "wall_clock_sec": 3538.42,
+    "wall_clock_hr": 0.983
+  },
+  "answer_overall": {
+    "n_examples": 2417,
+    "answer_em": 0.3645,
+    "answer_f1": 0.4511
+  },
+  "answer_by_K": {
+    "1": {
+      "n_examples": 0,
+      "answer_em": 0.0,
+      "answer_f1": 0.0
+    },
+    "2": {
+      "n_examples": 1394,
+      "answer_em": 0.4175,
+      "answer_f1": 0.5108
+    },
+    "3": {
+      "n_examples": 802,
+      "answer_em": 0.3167,
+      "answer_f1": 0.3912
+    },
+    "4": {
+      "n_examples": 221,
+      "answer_em": 0.2036,
+      "answer_f1": 0.292
+    }
+  },
+  "final_beam_hop_match_rate_overall": 0.4991,
+  "final_beam_hop_match_rate_by_K": {
+    "1": null,
+    "2": 0.5875,
+    "3": 0.4497,
+    "4": 0.3503
+  },
+  "final_beam_chain_match_rate_overall": 0.3488,
+  "final_beam_chain_match_rate_by_K": {
+    "1": null,
+    "2": 0.472,
+    "3": 0.2182,
+    "4": 0.0452
+  },
+  "oracle_gold_rank_among_survivors_overall": {
+    "n_hops": 6037,
+    "recall@1": 0.5675,
+    "recall@3": 0.7404,
+    "mrr": 0.6439,
+    "avg_rank": 0.97
+  },
+  "oracle_gold_rank_among_survivors_by_K": {
+    "1": {
+      "n_hops": 0,
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "mrr": 0.0,
+      "avg_rank": null
+    },
+    "2": {
+      "n_hops": 2788,
+      "recall@1": 0.6467,
+      "recall@3": 0.8199,
+      "mrr": 0.7239,
+      "avg_rank": 1.05
+    },
+    "3": {
+      "n_hops": 2384,
+      "recall@1": 0.5243,
+      "recall@3": 0.7131,
+      "mrr": 0.6071,
+      "avg_rank": 0.97
+    },
+    "4": {
+      "n_hops": 865,
+      "recall@1": 0.4312,
+      "recall@3": 0.5595,
+      "mrr": 0.4877,
+      "avg_rank": 0.73
+    }
+  },
+  "_metrics_note": "final_beam_hop/chain_match_rate are NOT the same metric as production's recall@1/chain_recall@1 — beam search keeps beam_width survivors per hop with no single committed choice until the final beam is picked, see script docstring. oracle_gold_rank_among_survivors reuses find_gold_rank+MetricAccum on the ranked list of beam survivors at each hop (pruning-quality diagnostic, independent of whether the final best beam ends up picking gold)."
+}

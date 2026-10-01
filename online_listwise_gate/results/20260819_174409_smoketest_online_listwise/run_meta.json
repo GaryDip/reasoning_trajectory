@@ -1,0 +1,63 @@
+{
+  "config": {
+    "dataset": "musique",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "decompose_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/decompose/musique/gt/train_nl.jsonl",
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 5,
+    "sample_seed": 42,
+    "pca_dim": 64,
+    "train_epochs_per_hop": 30,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "smoketest_online_listwise",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260819_174409_smoketest_online_listwise/artifact.joblib",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.3,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 15,
+      "n_trainable_groups_added": 14,
+      "pick_accuracy": 0.9333,
+      "elapsed_min": 0.14
+    },
+    {
+      "hop": 2,
+      "n_active": 15,
+      "n_trainable_groups_added": 15,
+      "pick_accuracy": 1.0,
+      "elapsed_min": 0.07
+    },
+    {
+      "hop": 3,
+      "n_active": 10,
+      "n_trainable_groups_added": 10,
+      "pick_accuracy": 1.0,
+      "elapsed_min": 0.06
+    },
+    {
+      "hop": 4,
+      "n_active": 5,
+      "n_trainable_groups_added": 5,
+      "pick_accuracy": 1.0,
+      "elapsed_min": 0.04
+    }
+  ],
+  "wall_clock_hr": 0.017,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260819_174409_smoketest_online_listwise/artifact.joblib"
+}

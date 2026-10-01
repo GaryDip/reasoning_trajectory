@@ -1,0 +1,96 @@
+{
+  "config": {
+    "cache_dir": "results/online_listwise_mixed_full_pca128_cache/feature_cache",
+    "pca_dim": 128,
+    "model_type": "bilinear",
+    "mlp_hidden_dim": 128,
+    "include_h_prev": false,
+    "val_frac": 0.1,
+    "patience": 5,
+    "max_epochs_per_hop": 200,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "sample_seed": 42,
+    "device": "cuda:0",
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "refit_pca128_gpu_check",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260903_032140_refit_pca128_gpu_check/artifact.joblib"
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 11076,
+      "n_train_groups_added": 9955,
+      "n_val_groups_added": 1106,
+      "n_train_groups_total": 9955,
+      "n_val_groups_total": 1106,
+      "epochs_run": 24,
+      "best_val_accuracy": 0.9539,
+      "pick_accuracy": 0.9788,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.9826,
+        "musique/bart_decompose": 0.9829,
+        "2wiki/bart_decompose": 0.9859,
+        "hotpot/bart_decompose": 0.9628
+      },
+      "elapsed_min": 3.01
+    },
+    {
+      "hop": 2,
+      "n_active": 10087,
+      "n_train_groups_added": 8584,
+      "n_val_groups_added": 954,
+      "n_train_groups_total": 18539,
+      "n_val_groups_total": 2060,
+      "epochs_run": 35,
+      "best_val_accuracy": 0.8595,
+      "pick_accuracy": 0.7534,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.6548,
+        "musique/bart_decompose": 0.6619,
+        "2wiki/bart_decompose": 0.8937,
+        "hotpot/bart_decompose": 0.7689
+      },
+      "elapsed_min": 6.62
+    },
+    {
+      "hop": 3,
+      "n_active": 4640,
+      "n_train_groups_added": 4082,
+      "n_val_groups_added": 454,
+      "n_train_groups_total": 22621,
+      "n_val_groups_total": 2514,
+      "epochs_run": 6,
+      "best_val_accuracy": 0.7363,
+      "pick_accuracy": 0.511,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.5633,
+        "musique/bart_decompose": 0.5191,
+        "2wiki/bart_decompose": 0.4079,
+        "hotpot/bart_decompose": 0.5926
+      },
+      "elapsed_min": 1.41
+    },
+    {
+      "hop": 4,
+      "n_active": 2502,
+      "n_train_groups_added": 2216,
+      "n_val_groups_added": 246,
+      "n_train_groups_total": 24837,
+      "n_val_groups_total": 2760,
+      "epochs_run": 15,
+      "best_val_accuracy": 0.7306,
+      "pick_accuracy": 0.593,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.7198,
+        "musique/bart_decompose": 0.6591,
+        "2wiki/bart_decompose": 0.4806,
+        "hotpot/bart_decompose": 0.2571
+      },
+      "elapsed_min": 3.86
+    }
+  ],
+  "wall_clock_hr": 0.249,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260903_032140_refit_pca128_gpu_check/artifact.joblib"
+}

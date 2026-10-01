@@ -1,0 +1,57 @@
+{
+  "mtl_rerank": {
+    "overall": {
+      "n_cases": 2417,
+      "n_hops": 6078,
+      "recall@1": 0.6984,
+      "recall@3": 0.8205,
+      "mrr": 0.7689,
+      "avg_rank": 1.53,
+      "n_examples": 2417,
+      "chain_recall@1": 0.5213,
+      "chain_recall@3": 0.6843,
+      "answer_em": 0.4299,
+      "answer_f1": 0.5202
+    },
+    "K=1": null,
+    "K=2": {
+      "n_cases": 1394,
+      "n_hops": 2788,
+      "recall@1": 0.7486,
+      "recall@3": 0.8659,
+      "mrr": 0.8152,
+      "avg_rank": 1.48,
+      "n_examples": 1394,
+      "chain_recall@1": 0.6098,
+      "chain_recall@3": 0.7676,
+      "answer_em": 0.4634,
+      "answer_f1": 0.5592
+    },
+    "K=3": {
+      "n_cases": 802,
+      "n_hops": 2406,
+      "recall@1": 0.6712,
+      "recall@3": 0.8013,
+      "mrr": 0.7478,
+      "avg_rank": 1.64,
+      "n_examples": 802,
+      "chain_recall@1": 0.4451,
+      "chain_recall@3": 0.611,
+      "answer_em": 0.4077,
+      "answer_f1": 0.4848
+    },
+    "K=4": {
+      "n_cases": 221,
+      "n_hops": 884,
+      "recall@1": 0.6143,
+      "recall@3": 0.7296,
+      "mrr": 0.6801,
+      "avg_rank": 1.44,
+      "n_examples": 221,
+      "chain_recall@1": 0.2398,
+      "chain_recall@3": 0.4253,
+      "answer_em": 0.2986,
+      "answer_f1": 0.4021
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "config": {
+    "dataset": "musique",
+    "decompose_mode": "mixed",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/train.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_train_v1.1.json",
+    "decompose_file": null,
+    "musique_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/musique_train_lambda_subset_big_bart_nl.jsonl",
+    "twowiki_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/2wiki_train_online_gate_subset3k_bart_nl.jsonl",
+    "hotpot_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/hotpot_train_online_gate_subset3k_bart_nl.jsonl",
+    "musique_gt_limit_per_k": 1000,
+    "target_verify_max_new_tokens": 4,
+    "enhance_file": null,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 0,
+    "sample_seed": 42,
+    "pca_dim": 64,
+    "val_frac": 0.1,
+    "patience": 5,
+    "max_epochs_per_hop": 200,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "online_listwise_mixed_full_pca64",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260831_163922_online_listwise_mixed_full_pca64/artifact.joblib",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.3,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 11068,
+      "n_train_groups_added": 9948,
+      "n_val_groups_added": 1105,
+      "n_train_groups_total": 9948,
+      "n_val_groups_total": 1105,
+      "epochs_run": 16,
+      "best_val_accuracy": 0.914,
+      "pick_accuracy": 0.9228,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.9117,
+        "musique/bart_decompose": 0.9059,
+        "2wiki/bart_decompose": 0.9743,
+        "hotpot/bart_decompose": 0.8962
+      },
+      "elapsed_min": 45.74
+    },
+    {
+      "hop": 2,
+      "n_active": 10088,
+      "n_train_groups_added": 8587,
+      "n_val_groups_added": 954,
+      "n_train_groups_total": 18535,
+      "n_val_groups_total": 2059,
+      "epochs_run": 29,
+      "best_val_accuracy": 0.8027,
+      "pick_accuracy": 0.6652,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.4687,
+        "musique/bart_decompose": 0.589,
+        "2wiki/bart_decompose": 0.8627,
+        "hotpot/bart_decompose": 0.7492
+      },
+      "elapsed_min": 70.48
+    },
+    {
+      "hop": 3,
+      "n_active": 4630,
+      "n_train_groups_added": 4074,
+      "n_val_groups_added": 453,
+      "n_train_groups_total": 22609,
+      "n_val_groups_total": 2512,
+      "epochs_run": 12,
+      "best_val_accuracy": 0.7124,
+      "pick_accuracy": 0.5203,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.546,
+        "musique/bart_decompose": 0.5649,
+        "2wiki/bart_decompose": 0.4202,
+        "hotpot/bart_decompose": 0.6235
+      },
+      "elapsed_min": 31.46
+    },
+    {
+      "hop": 4,
+      "n_active": 2497,
+      "n_train_groups_added": 2211,
+      "n_val_groups_added": 246,
+      "n_train_groups_total": 24820,
+      "n_val_groups_total": 2758,
+      "epochs_run": 25,
+      "best_val_accuracy": 0.6976,
+      "pick_accuracy": 0.5851,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.686,
+        "musique/bart_decompose": 0.6258,
+        "2wiki/bart_decompose": 0.4858,
+        "hotpot/bart_decompose": 0.6389
+      },
+      "elapsed_min": 37.74
+    }
+  ],
+  "wall_clock_hr": 3.109,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260831_163922_online_listwise_mixed_full_pca64/artifact.joblib"
+}

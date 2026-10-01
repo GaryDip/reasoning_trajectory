@@ -1,0 +1,6 @@
+{
+  "lambda_total": 0.5,
+  "in_dim": 64,
+  "n_train_pools": 59857,
+  "n_dev_pools": 6404
+}

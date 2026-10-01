@@ -1,0 +1,121 @@
+{
+  "config": {
+    "dataset": "musique",
+    "decompose_mode": "mixed",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/train.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_train_v1.1.json",
+    "decompose_file": null,
+    "musique_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/musique_train_lambda_subset_big_bart_nl.jsonl",
+    "twowiki_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/2wiki_train_online_gate_subset3k_bart_nl.jsonl",
+    "hotpot_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/hotpot_train_online_gate_subset3k_bart_nl.jsonl",
+    "musique_gt_limit_per_k": 10,
+    "target_verify_max_new_tokens": 4,
+    "enhance_file": null,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 10,
+    "sample_seed": 42,
+    "pca_dim": 64,
+    "model_type": "mlp",
+    "mlp_hidden_dim": 128,
+    "include_h_prev": true,
+    "val_frac": 0.1,
+    "patience": 5,
+    "max_epochs_per_hop": 200,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "smoketest_mlp_hprev",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260901_163650_smoketest_mlp_hprev/artifact.joblib",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.3,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 112,
+      "n_train_groups_added": 100,
+      "n_val_groups_added": 11,
+      "n_train_groups_total": 100,
+      "n_val_groups_total": 11,
+      "epochs_run": 9,
+      "best_val_accuracy": 0.8182,
+      "pick_accuracy": 0.9643,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.9,
+        "musique/bart_decompose": 1.0,
+        "2wiki/bart_decompose": 1.0,
+        "hotpot/bart_decompose": 0.9667
+      },
+      "elapsed_min": 0.53
+    },
+    {
+      "hop": 2,
+      "n_active": 103,
+      "n_train_groups_added": 87,
+      "n_val_groups_added": 10,
+      "n_train_groups_total": 187,
+      "n_val_groups_total": 21,
+      "epochs_run": 11,
+      "best_val_accuracy": 0.7591,
+      "pick_accuracy": 0.6796,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.5,
+        "musique/bart_decompose": 0.6316,
+        "2wiki/bart_decompose": 0.7931,
+        "hotpot/bart_decompose": 0.8
+      },
+      "elapsed_min": 0.5
+    },
+    {
+      "hop": 3,
+      "n_active": 61,
+      "n_train_groups_added": 54,
+      "n_val_groups_added": 6,
+      "n_train_groups_total": 241,
+      "n_val_groups_total": 27,
+      "epochs_run": 12,
+      "best_val_accuracy": 0.7091,
+      "pick_accuracy": 0.7705,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.65,
+        "musique/bart_decompose": 0.8182,
+        "2wiki/bart_decompose": 0.7333,
+        "hotpot/bart_decompose": 0.9333
+      },
+      "elapsed_min": 0.35
+    },
+    {
+      "hop": 4,
+      "n_active": 31,
+      "n_train_groups_added": 28,
+      "n_val_groups_added": 3,
+      "n_train_groups_total": 269,
+      "n_val_groups_total": 30,
+      "epochs_run": 10,
+      "best_val_accuracy": 0.7773,
+      "pick_accuracy": 0.9032,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.8,
+        "musique/bart_decompose": 1.0,
+        "2wiki/bart_decompose": 0.8889,
+        "hotpot/bart_decompose": 1.0
+      },
+      "elapsed_min": 0.21
+    }
+  ],
+  "wall_clock_hr": 0.043,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260901_163650_smoketest_mlp_hprev/artifact.joblib"
+}

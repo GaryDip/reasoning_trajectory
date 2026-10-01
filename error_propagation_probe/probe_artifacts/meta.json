@@ -1,0 +1,6 @@
+{
+  "pca_dim": 64,
+  "n_train": 266744,
+  "n_dev": 51672,
+  "pool_positions": true
+}

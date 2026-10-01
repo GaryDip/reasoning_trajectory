@@ -1,0 +1,7 @@
+{
+  "hidden": 32,
+  "use_diff": true,
+  "fixed_lambda_baseline": 0.25,
+  "n_train_pools": 59857,
+  "n_dev_pools": 6404
+}

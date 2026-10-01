@@ -1,0 +1,122 @@
+{
+  "config": {
+    "dataset": "musique",
+    "decompose_mode": "mixed",
+    "split": "train",
+    "musique_dir": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/musique",
+    "twowiki_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/2wikimultihopqa/train.json",
+    "hotpot_file": "/home/ertai/reasoning_trajectory/multihop_trace/data/raw/hotpotqa/hotpot_train_v1.1.json",
+    "decompose_file": null,
+    "musique_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/musique_train_lambda_subset_big_bart_nl.jsonl",
+    "twowiki_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/2wiki_train_online_gate_subset3k_bart_nl.jsonl",
+    "hotpot_bart_file": "/home/ertai/reasoning_trajectory/multihop_trace/decompose/bart/data/hotpot_train_online_gate_subset3k_bart_nl.jsonl",
+    "musique_gt_limit_per_k": 1000,
+    "target_verify_max_new_tokens": 4,
+    "enhance_file": null,
+    "retrieve_k": 10,
+    "cos_model": "BAAI/bge-base-en-v1.5",
+    "answerable_only": true,
+    "limit": 0,
+    "limit_per_k": 0,
+    "sample_seed": 42,
+    "pca_dim": 128,
+    "model_type": "bilinear",
+    "mlp_hidden_dim": 128,
+    "include_h_prev": false,
+    "cache_features_dir": "results/online_listwise_mixed_full_pca128_cache/feature_cache",
+    "val_frac": 0.1,
+    "patience": 5,
+    "max_epochs_per_hop": 200,
+    "lr": 0.05,
+    "weight_decay": 0.0001,
+    "results_root": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results",
+    "out_dir": null,
+    "run_tag": "online_listwise_mixed_full_pca128_cache",
+    "out_artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260901_171329_online_listwise_mixed_full_pca128_cache/artifact.joblib",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "attn_implementation": null,
+    "gate_device": "cuda:0",
+    "hidden_batch_size": 8,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.2,
+    "max_model_len": 8192,
+    "max_new_tokens_answer": 64
+  },
+  "per_hop_stats": [
+    {
+      "hop": 1,
+      "n_active": 11076,
+      "n_train_groups_added": 9955,
+      "n_val_groups_added": 1106,
+      "n_train_groups_total": 9955,
+      "n_val_groups_total": 1106,
+      "epochs_run": 17,
+      "best_val_accuracy": 0.9503,
+      "pick_accuracy": 0.9631,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.9677,
+        "musique/bart_decompose": 0.9677,
+        "2wiki/bart_decompose": 0.9796,
+        "hotpot/bart_decompose": 0.9351
+      },
+      "elapsed_min": 45.89
+    },
+    {
+      "hop": 2,
+      "n_active": 10087,
+      "n_train_groups_added": 8584,
+      "n_val_groups_added": 954,
+      "n_train_groups_total": 18539,
+      "n_val_groups_total": 2060,
+      "epochs_run": 25,
+      "best_val_accuracy": 0.8517,
+      "pick_accuracy": 0.7049,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.525,
+        "musique/bart_decompose": 0.6447,
+        "2wiki/bart_decompose": 0.8952,
+        "hotpot/bart_decompose": 0.7621
+      },
+      "elapsed_min": 59.57
+    },
+    {
+      "hop": 3,
+      "n_active": 4640,
+      "n_train_groups_added": 4082,
+      "n_val_groups_added": 454,
+      "n_train_groups_total": 22621,
+      "n_val_groups_total": 2514,
+      "epochs_run": 22,
+      "best_val_accuracy": 0.7628,
+      "pick_accuracy": 0.5961,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.6415,
+        "musique/bart_decompose": 0.6801,
+        "2wiki/bart_decompose": 0.5042,
+        "hotpot/bart_decompose": 0.4198
+      },
+      "elapsed_min": 32.81
+    },
+    {
+      "hop": 4,
+      "n_active": 2502,
+      "n_train_groups_added": 2216,
+      "n_val_groups_added": 246,
+      "n_train_groups_total": 24837,
+      "n_val_groups_total": 2760,
+      "epochs_run": 14,
+      "best_val_accuracy": 0.7218,
+      "pick_accuracy": 0.5835,
+      "pick_accuracy_by_source": {
+        "musique/gt": 0.68,
+        "musique/bart_decompose": 0.6623,
+        "2wiki/bart_decompose": 0.4858,
+        "hotpot/bart_decompose": 0.3714
+      },
+      "elapsed_min": 22.56
+    }
+  ],
+  "wall_clock_hr": 2.698,
+  "artifact": "/home/ertai/reasoning_trajectory/multihop_trace/online_listwise_gate/results/20260901_171329_online_listwise_mixed_full_pca128_cache/artifact.joblib"
+}

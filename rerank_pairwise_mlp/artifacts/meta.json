@@ -1,0 +1,12 @@
+{
+  "scheme": "pairwise_mlp",
+  "pca_dim": 64,
+  "hidden_dim": 32,
+  "epochs": 80,
+  "lr": 0.001,
+  "n_train_pairs": 35476,
+  "n_dev_pairs": 4472,
+  "layer": 31,
+  "hop_features": true,
+  "num_j_classes": 4
+}
