@@ -1,0 +1,169 @@
+{
+  "split": "dev",
+  "layer": 15,
+  "cells": {
+    "K2_h1": {
+      "n_pairs": 400,
+      "prefix_index": 2,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1476,
+        "std": 0.0582
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.1609,
+        "std": 0.0477
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.1904,
+        "std": 0.0539
+      },
+      "ratio_same_over_different": 0.9172,
+      "shift_direction_auc_heldout": 0.9268
+    },
+    "K2_h2": {
+      "n_pairs": 400,
+      "prefix_index": 3,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1784,
+        "std": 0.0712
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.1986,
+        "std": 0.0444
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.2389,
+        "std": 0.0548
+      },
+      "ratio_same_over_different": 0.8986,
+      "shift_direction_auc_heldout": 0.9034
+    },
+    "K3_h1": {
+      "n_pairs": 400,
+      "prefix_index": 2,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1521,
+        "std": 0.0587
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.1693,
+        "std": 0.0494
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.1963,
+        "std": 0.0507
+      },
+      "ratio_same_over_different": 0.8983,
+      "shift_direction_auc_heldout": 0.8933
+    },
+    "K3_h2": {
+      "n_pairs": 400,
+      "prefix_index": 3,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1638,
+        "std": 0.0655
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.2149,
+        "std": 0.0464
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.241,
+        "std": 0.0525
+      },
+      "ratio_same_over_different": 0.7622,
+      "shift_direction_auc_heldout": 0.8956
+    },
+    "K3_h3": {
+      "n_pairs": 400,
+      "prefix_index": 4,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1415,
+        "std": 0.0679
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.1818,
+        "std": 0.0492
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.2103,
+        "std": 0.0547
+      },
+      "ratio_same_over_different": 0.7783,
+      "shift_direction_auc_heldout": 0.9157
+    },
+    "K4_h1": {
+      "n_pairs": 400,
+      "prefix_index": 2,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1655,
+        "std": 0.0644
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.182,
+        "std": 0.0497
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.2097,
+        "std": 0.0534
+      },
+      "ratio_same_over_different": 0.9092,
+      "shift_direction_auc_heldout": 0.9105
+    },
+    "K4_h2": {
+      "n_pairs": 400,
+      "prefix_index": 3,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1617,
+        "std": 0.0631
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.2169,
+        "std": 0.0494
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.2351,
+        "std": 0.053
+      },
+      "ratio_same_over_different": 0.7455,
+      "shift_direction_auc_heldout": 0.8951
+    },
+    "K4_h3": {
+      "n_pairs": 400,
+      "prefix_index": 4,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.145,
+        "std": 0.06
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.1991,
+        "std": 0.0587
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.223,
+        "std": 0.0542
+      },
+      "ratio_same_over_different": 0.7284,
+      "shift_direction_auc_heldout": 0.897
+    },
+    "K4_h4": {
+      "n_pairs": 400,
+      "prefix_index": 5,
+      "cos_dist_gold_vs_counterfactual_same_question": {
+        "mean": 0.1494,
+        "std": 0.068
+      },
+      "cos_dist_gold_vs_gold_different_question": {
+        "mean": 0.1758,
+        "std": 0.0507
+      },
+      "cos_dist_gold_vs_counterfactual_different_question": {
+        "mean": 0.2068,
+        "std": 0.0548
+      },
+      "ratio_same_over_different": 0.8499,
+      "shift_direction_auc_heldout": 0.9179
+    }
+  },
+  "separability_note": "Separability of gold vs substituted states at the same position is already measured by the gate's held-out classifier: h-only dev AUC 0.9345 (WORK_SUMMARY 1.4). No new probe is fitted here, to avoid reporting the same quantity twice."
+}

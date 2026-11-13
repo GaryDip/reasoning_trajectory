@@ -1,0 +1,92 @@
+{
+  "A_nogate_musique": {
+    "n": 2417,
+    "chain@1_loose": 0.3612,
+    "chain@1_strict": 0.3451,
+    "recall@1_aligned": 0.6094,
+    "recall@1_full": 0.5745,
+    "n_hops_aligned": 6037,
+    "n_hops_gold": 6404,
+    "run_dir": "20261003_070503_nogate_musique_lambda0_dev"
+  },
+  "A_nogate_2wiki": {
+    "n": 12576,
+    "chain@1_loose": 0.6694,
+    "chain@1_strict": 0.6578,
+    "recall@1_aligned": 0.8334,
+    "recall@1_full": 0.8325,
+    "n_hops_aligned": 30621,
+    "n_hops_gold": 30654,
+    "run_dir": "20261003_070301_nogate_2wiki_lambda0_dev"
+  },
+  "A_nogate_hotpot": {
+    "n": 7405,
+    "chain@1_loose": 0.3897,
+    "chain@1_strict": 0.339,
+    "recall@1_aligned": 0.5745,
+    "recall@1_full": 0.5739,
+    "n_hops_aligned": 14796,
+    "n_hops_gold": 14810,
+    "run_dir": "20261003_070253_nogate_hotpot_lambda0_dev"
+  },
+  "D_main_musique": {
+    "n": 2417,
+    "chain@1_loose": 0.513,
+    "chain@1_strict": 0.4977,
+    "recall@1_aligned": 0.7002,
+    "recall@1_full": 0.6601,
+    "n_hops_aligned": 6037,
+    "n_hops_gold": 6404,
+    "run_dir": "20261008_071635_l15_musique_lambda0p60_dev"
+  },
+  "D_main_2wiki": {
+    "n": 12576,
+    "chain@1_loose": 0.8627,
+    "chain@1_strict": 0.8507,
+    "recall@1_aligned": 0.9302,
+    "recall@1_full": 0.9292,
+    "n_hops_aligned": 30621,
+    "n_hops_gold": 30654,
+    "run_dir": "20261008_085006_l15_2wiki_lambda0p60_dev"
+  },
+  "D_main_hotpot": {
+    "n": 7405,
+    "chain@1_loose": 0.561,
+    "chain@1_strict": 0.4974,
+    "recall@1_aligned": 0.662,
+    "recall@1_full": 0.6614,
+    "n_hops_aligned": 14796,
+    "n_hops_gold": 14810,
+    "run_dir": "20261008_074208_l15_hotpot_lambda0p60_dev"
+  },
+  "dec_musiqueonly_musique": {
+    "n": 2417,
+    "chain@1_loose": 0.5283,
+    "chain@1_strict": 0.5118,
+    "recall@1_aligned": 0.7072,
+    "recall@1_full": 0.6587,
+    "n_hops_aligned": 5964,
+    "n_hops_gold": 6404,
+    "run_dir": "20261008_154506_l15_musique_musiqueonly_decomposer"
+  },
+  "dec_musiqueonly_2wiki": {
+    "n": 12576,
+    "chain@1_loose": 0.5651,
+    "chain@1_strict": 0.5503,
+    "recall@1_aligned": 0.6906,
+    "recall@1_full": 0.5694,
+    "n_hops_aligned": 25272,
+    "n_hops_gold": 30654,
+    "run_dir": "20261008_175915_l15_2wiki_musiqueonly_decomposer"
+  },
+  "dec_musiqueonly_hotpot": {
+    "n": 7405,
+    "chain@1_loose": 0.4706,
+    "chain@1_strict": 0.4469,
+    "recall@1_aligned": 0.5826,
+    "recall@1_full": 0.581,
+    "n_hops_aligned": 14770,
+    "n_hops_gold": 14810,
+    "run_dir": "20261008_162924_l15_hotpot_musiqueonly_decomposer"
+  }
+}

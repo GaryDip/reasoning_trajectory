@@ -1,0 +1,153 @@
+{
+  "layer": 15,
+  "train_split": "train_pilot",
+  "test_split": "dev",
+  "note": "probe trained on train, evaluated on dev; dev is never used to pick anything",
+  "prefix_index_probe": {
+    "2": {
+      "hidden_state_acc": 1.0,
+      "token_length_only_acc": 0.8698,
+      "majority_class": 0.3333,
+      "n_test": 3756,
+      "mean_token_len_by_index": {
+        "1": 19.8,
+        "2": 149.2,
+        "3": 294.6
+      }
+    },
+    "3": {
+      "hidden_state_acc": 0.999,
+      "token_length_only_acc": 0.8273,
+      "majority_class": 0.25,
+      "n_test": 3040,
+      "mean_token_len_by_index": {
+        "1": 27.9,
+        "2": 141.4,
+        "3": 291.2,
+        "4": 486.8
+      }
+    },
+    "4": {
+      "hidden_state_acc": 0.9852,
+      "token_length_only_acc": 0.6765,
+      "majority_class": 0.2,
+      "n_test": 2025,
+      "mean_token_len_by_index": {
+        "1": 32.4,
+        "2": 145.9,
+        "3": 277.3,
+        "4": 421.9,
+        "5": 576.5
+      }
+    }
+  },
+  "within_length_bin_probe": {
+    "2": [
+      {
+        "bin": 1,
+        "n_test": 694,
+        "acc": 1.0,
+        "majority": 0.7032
+      },
+      {
+        "bin": 2,
+        "n_test": 748,
+        "acc": 1.0,
+        "majority": 0.881
+      },
+      {
+        "bin": 3,
+        "n_test": 802,
+        "acc": 1.0,
+        "majority": 0.6135
+      },
+      {
+        "bin": 4,
+        "n_test": 748,
+        "acc": 1.0,
+        "majority": 0.8971
+      }
+    ],
+    "3": [
+      {
+        "bin": 1,
+        "n_test": 667,
+        "acc": 1.0,
+        "majority": 0.6537
+      },
+      {
+        "bin": 2,
+        "n_test": 559,
+        "acc": 0.9982,
+        "majority": 0.5206
+      },
+      {
+        "bin": 3,
+        "n_test": 618,
+        "acc": 0.9984,
+        "majority": 0.5922
+      },
+      {
+        "bin": 4,
+        "n_test": 651,
+        "acc": 0.9739,
+        "majority": 0.8264
+      }
+    ],
+    "4": [
+      {
+        "bin": 1,
+        "n_test": 428,
+        "acc": 0.9977,
+        "majority": 0.8037
+      },
+      {
+        "bin": 2,
+        "n_test": 410,
+        "acc": 0.9854,
+        "majority": 0.5341
+      },
+      {
+        "bin": 3,
+        "n_test": 433,
+        "acc": 0.9584,
+        "majority": 0.4434
+      },
+      {
+        "bin": 4,
+        "n_test": 349,
+        "acc": 0.9656,
+        "majority": 0.7278
+      }
+    ]
+  },
+  "chain_length_probe_from_question_only": {
+    "acc": 0.7617,
+    "majority_class": 0.518,
+    "n_train": 10023,
+    "n_test": 2417,
+    "confusion": [
+      [
+        1146,
+        97,
+        9
+      ],
+      [
+        174,
+        497,
+        89
+      ],
+      [
+        18,
+        189,
+        198
+      ]
+    ],
+    "labels": [
+      2,
+      3,
+      4
+    ],
+    "why": "the target K is NOT present in the question-only prefix as a surface cue, unlike the prefix index, so this probe is not explained by hypothesis H2"
+  }
+}

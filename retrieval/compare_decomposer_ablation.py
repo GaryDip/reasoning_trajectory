@@ -16,10 +16,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 RESULTS = HERE / "results"
-BASELINE = {  # the 0831 report's D-group row
-    "musique": "20260828_121002_gate_v3_rawprefix_musique_lambda060_dev",
-    "2wiki": "20260828_123331_gate_v3_rawprefix_2wiki_lambda060_dev",
-    "hotpot": "20260828_142420_gate_v3_rawprefix_hotpot_lambda060_dev",
+BASELINE = {  # the D-group main runs -- must be the SAME gate artifact as the ablation arm,
+              # otherwise the comparison mixes "decomposer training data" with "gate layer policy".
+              # Repointed from the 0828 runs (per-j mixed layers) to the 1008 runs (uniform layer 15).
+    "musique": "20261008_071635_l15_musique_lambda0p60_dev",
+    "2wiki": "20261008_085006_l15_2wiki_lambda0p60_dev",
+    "hotpot": "20261008_074208_l15_hotpot_lambda0p60_dev",
 }
 
 
@@ -46,7 +48,13 @@ def main() -> None:
     cols = ["recall@1", "recall@3", "chain@1", "EM", "F1", "n_hops"]
     out: dict[str, dict] = {}
     for ds in args.datasets:
-        cand = sorted(RESULTS.glob(f"*_gate_v3_rawprefix_{ds}_lambda060_dev_{args.tag_suffix}"))
+        # The uniform-layer-15 re-run names these `<ts>_l15_<ds>_<suffix>`; the earlier
+        # mixed-layer runs used `<ts>_gate_v3_rawprefix_<ds>_lambda060_dev_<suffix>`.
+        # Prefer the l15 naming so the ablation arm uses the SAME gate artifact as BASELINE --
+        # otherwise the comparison mixes "decomposer training data" with "gate layer policy".
+        cand = sorted(RESULTS.glob(f"*_l15_{ds}_{args.tag_suffix}"))
+        if not any(c for c in cand if any(c.glob("retrieval_exp_*.json"))):
+            cand = sorted(RESULTS.glob(f"*_gate_v3_rawprefix_{ds}_lambda060_dev_{args.tag_suffix}"))
         cand = [c for c in cand if any(c.glob("retrieval_exp_*.json"))]
         if not cand:
             print(f"\n=== {ds}: no finished run for tag suffix '{args.tag_suffix}' yet")

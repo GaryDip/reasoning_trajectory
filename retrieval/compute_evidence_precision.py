@@ -136,6 +136,7 @@ def score_ranked(ranked: dict[str, list[list[str]]], gold: dict[str, set[str]], 
 def score(retrieved: dict[str, set[str]], gold: dict[str, set[str]]) -> dict[str, float]:
     n = 0
     p_sum = c_sum = f_sum = size_sum = 0.0
+    full_cov = 0   # questions whose retrieved set contains EVERY gold passage (0831 "全覆盖率")
     hit_tot = ret_tot = gold_tot = 0
     for eid, g in gold.items():
         if not g:
@@ -149,12 +150,15 @@ def score(retrieved: dict[str, set[str]], gold: dict[str, set[str]]) -> dict[str
         c_sum += c
         f_sum += 2 * p * c / (p + c) if p + c else 0.0
         size_sum += len(r)
+        if g <= r:
+            full_cov += 1
         hit_tot, ret_tot, gold_tot = hit_tot + hit, ret_tot + len(r), gold_tot + len(g)
     return {
         "n": n,
         "precision_macro": p_sum / n,
         "precision_micro": hit_tot / ret_tot if ret_tot else 0.0,
         "coverage_macro": c_sum / n,
+        "full_coverage_rate": full_cov / n,
         "set_f1_macro": f_sum / n,
         "avg_retrieved": size_sum / n,
         "avg_gold": gold_tot / n,

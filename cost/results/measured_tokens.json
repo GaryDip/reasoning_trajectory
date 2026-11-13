@@ -1,0 +1,95 @@
+{
+  "source": {
+    "run": "20261008_071635_l15_musique_lambda0p60_dev",
+    "tokenizer": "meta-llama/Llama-3.1-8B-Instruct"
+  },
+  "passage_tokens": 100.8,
+  "question_tokens": 16.6,
+  "sub_question_tokens": 11.6,
+  "final_reader_system_tokens": 52,
+  "hop_answer_prompt_tokens": 291.6,
+  "final_reader_prompt_tokens": 521.2,
+  "gate_by_K": {
+    "2": {
+      "n_sampled": 60,
+      "tokens": 4705.2,
+      "forwards": 21
+    },
+    "3": {
+      "n_sampled": 60,
+      "tokens": 10043.0,
+      "forwards": 31
+    },
+    "4": {
+      "n_sampled": 60,
+      "tokens": 16300.3,
+      "forwards": 41
+    }
+  },
+  "gate_tokens": 8326.5,
+  "gate_forwards": 27.5,
+  "chainrag": {
+    "musique": {
+      "n": 2417,
+      "llm_calls_mean": 9.69,
+      "llm_calls_median": 9,
+      "llm_calls_range": [
+        5,
+        36
+      ],
+      "sub_questions_mean": 2.14,
+      "context_sentences_mean": 70.8,
+      "rewrite_rate": 0.0676
+    },
+    "2wikimqa": {
+      "n": 12576,
+      "llm_calls_mean": 8.03,
+      "llm_calls_median": 8.0,
+      "llm_calls_range": [
+        5,
+        21
+      ],
+      "sub_questions_mean": 1.81,
+      "context_sentences_mean": 27.3,
+      "rewrite_rate": 0.0556
+    },
+    "hotpotqa": {
+      "n": 7405,
+      "llm_calls_mean": 8.05,
+      "llm_calls_median": 8,
+      "llm_calls_range": [
+        5,
+        23
+      ],
+      "sub_questions_mean": 1.84,
+      "context_sentences_mean": 30.5,
+      "rewrite_rate": 0.0424
+    }
+  },
+  "assumed": {
+    "hop_answer_decode_tokens": [
+      8,
+      "案例日志只存解析后的短答案（均值 3.3 token），真实解码长度未落盘；上限 64。解码项占总量 <2%"
+    ],
+    "final_reader_decode_tokens": [
+      96,
+      "最终 reader 是 CoT，日志只存解析出的答案（均值 3.6 token）；上限 128"
+    ],
+    "chainrag_prompt_tokens": [
+      700,
+      "ChainRAG 不落盘 prompt。按每次调用携带约 20 句（每句约 30 token）+ 指令估算；它每题上下文共约 70 句（已实测）"
+    ],
+    "chainrag_sentence_tokens": [
+      30,
+      "同上，未落盘"
+    ],
+    "chainrag_rerank_pairs_per_hop": [
+      50,
+      "未落盘"
+    ],
+    "grithopper_answer_decode_tokens": [
+      96,
+      "与我们的最终 reader 同口径"
+    ]
+  }
+}

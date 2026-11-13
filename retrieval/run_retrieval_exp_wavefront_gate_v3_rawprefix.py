@@ -110,6 +110,7 @@ from run_retrieval_exp_wavefront import (  # noqa: E402
     build_final_reader_cot_prompt_comparison_positive,
     load_gate_model,
     parse_final_answer_from_cot,
+    truncate_gate_model_to_layer,
     prompt_short_answer_with_context,
     prompt_short_answer_with_context_type_match,
 )
@@ -282,6 +283,13 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--attn-implementation", default=None)
     ap.add_argument("--gate-device", default="cuda:0")
     ap.add_argument("--hidden-batch-size", type=int, default=8)
+    ap.add_argument("--truncate-gate-model", dest="truncate_gate_model",
+                    action="store_true", default=True,
+                    help="drop the decoder blocks above the highest layer the gate reads "
+                         "(exact; halves the gate's FLOPs and weights at layer 15). Default on.")
+    ap.add_argument("--no-truncate-gate-model", dest="truncate_gate_model",
+                    action="store_false",
+                    help="keep all 32 blocks (only useful for A/B-ing the truncation)")
     ap.add_argument("--tensor-parallel-size", type=int, default=1)
     ap.add_argument("--gpu-memory-utilization", type=float, default=0.5)
     ap.add_argument("--max-model-len", type=int, default=8192)
@@ -401,6 +409,17 @@ def main() -> None:
 
     print("Loading Llama model for hidden-state scoring ...", flush=True)
     gate_model, gate_tokenizer = load_gate_model(args)
+    # The gate only ever reads hidden_states[layer + 1], so every block above the highest layer
+    # any artifact asks for is computed and discarded. Dropping them is exact (see
+    # truncate_gate_model_to_layer and retrieval/verify_gate_truncation.py): with the uniform
+    # layer-15 artifacts this halves both the gate's FLOPs and its resident weights. Truncation
+    # happens BEFORE the warmup so the allocator reserves for the smaller model.
+    if args.truncate_gate_model:
+        max_layer = max(art["layer"] for art in gate_v3_artifacts.values())
+        n_before = len(gate_model.model.layers)
+        kept = truncate_gate_model_to_layer(gate_model, max_layer)
+        print(f"Gate model truncated: {n_before} -> {kept} blocks "
+              f"(highest layer any artifact reads: {max_layer}); exact, lm_head dropped")
     warmup_gate_model_memory(gate_model, gate_tokenizer, args.hidden_batch_size)
     print("Loading vLLM generator ...", flush=True)
     generator = BatchVllmGenerator(

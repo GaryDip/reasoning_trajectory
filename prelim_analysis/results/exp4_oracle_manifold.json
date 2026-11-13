@@ -1,0 +1,274 @@
+{
+  "layer": 15,
+  "ref_split": "train_pilot",
+  "pca_dim": 40,
+  "reference_scale": {
+    "K2_j1": {
+      "mahalanobis_mean": 6.216,
+      "mahalanobis_sd": 1.048,
+      "n_ref": 4438
+    },
+    "K2_j2": {
+      "mahalanobis_mean": 6.237,
+      "mahalanobis_sd": 0.911,
+      "n_ref": 4438
+    },
+    "K3_j1": {
+      "mahalanobis_mean": 6.171,
+      "mahalanobis_sd": 1.116,
+      "n_ref": 1539
+    },
+    "K3_j2": {
+      "mahalanobis_mean": 6.199,
+      "mahalanobis_sd": 0.946,
+      "n_ref": 1539
+    },
+    "K3_j3": {
+      "mahalanobis_mean": 6.202,
+      "mahalanobis_sd": 0.921,
+      "n_ref": 1539
+    },
+    "K4_j1": {
+      "mahalanobis_mean": 6.183,
+      "mahalanobis_sd": 1.101,
+      "n_ref": 2023
+    },
+    "K4_j2": {
+      "mahalanobis_mean": 6.227,
+      "mahalanobis_sd": 0.85,
+      "n_ref": 2023
+    },
+    "K4_j3": {
+      "mahalanobis_mean": 6.222,
+      "mahalanobis_sd": 0.85,
+      "n_ref": 2023
+    },
+    "K4_j4": {
+      "mahalanobis_mean": 6.197,
+      "mahalanobis_sd": 0.988,
+      "n_ref": 2023
+    }
+  },
+  "cells": {
+    "K2_control_j1": {
+      "mean_z": 0.077,
+      "mean_mahalanobis": 6.296,
+      "n": 609
+    },
+    "K2_control_j2": {
+      "mean_z": -0.088,
+      "mean_mahalanobis": 6.157,
+      "n": 609
+    },
+    "K2_err_hop_1_j1": {
+      "mean_z": 0.631,
+      "mean_mahalanobis": 6.877,
+      "n": 232,
+      "z_minus_control": 0.554
+    },
+    "K2_err_hop_1_j2": {
+      "mean_z": 0.871,
+      "mean_mahalanobis": 7.032,
+      "n": 232,
+      "z_minus_control": 0.96
+    },
+    "K2_err_hop_2_j1": {
+      "mean_z": 0.2,
+      "mean_mahalanobis": 6.425,
+      "n": 530,
+      "z_minus_control": 0.123
+    },
+    "K2_err_hop_2_j2": {
+      "mean_z": 0.949,
+      "mean_mahalanobis": 7.103,
+      "n": 530,
+      "z_minus_control": 1.038
+    },
+    "K3_control_j1": {
+      "mean_z": -0.401,
+      "mean_mahalanobis": 5.724,
+      "n": 197
+    },
+    "K3_control_j2": {
+      "mean_z": -0.651,
+      "mean_mahalanobis": 5.584,
+      "n": 197
+    },
+    "K3_control_j3": {
+      "mean_z": -0.433,
+      "mean_mahalanobis": 5.803,
+      "n": 197
+    },
+    "K3_err_hop_1_j1": {
+      "mean_z": -0.366,
+      "mean_mahalanobis": 5.762,
+      "n": 107,
+      "z_minus_control": 0.034
+    },
+    "K3_err_hop_1_j2": {
+      "mean_z": 0.012,
+      "mean_mahalanobis": 6.211,
+      "n": 107,
+      "z_minus_control": 0.663
+    },
+    "K3_err_hop_1_j3": {
+      "mean_z": 0.136,
+      "mean_mahalanobis": 6.327,
+      "n": 107,
+      "z_minus_control": 0.569
+    },
+    "K3_err_hop_2_j1": {
+      "mean_z": -0.416,
+      "mean_mahalanobis": 5.707,
+      "n": 272,
+      "z_minus_control": -0.016
+    },
+    "K3_err_hop_2_j2": {
+      "mean_z": 0.067,
+      "mean_mahalanobis": 6.263,
+      "n": 272,
+      "z_minus_control": 0.718
+    },
+    "K3_err_hop_2_j3": {
+      "mean_z": 0.091,
+      "mean_mahalanobis": 6.286,
+      "n": 272,
+      "z_minus_control": 0.525
+    },
+    "K3_err_hop_3_j1": {
+      "mean_z": -0.439,
+      "mean_mahalanobis": 5.682,
+      "n": 255,
+      "z_minus_control": -0.038
+    },
+    "K3_err_hop_3_j2": {
+      "mean_z": -0.129,
+      "mean_mahalanobis": 6.077,
+      "n": 255,
+      "z_minus_control": 0.522
+    },
+    "K3_err_hop_3_j3": {
+      "mean_z": -0.048,
+      "mean_mahalanobis": 6.158,
+      "n": 255,
+      "z_minus_control": 0.385
+    },
+    "K4_control_j1": {
+      "mean_z": -0.924,
+      "mean_mahalanobis": 5.166,
+      "n": 28
+    },
+    "K4_control_j2": {
+      "mean_z": -0.972,
+      "mean_mahalanobis": 5.4,
+      "n": 28
+    },
+    "K4_control_j3": {
+      "mean_z": -1.101,
+      "mean_mahalanobis": 5.286,
+      "n": 28
+    },
+    "K4_control_j4": {
+      "mean_z": -0.528,
+      "mean_mahalanobis": 5.676,
+      "n": 28
+    },
+    "K4_err_hop_1_j1": {
+      "mean_z": -0.712,
+      "mean_mahalanobis": 5.399,
+      "n": 57,
+      "z_minus_control": 0.212
+    },
+    "K4_err_hop_1_j2": {
+      "mean_z": -0.799,
+      "mean_mahalanobis": 5.547,
+      "n": 57,
+      "z_minus_control": 0.173
+    },
+    "K4_err_hop_1_j3": {
+      "mean_z": -0.897,
+      "mean_mahalanobis": 5.46,
+      "n": 57,
+      "z_minus_control": 0.204
+    },
+    "K4_err_hop_1_j4": {
+      "mean_z": -0.47,
+      "mean_mahalanobis": 5.732,
+      "n": 57,
+      "z_minus_control": 0.058
+    },
+    "K4_err_hop_2_j1": {
+      "mean_z": -0.778,
+      "mean_mahalanobis": 5.327,
+      "n": 115,
+      "z_minus_control": 0.146
+    },
+    "K4_err_hop_2_j2": {
+      "mean_z": -0.837,
+      "mean_mahalanobis": 5.515,
+      "n": 115,
+      "z_minus_control": 0.135
+    },
+    "K4_err_hop_2_j3": {
+      "mean_z": -1.144,
+      "mean_mahalanobis": 5.249,
+      "n": 115,
+      "z_minus_control": -0.043
+    },
+    "K4_err_hop_2_j4": {
+      "mean_z": -0.603,
+      "mean_mahalanobis": 5.601,
+      "n": 115,
+      "z_minus_control": -0.075
+    },
+    "K4_err_hop_3_j1": {
+      "mean_z": -0.781,
+      "mean_mahalanobis": 5.324,
+      "n": 103,
+      "z_minus_control": 0.143
+    },
+    "K4_err_hop_3_j2": {
+      "mean_z": -0.851,
+      "mean_mahalanobis": 5.503,
+      "n": 103,
+      "z_minus_control": 0.121
+    },
+    "K4_err_hop_3_j3": {
+      "mean_z": -1.266,
+      "mean_mahalanobis": 5.146,
+      "n": 103,
+      "z_minus_control": -0.165
+    },
+    "K4_err_hop_3_j4": {
+      "mean_z": -0.679,
+      "mean_mahalanobis": 5.526,
+      "n": 103,
+      "z_minus_control": -0.151
+    },
+    "K4_err_hop_4_j1": {
+      "mean_z": -0.825,
+      "mean_mahalanobis": 5.275,
+      "n": 92,
+      "z_minus_control": 0.099
+    },
+    "K4_err_hop_4_j2": {
+      "mean_z": -0.84,
+      "mean_mahalanobis": 5.513,
+      "n": 92,
+      "z_minus_control": 0.132
+    },
+    "K4_err_hop_4_j3": {
+      "mean_z": -1.176,
+      "mean_mahalanobis": 5.222,
+      "n": 92,
+      "z_minus_control": -0.075
+    },
+    "K4_err_hop_4_j4": {
+      "mean_z": -0.701,
+      "mean_mahalanobis": 5.505,
+      "n": 92,
+      "z_minus_control": -0.173
+    }
+  },
+  "note_control_offset": "Absolute z-scores carry an offset because the reference uses GT decompositions and the test chains use the BART decomposition from the inference pipeline; the control row is therefore not 0 (about -0.4 for K=3 and -0.9 for K=4). The control-subtracted figure is the one to read."
+}

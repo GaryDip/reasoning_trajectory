@@ -71,6 +71,8 @@ def main() -> None:
                      default=PROJECT_ROOT / "gate/gate_v3/artifacts_pooled_v3")
     ap.add_argument("--limit", type=int, default=0, help="only score this many traces (smoke test)")
     ap.add_argument("--out", type=Path, default=HERE / "results/gate_v3_vs_nwrong_dev.json")
+    ap.add_argument("--dump-hops", type=Path, default=None,
+                    help="also write one JSON line per scored hop (for error bars in figures)")
     args = ap.parse_args()
 
     meta = json.loads((args.artifacts_dir / "meta.json").read_text(encoding="utf-8"))
@@ -135,6 +137,14 @@ def main() -> None:
 
     print(f"scored {len(hops)} hops from {len(per_trace)} traces "
           f"({skipped} traces missing a row, {missing_layer} hops missing their layer)\n")
+
+    if args.dump_hops:
+        # Per-hop records, so downstream figures can put a confidence interval on each cell
+        # instead of re-deriving it from the aggregated means.
+        with args.dump_hops.open("w") as f:
+            for h in hops:
+                f.write(json.dumps(h) + "\n")
+        print(f"per-hop scores -> {args.dump_hops}  ({len(hops)} rows)")
 
     report: dict = {"n_hops": len(hops), "n_traces": len(per_trace)}
 

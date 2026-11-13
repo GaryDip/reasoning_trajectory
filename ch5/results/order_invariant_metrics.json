@@ -1,0 +1,99 @@
+{
+  "_protocol": {
+    "module": "retrieval/goldmatch.py",
+    "full_chapter4_recomputation": "retrieval/results/order_invariant_v2.json"
+  },
+  "musique": {
+    "gate_lambda0p60": {
+      "run": "20261008_071635_l15_musique_lambda0p60_dev",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_selected_a_gold_twice": 0,
+      "em": 0.441,
+      "chain@1_positional": 0.4977,
+      "chain@1_order_invariant": 0.4977,
+      "recall@1_positional": 0.6601,
+      "recall@1_order_invariant": 0.6601
+    },
+    "control_lambda0": {
+      "run": "20261003_070503_nogate_musique_lambda0_dev",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_selected_a_gold_twice": 0,
+      "em": 0.3289,
+      "chain@1_positional": 0.3451,
+      "chain@1_order_invariant": 0.3451,
+      "recall@1_positional": 0.5745,
+      "recall@1_order_invariant": 0.5745
+    },
+    "gate_minus_control_points": {
+      "em": 11.21,
+      "chain@1_positional": 15.26,
+      "chain@1_order_invariant": 15.26,
+      "recall@1_positional": 8.56,
+      "recall@1_order_invariant": 8.56
+    }
+  },
+  "2wiki": {
+    "gate_lambda0p60": {
+      "run": "20261008_085006_l15_2wiki_lambda0p60_dev",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_selected_a_gold_twice": 474,
+      "em": 0.6014,
+      "chain@1_positional": 0.8507,
+      "chain@1_order_invariant": 0.8623,
+      "recall@1_positional": 0.9292,
+      "recall@1_order_invariant": 0.9426
+    },
+    "control_lambda0": {
+      "run": "20261003_070301_nogate_2wiki_lambda0_dev",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_selected_a_gold_twice": 908,
+      "em": 0.5212,
+      "chain@1_positional": 0.6578,
+      "chain@1_order_invariant": 0.664,
+      "recall@1_positional": 0.8325,
+      "recall@1_order_invariant": 0.8414
+    },
+    "gate_minus_control_points": {
+      "em": 8.02,
+      "chain@1_positional": 19.29,
+      "chain@1_order_invariant": 19.83,
+      "recall@1_positional": 9.67,
+      "recall@1_order_invariant": 10.12
+    }
+  },
+  "hotpot": {
+    "gate_lambda0p60": {
+      "run": "20261008_074208_l15_hotpot_lambda0p60_dev",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_selected_a_gold_twice": 1425,
+      "em": 0.5515,
+      "chain@1_positional": 0.4974,
+      "chain@1_order_invariant": 0.6262,
+      "recall@1_positional": 0.6614,
+      "recall@1_order_invariant": 0.8427
+    },
+    "control_lambda0": {
+      "run": "20261003_070253_nogate_hotpot_lambda0_dev",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_selected_a_gold_twice": 2168,
+      "em": 0.4604,
+      "chain@1_positional": 0.339,
+      "chain@1_order_invariant": 0.4189,
+      "recall@1_positional": 0.5739,
+      "recall@1_order_invariant": 0.7072
+    },
+    "gate_minus_control_points": {
+      "em": 9.11,
+      "chain@1_positional": 15.84,
+      "chain@1_order_invariant": 20.73,
+      "recall@1_positional": 8.75,
+      "recall@1_order_invariant": 13.55
+    }
+  }
+}

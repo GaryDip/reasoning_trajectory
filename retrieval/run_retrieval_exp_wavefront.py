@@ -567,6 +567,46 @@ def load_gate_model(args: argparse.Namespace):
     return model, tokenizer
 
 
+def truncate_gate_model_to_layer(model, max_layer: int) -> int:
+    """Drop the decoder blocks the gate never reads. Exact, not an approximation.
+
+    `batch_last_hidden` reads `out.hidden_states[layer + 1]`, and HF's `all_hidden_states` holds
+    the INPUT of each block (`hs[i]` = output of block i-1), with one extra entry at the end for
+    the final-norm output. So `hs[layer + 1]` is the raw output of block `layer`, and blocks above
+    it only ever produce values that are computed and thrown away -- for the uniform layer-15 gate
+    that is half of Llama-3.1-8B.
+
+    Two details make this bit-exact rather than merely close:
+
+    * `model.model.norm` is replaced by Identity. After truncation the kept blocks number
+      `layer + 1`, so `hs[layer + 1]` becomes the LAST entry of the tuple, which HF fills with
+      `self.norm(hidden_states)`. Without this the value would come back RMSNorm'd and would no
+      longer match the full model.
+    * `model.lm_head` is replaced by Identity, so the vocab projection (128256 x 4096) is neither
+      computed nor kept in memory. Nothing here uses logits.
+
+    Returns the number of blocks kept. Verified against the full model by
+    `retrieval/verify_gate_truncation.py`.
+    """
+    import gc
+
+    import torch
+
+    blocks = model.model.layers
+    keep = max_layer + 1
+    if keep >= len(blocks):
+        return len(blocks)
+    model.model.layers = torch.nn.ModuleList(list(blocks[:keep]))
+    model.model.norm = torch.nn.Identity()
+    model.lm_head = torch.nn.Identity()
+    model.config.num_hidden_layers = keep
+    del blocks
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    return keep
+
+
 def warmup_gate_model_memory(gate_model, gate_tokenizer, batch_size: int, warmup_tokens: int = 4096) -> None:
     """
     PyTorch's caching allocator only cudaMalloc's what a forward pass actually needs, and

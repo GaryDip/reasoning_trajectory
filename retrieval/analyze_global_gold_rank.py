@@ -32,7 +32,15 @@ BUCKETS = [(1, 1), (2, 3), (4, 10), (11, 20), (21, 50), (51, 100), (101, 10**9)]
 
 
 def latest_run(ds: str, k: int) -> Path:
-    return Path(sorted(glob.glob(str(HERE / f"results/*_global_{ds}_k{k}_comparisonhint")))[-1])
+    """Prefer the uniform-layer-15 re-run (`<ts>_l15_global_<ds>_k<k>`); fall back to the earlier
+    mixed-layer runs (`<ts>_global_<ds>_k<k>_comparisonhint`) only if the former is absent.
+    Mixing the two would compare a BGE rank distribution against a different run's reranking."""
+    for pattern in (f"results/*_l15_global_{ds}_k{k}", f"results/*_global_{ds}_k{k}_comparisonhint"):
+        hits = sorted(glob.glob(str(HERE / pattern)))
+        hits = [h for h in hits if glob.glob(h + "/retrieval_exp_*.json")]
+        if hits:
+            return Path(hits[-1])
+    raise FileNotFoundError(f"no finished global run for {ds} k={k}")
 
 
 def load_run(run: Path):
@@ -108,6 +116,10 @@ def main() -> None:
         dist = {f"{lo}-{hi}" if hi < 10**9 else f">{lo - 1}": float(((bge_rank >= lo) & (bge_rank <= hi)).mean())
                 for lo, hi in BUCKETS}
         cum = {f"<={t}": float((bge_rank <= t).mean()) for t in (1, 3, 10, 20, 50, 100)}
+        # full 1..50 curve, so the CDF figure can be drawn as a step curve rather than
+        # interpolating between five points
+        report[ds]["bge_rank_cdf_1_to_50"] = [float((bge_rank <= t).mean()) for t in range(1, 51)]
+        report[ds]["bge_rank_beyond_50"] = float((bge_rank > 50).mean())
         report[ds]["bge_rank_distribution"] = dist
         report[ds]["bge_rank_cumulative"] = cum
 

@@ -1,0 +1,1170 @@
+{
+  "_protocol": {
+    "module": "retrieval/goldmatch.py",
+    "task": "ORDER_INVARIANT_TASK.md",
+    "order_invariant_scope": "HotpotQA: all questions; 2Wiki: comparison + bridge_comparison; MuSiQue and 2Wiki compositional/inference stay positional (both protocols coincide there)",
+    "per_hop_rule": "para_ids[j] in set(gold_idxs) and para_ids[j] not in para_ids[:j]",
+    "chain@1_strict_rule": "len(para_ids) == len(gold_idxs) and para_ids is a permutation of gold_idxs",
+    "bridge_comparison": "ORDER_INVARIANT_TASK.md assumed the dedup'd supporting_facts order is branch1's two passages then branch2's; it is NOT -- it is interleaved (branch1 hop1, branch2 hop1, branch1 hop2, branch2 hop2), verified on all 2,751 dev questions against the evidences triples. Per that document's fallback the headline rule is plain permutation-without-reuse; the branch-precedence variant is reported as a diagnostic only.",
+    "recall@3": "null where the run's case log predates hop_ranked_para_ids (the B/C feature arms and the 2026-08 ColBERT no-gate runs)"
+  },
+  "4.6_main_and_control": {
+    "musique/gate_lambda0p60": {
+      "run": "20261008_071635_l15_musique_lambda0p60_dev",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.441,
+      "f1": 0.5359,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.7002,
+        "recall@1_full": 0.6601,
+        "chain@1_loose": 0.513,
+        "chain@1_strict": 0.4977,
+        "recall@3_aligned": 0.8438,
+        "recall@3_full": 0.7954
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7002,
+        "recall@1_full": 0.6601,
+        "chain@1_loose": 0.513,
+        "chain@1_strict": 0.4977,
+        "recall@3_aligned": 0.8438,
+        "recall@3_full": 0.7954
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.4977,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "musique/control_lambda0": {
+      "run": "20261003_070503_nogate_musique_lambda0_dev",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.3289,
+      "f1": 0.4138,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.6094,
+        "recall@1_full": 0.5745,
+        "chain@1_loose": 0.3612,
+        "chain@1_strict": 0.3451,
+        "recall@3_aligned": 0.7679,
+        "recall@3_full": 0.7239
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.6094,
+        "recall@1_full": 0.5745,
+        "chain@1_loose": 0.3612,
+        "chain@1_strict": 0.3451,
+        "recall@3_aligned": 0.7679,
+        "recall@3_full": 0.7239
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.3451,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "2wiki/gate_lambda0p60": {
+      "run": "20261008_085006_l15_2wiki_lambda0p60_dev",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.6014,
+      "f1": 0.6809,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.9302,
+        "recall@1_full": 0.9292,
+        "chain@1_loose": 0.8627,
+        "chain@1_strict": 0.8507,
+        "recall@3_aligned": 0.9848,
+        "recall@3_full": 0.9837
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.9436,
+        "recall@1_full": 0.9426,
+        "chain@1_loose": 0.8747,
+        "chain@1_strict": 0.8623,
+        "recall@3_aligned": 0.9911,
+        "recall@3_full": 0.9901
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 474,
+        "share_of_order_invariant_questions": 0.0819,
+        "chain@1_strict_order_invariant_without_dedup": 0.8889,
+        "chain@1_strict_overstated_by_old_rule_points": 2.66,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.8915,
+          "chain@1_strict_precedence": 0.8915,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "2wiki/control_lambda0": {
+      "run": "20261003_070301_nogate_2wiki_lambda0_dev",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5212,
+      "f1": 0.5855,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.8334,
+        "recall@1_full": 0.8325,
+        "chain@1_loose": 0.6694,
+        "chain@1_strict": 0.6578,
+        "recall@3_aligned": 0.9148,
+        "recall@3_full": 0.9138
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.8423,
+        "recall@1_full": 0.8414,
+        "chain@1_loose": 0.6757,
+        "chain@1_strict": 0.664,
+        "recall@3_aligned": 0.926,
+        "recall@3_full": 0.925
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 908,
+        "share_of_order_invariant_questions": 0.1568,
+        "chain@1_strict_order_invariant_without_dedup": 0.7265,
+        "chain@1_strict_overstated_by_old_rule_points": 6.24,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.7502,
+          "chain@1_strict_precedence": 0.7502,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "hotpot/gate_lambda0p60": {
+      "run": "20261008_074208_l15_hotpot_lambda0p60_dev",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.5515,
+      "f1": 0.6878,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.662,
+        "recall@1_full": 0.6614,
+        "chain@1_loose": 0.561,
+        "chain@1_strict": 0.4974,
+        "recall@3_aligned": 0.8701,
+        "recall@3_full": 0.8693
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.8435,
+        "recall@1_full": 0.8427,
+        "chain@1_loose": 0.7133,
+        "chain@1_strict": 0.6262,
+        "recall@3_aligned": 0.9638,
+        "recall@3_full": 0.9629
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 1425,
+        "share_of_order_invariant_questions": 0.1924,
+        "chain@1_strict_order_invariant_without_dedup": 0.7229,
+        "chain@1_strict_overstated_by_old_rule_points": 9.67
+      }
+    },
+    "hotpot/control_lambda0": {
+      "run": "20261003_070253_nogate_hotpot_lambda0_dev",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.4604,
+      "f1": 0.5825,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.5745,
+        "recall@1_full": 0.5739,
+        "chain@1_loose": 0.3897,
+        "chain@1_strict": 0.339,
+        "recall@3_aligned": 0.7739,
+        "recall@3_full": 0.7732
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7078,
+        "recall@1_full": 0.7072,
+        "chain@1_loose": 0.486,
+        "chain@1_strict": 0.4189,
+        "recall@3_aligned": 0.8867,
+        "recall@3_full": 0.8859
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 2168,
+        "share_of_order_invariant_questions": 0.2928,
+        "chain@1_strict_order_invariant_without_dedup": 0.6285,
+        "chain@1_strict_overstated_by_old_rule_points": 20.96
+      }
+    }
+  },
+  "4.9_feature_ablation": {
+    "musique/B_delta_only": {
+      "run": "20261008_204721_l15_B_deltaonly_musique_dev",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.4328,
+      "f1": 0.5291,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.6869,
+        "recall@1_full": 0.6476,
+        "chain@1_loose": 0.4812,
+        "chain@1_strict": 0.4642,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.6869,
+        "recall@1_full": 0.6476,
+        "chain@1_loose": 0.4812,
+        "chain@1_strict": 0.4642,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.4642,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "musique/C_h_only": {
+      "run": "20261008_213411_l15_C_honly_musique_dev",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.4386,
+      "f1": 0.5359,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.6982,
+        "recall@1_full": 0.6582,
+        "chain@1_loose": 0.5097,
+        "chain@1_strict": 0.4948,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.6982,
+        "recall@1_full": 0.6582,
+        "chain@1_loose": 0.5097,
+        "chain@1_strict": 0.4948,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.4948,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "hotpot/B_delta_only": {
+      "run": "20261008_221555_l15_B_deltaonly_hotpot_dev",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.5467,
+      "f1": 0.6812,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.6592,
+        "recall@1_full": 0.6586,
+        "chain@1_loose": 0.5409,
+        "chain@1_strict": 0.4772,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.827,
+        "recall@1_full": 0.8262,
+        "chain@1_loose": 0.6832,
+        "chain@1_strict": 0.5969,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 1624,
+        "share_of_order_invariant_questions": 0.2193,
+        "chain@1_strict_order_invariant_without_dedup": 0.729,
+        "chain@1_strict_overstated_by_old_rule_points": 13.21
+      }
+    },
+    "hotpot/C_h_only": {
+      "run": "20261008_233432_l15_C_honly_hotpot_dev",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.5487,
+      "f1": 0.6848,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.6605,
+        "recall@1_full": 0.6599,
+        "chain@1_loose": 0.5508,
+        "chain@1_strict": 0.488,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.8358,
+        "recall@1_full": 0.835,
+        "chain@1_loose": 0.6987,
+        "chain@1_strict": 0.613,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 1543,
+        "share_of_order_invariant_questions": 0.2084,
+        "chain@1_strict_order_invariant_without_dedup": 0.7244,
+        "chain@1_strict_overstated_by_old_rule_points": 11.14
+      }
+    },
+    "2wiki/B_delta_only": {
+      "run": "20261009_002550_l15_B_deltaonly_2wiki_dev",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5882,
+      "f1": 0.6651,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.9142,
+        "recall@1_full": 0.9133,
+        "chain@1_loose": 0.8309,
+        "chain@1_strict": 0.8189,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.9261,
+        "recall@1_full": 0.9251,
+        "chain@1_loose": 0.8412,
+        "chain@1_strict": 0.8288,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 623,
+        "share_of_order_invariant_questions": 0.1076,
+        "chain@1_strict_order_invariant_without_dedup": 0.8681,
+        "chain@1_strict_overstated_by_old_rule_points": 3.93,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.879,
+          "chain@1_strict_precedence": 0.879,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "2wiki/C_h_only": {
+      "run": "20261009_021558_l15_C_honly_2wiki_dev",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5994,
+      "f1": 0.6784,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.9285,
+        "recall@1_full": 0.9275,
+        "chain@1_loose": 0.8601,
+        "chain@1_strict": 0.848,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.9433,
+        "recall@1_full": 0.9423,
+        "chain@1_loose": 0.8735,
+        "chain@1_strict": 0.861,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 429,
+        "share_of_order_invariant_questions": 0.0741,
+        "chain@1_strict_order_invariant_without_dedup": 0.8843,
+        "chain@1_strict_overstated_by_old_rule_points": 2.33,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.9205,
+          "chain@1_strict_precedence": 0.9202,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    }
+  },
+  "4.10_decomposer_ablation": {
+    "musique/musique_only_decomposer": {
+      "run": "20261008_154506_l15_musique_musiqueonly_decomposer",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 5964,
+      "em": 0.4477,
+      "f1": 0.5437,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.7072,
+        "recall@1_full": 0.6587,
+        "chain@1_loose": 0.5283,
+        "chain@1_strict": 0.5118,
+        "recall@3_aligned": 0.8494,
+        "recall@3_full": 0.7911
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7072,
+        "recall@1_full": 0.6587,
+        "chain@1_loose": 0.5283,
+        "chain@1_strict": 0.5118,
+        "recall@3_aligned": 0.8494,
+        "recall@3_full": 0.7911
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.5118,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "hotpot/musique_only_decomposer": {
+      "run": "20261008_162924_l15_hotpot_musiqueonly_decomposer",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14770,
+      "em": 0.5433,
+      "f1": 0.6801,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.5826,
+        "recall@1_full": 0.581,
+        "chain@1_loose": 0.4706,
+        "chain@1_strict": 0.4469,
+        "recall@3_aligned": 0.8293,
+        "recall@3_full": 0.8271
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.82,
+        "recall@1_full": 0.8178,
+        "chain@1_loose": 0.6683,
+        "chain@1_strict": 0.6307,
+        "recall@3_aligned": 0.9549,
+        "recall@3_full": 0.9523
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 1112,
+        "share_of_order_invariant_questions": 0.1502,
+        "chain@1_strict_order_invariant_without_dedup": 0.7359,
+        "chain@1_strict_overstated_by_old_rule_points": 10.52
+      }
+    },
+    "2wiki/musique_only_decomposer": {
+      "run": "20261008_175915_l15_2wiki_musiqueonly_decomposer",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 25272,
+      "em": 0.5188,
+      "f1": 0.5975,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.6906,
+        "recall@1_full": 0.5694,
+        "chain@1_loose": 0.5651,
+        "chain@1_strict": 0.5503,
+        "recall@3_aligned": 0.8689,
+        "recall@3_full": 0.7163
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.9052,
+        "recall@1_full": 0.7462,
+        "chain@1_loose": 0.8235,
+        "chain@1_strict": 0.6304,
+        "recall@3_aligned": 0.9859,
+        "recall@3_full": 0.8128
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 672,
+        "share_of_order_invariant_questions": 0.116,
+        "chain@1_strict_order_invariant_without_dedup": 0.6677,
+        "chain@1_strict_overstated_by_old_rule_points": 3.73
+      }
+    }
+  },
+  "4.11_colbert": {
+    "musique/colbert_nogate": {
+      "run": "20260818_154358_colbert_musique_nogate_full",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.3322,
+      "f1": 0.4163,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.6175,
+        "recall@1_full": 0.5821,
+        "chain@1_loose": 0.3732,
+        "chain@1_strict": 0.36,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.6175,
+        "recall@1_full": 0.5821,
+        "chain@1_loose": 0.3732,
+        "chain@1_strict": 0.36,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.36,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "musique/colbert_gate": {
+      "run": "20261008_112624_l15_colbert_musique_gate",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.3873,
+      "f1": 0.4778,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.6634,
+        "recall@1_full": 0.6254,
+        "chain@1_loose": 0.4427,
+        "chain@1_strict": 0.4282,
+        "recall@3_aligned": 0.8064,
+        "recall@3_full": 0.7601
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.6634,
+        "recall@1_full": 0.6254,
+        "chain@1_loose": 0.4427,
+        "chain@1_strict": 0.4282,
+        "recall@3_aligned": 0.8064,
+        "recall@3_full": 0.7601
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.4282,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "2wiki/colbert_nogate": {
+      "run": "20260818_170355_colbert_2wiki_nogate_full",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5223,
+      "f1": 0.5881,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.8413,
+        "recall@1_full": 0.8404,
+        "chain@1_loose": 0.6802,
+        "chain@1_strict": 0.6688,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.8498,
+        "recall@1_full": 0.8489,
+        "chain@1_loose": 0.6863,
+        "chain@1_strict": 0.6747,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 981,
+        "share_of_order_invariant_questions": 0.1694,
+        "chain@1_strict_order_invariant_without_dedup": 0.7436,
+        "chain@1_strict_overstated_by_old_rule_points": 6.89,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.7509,
+          "chain@1_strict_precedence": 0.7509,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "2wiki/colbert_gate": {
+      "run": "20261008_124446_l15_colbert_2wiki_gate",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5527,
+      "f1": 0.623,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.8784,
+        "recall@1_full": 0.8775,
+        "chain@1_loose": 0.7538,
+        "chain@1_strict": 0.7421,
+        "recall@3_aligned": 0.9641,
+        "recall@3_full": 0.9631
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.8893,
+        "recall@1_full": 0.8883,
+        "chain@1_loose": 0.7623,
+        "chain@1_strict": 0.7504,
+        "recall@3_aligned": 0.9719,
+        "recall@3_full": 0.9709
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 795,
+        "share_of_order_invariant_questions": 0.1373,
+        "chain@1_strict_order_invariant_without_dedup": 0.8038,
+        "chain@1_strict_overstated_by_old_rule_points": 5.34,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.8197,
+          "chain@1_strict_precedence": 0.8194,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "hotpot/colbert_nogate": {
+      "run": "20260819_003311_colbert_hotpot_nogate_full",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.4623,
+      "f1": 0.5817,
+      "has_candidate_lists": false,
+      "positional": {
+        "recall@1_aligned": 0.5606,
+        "recall@1_full": 0.56,
+        "chain@1_loose": 0.3685,
+        "chain@1_strict": 0.3206,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7086,
+        "recall@1_full": 0.708,
+        "chain@1_loose": 0.4814,
+        "chain@1_strict": 0.4158,
+        "recall@3_aligned": null,
+        "recall@3_full": null
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 2292,
+        "share_of_order_invariant_questions": 0.3095,
+        "chain@1_strict_order_invariant_without_dedup": 0.6381,
+        "chain@1_strict_overstated_by_old_rule_points": 22.23
+      }
+    },
+    "hotpot/colbert_gate": {
+      "run": "20261008_114748_l15_colbert_hotpot_gate",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.5218,
+      "f1": 0.6499,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.6083,
+        "recall@1_full": 0.6077,
+        "chain@1_loose": 0.4619,
+        "chain@1_strict": 0.4059,
+        "recall@3_aligned": 0.8186,
+        "recall@3_full": 0.8178
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7853,
+        "recall@1_full": 0.7846,
+        "chain@1_loose": 0.6085,
+        "chain@1_strict": 0.5315,
+        "recall@3_aligned": 0.9358,
+        "recall@3_full": 0.9349
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 2039,
+        "share_of_order_invariant_questions": 0.2754,
+        "chain@1_strict_order_invariant_without_dedup": 0.708,
+        "chain@1_strict_overstated_by_old_rule_points": 17.65
+      }
+    }
+  },
+  "4.12_global_corpus": {
+    "musique/global_k10_lambda0": {
+      "run": "20261008_161412_l15_nogate_global_musique_k10",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.2321,
+      "f1": 0.3169,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.484,
+        "recall@1_full": 0.4563,
+        "chain@1_loose": 0.2288,
+        "chain@1_strict": 0.2185,
+        "recall@3_aligned": 0.5904,
+        "recall@3_full": 0.5565
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.484,
+        "recall@1_full": 0.4563,
+        "chain@1_loose": 0.2288,
+        "chain@1_strict": 0.2185,
+        "recall@3_aligned": 0.5904,
+        "recall@3_full": 0.5565
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.2185,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "musique/global_k10_lambda0p60": {
+      "run": "20261009_061318_l15_global_musique_k10",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.2975,
+      "f1": 0.3837,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.5367,
+        "recall@1_full": 0.5059,
+        "chain@1_loose": 0.2975,
+        "chain@1_strict": 0.2888,
+        "recall@3_aligned": 0.6333,
+        "recall@3_full": 0.597
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.5367,
+        "recall@1_full": 0.5059,
+        "chain@1_loose": 0.2975,
+        "chain@1_strict": 0.2888,
+        "recall@3_aligned": 0.6333,
+        "recall@3_full": 0.597
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.2888,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "musique/global_k50_lambda0": {
+      "run": "20261009_035050_l15_nogate_global_musique_k50",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.2321,
+      "f1": 0.3166,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.484,
+        "recall@1_full": 0.4563,
+        "chain@1_loose": 0.2288,
+        "chain@1_strict": 0.2185,
+        "recall@3_aligned": 0.5904,
+        "recall@3_full": 0.5565
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.484,
+        "recall@1_full": 0.4563,
+        "chain@1_loose": 0.2288,
+        "chain@1_strict": 0.2185,
+        "recall@3_aligned": 0.5904,
+        "recall@3_full": 0.5565
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.2185,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "musique/global_k50_lambda0p60": {
+      "run": "20261008_161903_l15_global_musique_k50",
+      "dataset": "musique",
+      "n": 2417,
+      "n_order_invariant": 0,
+      "n_hops_gold": 6404,
+      "n_hops_aligned": 6037,
+      "em": 0.3124,
+      "f1": 0.4042,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.5471,
+        "recall@1_full": 0.5158,
+        "chain@1_loose": 0.3132,
+        "chain@1_strict": 0.3045,
+        "recall@3_aligned": 0.6627,
+        "recall@3_full": 0.6248
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.5471,
+        "recall@1_full": 0.5158,
+        "chain@1_loose": 0.3132,
+        "chain@1_strict": 0.3045,
+        "recall@3_aligned": 0.6627,
+        "recall@3_full": 0.6248
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 0,
+        "share_of_order_invariant_questions": 0.0,
+        "chain@1_strict_order_invariant_without_dedup": 0.3045,
+        "chain@1_strict_overstated_by_old_rule_points": 0.0
+      }
+    },
+    "2wiki/global_k10_lambda0": {
+      "run": "20261008_201547_l15_nogate_global_2wiki_k10",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.4843,
+      "f1": 0.5426,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.7433,
+        "recall@1_full": 0.7425,
+        "chain@1_loose": 0.5173,
+        "chain@1_strict": 0.5063,
+        "recall@3_aligned": 0.8281,
+        "recall@3_full": 0.8272
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7507,
+        "recall@1_full": 0.7499,
+        "chain@1_loose": 0.5225,
+        "chain@1_strict": 0.5114,
+        "recall@3_aligned": 0.8365,
+        "recall@3_full": 0.8356
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 336,
+        "share_of_order_invariant_questions": 0.058,
+        "chain@1_strict_order_invariant_without_dedup": 0.5339,
+        "chain@1_strict_overstated_by_old_rule_points": 2.25,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.5574,
+          "chain@1_strict_precedence": 0.5574,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "2wiki/global_k10_lambda0p60": {
+      "run": "20261009_071742_l15_global_2wiki_k10",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5123,
+      "f1": 0.5758,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.785,
+        "recall@1_full": 0.7842,
+        "chain@1_loose": 0.5815,
+        "chain@1_strict": 0.5703,
+        "recall@3_aligned": 0.8484,
+        "recall@3_full": 0.8475
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7929,
+        "recall@1_full": 0.792,
+        "chain@1_loose": 0.5871,
+        "chain@1_strict": 0.5757,
+        "recall@3_aligned": 0.8566,
+        "recall@3_full": 0.8557
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 223,
+        "share_of_order_invariant_questions": 0.0385,
+        "chain@1_strict_order_invariant_without_dedup": 0.5877,
+        "chain@1_strict_overstated_by_old_rule_points": 1.2,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.5743,
+          "chain@1_strict_precedence": 0.5743,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "2wiki/global_k50_lambda0": {
+      "run": "20261009_134820_l15_nogate_global_2wiki_k50",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.4844,
+      "f1": 0.5427,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.7432,
+        "recall@1_full": 0.7424,
+        "chain@1_loose": 0.5173,
+        "chain@1_strict": 0.5064,
+        "recall@3_aligned": 0.8281,
+        "recall@3_full": 0.8272
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7507,
+        "recall@1_full": 0.7499,
+        "chain@1_loose": 0.5226,
+        "chain@1_strict": 0.5115,
+        "recall@3_aligned": 0.8365,
+        "recall@3_full": 0.8356
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 336,
+        "share_of_order_invariant_questions": 0.058,
+        "chain@1_strict_order_invariant_without_dedup": 0.534,
+        "chain@1_strict_overstated_by_old_rule_points": 2.25,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.5574,
+          "chain@1_strict_precedence": 0.5574,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "2wiki/global_k50_lambda0p60": {
+      "run": "20261008_211248_l15_global_2wiki_k50",
+      "dataset": "2wiki",
+      "n": 12576,
+      "n_order_invariant": 5791,
+      "n_hops_gold": 30654,
+      "n_hops_aligned": 30621,
+      "em": 0.5183,
+      "f1": 0.5831,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.7867,
+        "recall@1_full": 0.7859,
+        "chain@1_loose": 0.5859,
+        "chain@1_strict": 0.5747,
+        "recall@3_aligned": 0.8548,
+        "recall@3_full": 0.8539
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7945,
+        "recall@1_full": 0.7937,
+        "chain@1_loose": 0.5914,
+        "chain@1_strict": 0.58,
+        "recall@3_aligned": 0.863,
+        "recall@3_full": 0.8621
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 204,
+        "share_of_order_invariant_questions": 0.0352,
+        "chain@1_strict_order_invariant_without_dedup": 0.5901,
+        "chain@1_strict_overstated_by_old_rule_points": 1.01,
+        "bridge_comparison": {
+          "n": 2718,
+          "chain@1_strict_permutation": 0.5548,
+          "chain@1_strict_precedence": 0.5548,
+          "note": "precedence keeps g1<g3 and g2<g4 (each film before its own director); permutation is the headline rule, see goldmatch.py"
+        }
+      }
+    },
+    "hotpot/global_k10_lambda0": {
+      "run": "20261008_172723_l15_nogate_global_hotpot_k10",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.3753,
+      "f1": 0.4792,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.479,
+        "recall@1_full": 0.4785,
+        "chain@1_loose": 0.289,
+        "chain@1_strict": 0.2473,
+        "recall@3_aligned": 0.57,
+        "recall@3_full": 0.5694
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.5933,
+        "recall@1_full": 0.5927,
+        "chain@1_loose": 0.3533,
+        "chain@1_strict": 0.2983,
+        "recall@3_aligned": 0.696,
+        "recall@3_full": 0.6953
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 1164,
+        "share_of_order_invariant_questions": 0.1572,
+        "chain@1_strict_order_invariant_without_dedup": 0.4157,
+        "chain@1_strict_overstated_by_old_rule_points": 11.74
+      }
+    },
+    "hotpot/global_k10_lambda0p60": {
+      "run": "20261009_063306_l15_global_hotpot_k10",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.4361,
+      "f1": 0.5515,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.5326,
+        "recall@1_full": 0.5321,
+        "chain@1_loose": 0.3726,
+        "chain@1_strict": 0.3215,
+        "recall@3_aligned": 0.6141,
+        "recall@3_full": 0.6135
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.6843,
+        "recall@1_full": 0.6837,
+        "chain@1_loose": 0.4729,
+        "chain@1_strict": 0.4049,
+        "recall@3_aligned": 0.748,
+        "recall@3_full": 0.7473
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 962,
+        "share_of_order_invariant_questions": 0.1299,
+        "chain@1_strict_order_invariant_without_dedup": 0.4848,
+        "chain@1_strict_overstated_by_old_rule_points": 7.99
+      }
+    },
+    "hotpot/global_k50_lambda0": {
+      "run": "20261009_082043_l15_nogate_global_hotpot_k50",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.3749,
+      "f1": 0.4789,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.479,
+        "recall@1_full": 0.4786,
+        "chain@1_loose": 0.2891,
+        "chain@1_strict": 0.2473,
+        "recall@3_aligned": 0.5702,
+        "recall@3_full": 0.5697
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.5932,
+        "recall@1_full": 0.5926,
+        "chain@1_loose": 0.3531,
+        "chain@1_strict": 0.298,
+        "recall@3_aligned": 0.6959,
+        "recall@3_full": 0.6953
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 1164,
+        "share_of_order_invariant_questions": 0.1572,
+        "chain@1_strict_order_invariant_without_dedup": 0.4154,
+        "chain@1_strict_overstated_by_old_rule_points": 11.74
+      }
+    },
+    "hotpot/global_k50_lambda0p60": {
+      "run": "20261008_174752_l15_global_hotpot_k50",
+      "dataset": "hotpot",
+      "n": 7405,
+      "n_order_invariant": 7405,
+      "n_hops_gold": 14810,
+      "n_hops_aligned": 14796,
+      "em": 0.4591,
+      "f1": 0.578,
+      "has_candidate_lists": true,
+      "positional": {
+        "recall@1_aligned": 0.5523,
+        "recall@1_full": 0.5518,
+        "chain@1_loose": 0.405,
+        "chain@1_strict": 0.3512,
+        "recall@3_aligned": 0.6517,
+        "recall@3_full": 0.6511
+      },
+      "order_invariant": {
+        "recall@1_aligned": 0.7112,
+        "recall@1_full": 0.7105,
+        "chain@1_loose": 0.5141,
+        "chain@1_strict": 0.4419,
+        "recall@3_aligned": 0.7892,
+        "recall@3_full": 0.7885
+      },
+      "diagnostics": {
+        "n_selected_a_gold_twice": 995,
+        "share_of_order_invariant_questions": 0.1344,
+        "chain@1_strict_order_invariant_without_dedup": 0.5184,
+        "chain@1_strict_overstated_by_old_rule_points": 7.66
+      }
+    }
+  }
+}

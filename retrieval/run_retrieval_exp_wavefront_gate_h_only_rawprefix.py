@@ -73,13 +73,34 @@ from run_retrieval_exp_wavefront import (  # noqa: E402
     BatchVllmGenerator,
     batch_last_hidden,
     build_final_reader_cot_prompt,
+    build_final_reader_cot_prompt_comparison_hint,
+    build_final_reader_cot_prompt_comparison_positive,
+    build_final_reader_cot_prompt_comparison_reasoning,
     load_gate_model,
     parse_final_answer_from_cot,
     prompt_short_answer_with_context,
+    prompt_short_answer_with_context_type_match,
     warmup_gate_model_memory,
 )
 from trace_evidence import gold_evidence_musique  # noqa: E402
 from trace_format import escape_double_quotes  # noqa: E402
+
+
+# Reader-prompt selection, mirroring run_retrieval_exp_wavefront_gate_v3_rawprefix.py so that
+# the B (delta-only) / C (h-only) arms can be run under the SAME reader prompt as the D arm.
+# Before this, both scripts hardcoded build_final_reader_cot_prompt (the pre-0817 "default"
+# prompt), which made their EM/F1 incomparable with D's comparison_hint numbers -- the
+# retrieval metrics were unaffected, but the answer metrics silently mixed two prompts.
+FINAL_READER_PROMPT_BUILDERS = {
+    "default": build_final_reader_cot_prompt,
+    "comparison_hint": build_final_reader_cot_prompt_comparison_hint,
+    "comparison_reasoning": build_final_reader_cot_prompt_comparison_reasoning,
+    "comparison_positive": build_final_reader_cot_prompt_comparison_positive,
+}
+SHORT_ANSWER_PROMPT_BUILDERS = {
+    "default": prompt_short_answer_with_context,
+    "type_match": prompt_short_answer_with_context_type_match,
+}
 
 
 def load_gate_h_only_artifacts(artifacts_dir: Path) -> dict[int, dict]:
@@ -159,6 +180,11 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--max-model-len", type=int, default=8192)
     ap.add_argument("--max-new-tokens-answer", type=int, default=64)
     ap.add_argument("--max-new-tokens-final", type=int, default=128)
+    ap.add_argument("--final-reader-prompt", choices=list(FINAL_READER_PROMPT_BUILDERS),
+                    default="comparison_hint",
+                    help="Final-reader prompt. Default matches the D arm so A/B/C/D stay comparable.")
+    ap.add_argument("--short-answer-prompt", choices=list(SHORT_ANSWER_PROMPT_BUILDERS),
+                    default="default")
     return ap.parse_args()
 
 
@@ -312,7 +338,7 @@ def main() -> None:
             for rank_key, gate_score, path_idx, raw_sq, expanded_q, para in kept_by_ex.get(ex.eid, []):
                 parent = ex.beams[path_idx]
                 answer_prompts.append(
-                    prompt_short_answer_with_context(ex.q_main, parent.hop_steps, parent.prior, expanded_q, para)
+                    SHORT_ANSWER_PROMPT_BUILDERS[args.short_answer_prompt](ex.q_main, parent.hop_steps, parent.prior, expanded_q, para)
                 )
                 answer_meta.append((ex, rank_key, gate_score, path_idx, raw_sq, expanded_q, para))
         answer_raw = (
@@ -348,7 +374,7 @@ def main() -> None:
         best = max(ex.beams, key=lambda p: p.rank_key)
         final_tasks.append((ex, best))
     final_prompts = [
-        build_final_reader_cot_prompt(ex.q_main, best.hop_steps, best.prior) for ex, best in final_tasks
+        FINAL_READER_PROMPT_BUILDERS[args.final_reader_prompt](ex.q_main, best.hop_steps, best.prior) for ex, best in final_tasks
     ]
     final_raw = generator.generate_chat_batch(
         FINAL_READER_SYSTEM_PROMPT, final_prompts, args.max_new_tokens_final, desc="final-reader",

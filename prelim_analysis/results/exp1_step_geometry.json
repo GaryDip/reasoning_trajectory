@@ -1,0 +1,35 @@
+{
+  "split": "train_pilot",
+  "layer": 15,
+  "seed": 0,
+  "tsne": {
+    "perplexity": 30,
+    "init": "pca",
+    "pca_pre": 50,
+    "max_iter": 1000
+  },
+  "knn_purity_by_K": {
+    "2": {
+      "purity@10": 0.9995,
+      "chance": 0.3333,
+      "n": 3000
+    },
+    "3": {
+      "purity@10": 0.979,
+      "chance": 0.25,
+      "n": 4000
+    },
+    "4": {
+      "purity@10": 0.9747,
+      "chance": 0.2,
+      "n": 5000
+    }
+  },
+  "pooled_counts": {
+    "1": 2400,
+    "2": 2400,
+    "3": 2400,
+    "4": 2000,
+    "5": 1000
+  }
+}

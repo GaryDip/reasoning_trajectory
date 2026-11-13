@@ -1,0 +1,15 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "layer_0based": 15,
+  "dtype": "bfloat16",
+  "incremental_kv": false,
+  "full_forward_per_prefix": true,
+  "prefix_batch_size": 4,
+  "trace_chunk_size": 32,
+  "length_bucket_tokens": 256,
+  "cross_prefix_batch": true,
+  "n_ok": 2022,
+  "n_err": 0,
+  "trace_file": "prelim_analysis/results/exp4_natural_traces.jsonl",
+  "manifest": "hidden_states/exp4_natural/manifest.jsonl"
+}

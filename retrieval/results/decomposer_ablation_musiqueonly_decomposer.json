@@ -1,59 +1,59 @@
 {
   "musique": {
     "baseline": {
-      "recall@1": 0.6994,
-      "recall@3": 0.8435,
-      "chain@1": 0.5118,
-      "EM": 0.4386,
-      "F1": 0.5341,
+      "recall@1": 0.7002,
+      "recall@3": 0.8438,
+      "chain@1": 0.513,
+      "EM": 0.441,
+      "F1": 0.5359,
       "n_hops": 6037
     },
     "musiqueonly_decomposer": {
-      "recall@1": 0.7069,
-      "recall@3": 0.8474,
-      "chain@1": 0.5275,
-      "EM": 0.4419,
-      "F1": 0.5363,
+      "recall@1": 0.7072,
+      "recall@3": 0.8494,
+      "chain@1": 0.5283,
+      "EM": 0.4477,
+      "F1": 0.5437,
       "n_hops": 5964
     },
-    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260910_205233_gate_v3_rawprefix_musique_lambda060_dev_musiqueonly_decomposer"
+    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20261008_154506_l15_musique_musiqueonly_decomposer"
   },
   "2wiki": {
     "baseline": {
-      "recall@1": 0.9316,
-      "recall@3": 0.9842,
-      "chain@1": 0.8685,
-      "EM": 0.6023,
-      "F1": 0.6819,
+      "recall@1": 0.9302,
+      "recall@3": 0.9848,
+      "chain@1": 0.8627,
+      "EM": 0.6014,
+      "F1": 0.6809,
       "n_hops": 30621
     },
     "musiqueonly_decomposer": {
-      "recall@1": 0.6907,
+      "recall@1": 0.6906,
       "recall@3": 0.8689,
       "chain@1": 0.5651,
-      "EM": 0.5189,
-      "F1": 0.5976,
+      "EM": 0.5188,
+      "F1": 0.5975,
       "n_hops": 25272
     },
-    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260910_211502_gate_v3_rawprefix_2wiki_lambda060_dev_musiqueonly_decomposer"
+    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20261008_175915_l15_2wiki_musiqueonly_decomposer"
   },
   "hotpot": {
     "baseline": {
       "recall@1": 0.662,
       "recall@3": 0.8701,
       "chain@1": 0.561,
-      "EM": 0.5519,
-      "F1": 0.6883,
+      "EM": 0.5515,
+      "F1": 0.6878,
       "n_hops": 14796
     },
     "musiqueonly_decomposer": {
-      "recall@1": 0.5825,
-      "recall@3": 0.829,
-      "chain@1": 0.4704,
-      "EM": 0.5423,
-      "F1": 0.6792,
+      "recall@1": 0.5826,
+      "recall@3": 0.8293,
+      "chain@1": 0.4706,
+      "EM": 0.5433,
+      "F1": 0.6801,
       "n_hops": 14770
     },
-    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20260910_223856_gate_v3_rawprefix_hotpot_lambda060_dev_musiqueonly_decomposer"
+    "run_dir": "/home/ertai/reasoning_trajectory/multihop_trace/retrieval/results/20261008_162924_l15_hotpot_musiqueonly_decomposer"
   }
 }
