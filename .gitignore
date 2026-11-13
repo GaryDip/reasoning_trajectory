@@ -151,3 +151,9 @@ ch5/results/gate_l15_hops_dev.jsonl
 
 # Local figures
 /pic/
+
+# Local chapter 5 analysis and artifacts
+/ch5/
+
+# Local progress reports
+/update_doc/
